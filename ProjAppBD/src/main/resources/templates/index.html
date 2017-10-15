@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <link href="../static/css/f..."
+           	  th:href="@{/css/global.css}"
+              rel="stylesheet" media="screen" />	
+    	<link href="../static/css/f..."
+           	  th:href="@{/css/before_login.css}"
+              rel="stylesheet" media="screen" />
+		<title>index</title>
+	</head>
+	
+    <body>
+		<header>
+			<h1>
+				Index page
+			</h1>
+			<div id="shortLinks">
+				<ul>
+					<li><a th:href="@{/login}">Log in</a></li>
+				</ul>	
+			</div>
+		</header>
+		<div id="pageContent">
+			<div>
+				<p>Sample text. </p>
+			</div>
+		</div>
+    </body>
+</html>

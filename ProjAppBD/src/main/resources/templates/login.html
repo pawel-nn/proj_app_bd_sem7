@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    	<link href="../static/css/core1.css"
+           th:href="@{/css/core1.css}"
+               rel="stylesheet" media="screen" />
+        <link href="../static/css/menu1.css"
+           th:href="@{/css/menu1.css}"
+               rel="stylesheet" media="screen" />     
+		<title>Login</title>
+	</head>
+    <body>
+     
+		<header>
+			<h1 id="formPageTitle">
+				Login form 
+			</h1>
+			<ul id="ulRet"> <li id="liRet"><a th:href="@{/}">Return to index</a></li> </ul>
+		</header>
+		
+		<hr id="hr1" />
+           
+        <form id="myLoginForm" th:action="@{/login}" method="post">
+     		<div id="myFormStyle">
+            	<table>
+                	<tr id="myTr" >
+                    	<td>User Name:</td>
+                    	<td><input type="text" name="username" /></td>
+                	</tr>
+                	<tr id="myTr" >
+                    	<td>Password:</td>
+                    	<td><input type="password" name="password" /></td>
+                	</tr>
+                	
+            	</table>
+            	<input type="submit" id="send" value="Sign In"/>   
+            </div>            
+        </form>
+        
+        <div th:if="${param.error}">
+        	<p>Error:</p>
+        	<p>Invalid username and password.</p>
+        </div>
+        <div th:if="${param.logout}">
+        	<p>Information:</p>
+        	<p>You have been logged out.</p>
+        </div>  
+     
+    </body>
+</html>

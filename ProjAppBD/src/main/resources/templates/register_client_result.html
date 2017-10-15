@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <link href="../static/css/f..."
+           	  th:href="@{/css/global.css}"
+              rel="stylesheet" media="screen" />	
+    	<link href="../static/css/f..."
+           	  th:href="@{/css/forms_and_results.css}"
+              rel="stylesheet" media="screen" />
+		<title>Wynik rejestracji klienta</title>
+	</head>	
+	
+    <body>
+		<header>
+			<h1>
+				Wynik rejestracji klienta
+			</h1>
+			<div id="shortLinks">
+				<ul>
+					<li><a th:href="@{/}">Wróć do strony domowej</a></li>
+				</ul>	
+			</div>
+		</header>	
+		<hr/>
+		<div id="pageContent">
+        	<div>
+        		<p th:text="${msg}">msg</p>    	
+        	</div>
+        </div>
+    </body>
+</html>

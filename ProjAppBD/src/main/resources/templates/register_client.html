@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <link href="../static/css/f..."
+           	  th:href="@{/css/global.css}"
+              rel="stylesheet" media="screen" />	
+    	<link href="../static/css/f..."
+           	  th:href="@{/css/forms_and_results.css}"
+              rel="stylesheet" media="screen" />
+		<title>Rejestracja klienta</title>
+	</head>
+	
+    <body>
+		<header>
+			<h1>
+				Rejestracja klienta
+			</h1>
+						<div id="shortLinks">
+				<ul>
+					<li><a th:href="@{/}">Wróć do strony domowej</a></li>
+				</ul>	
+			</div>
+		</header>	
+		<hr/>
+		<div id="pageContent">
+        	<form th:action="@{/registerClient}" th:object="${clientDTO}" method="post">
+     			<div>
+            		<table>
+                		<tr>
+                 	   		<td>Nazwa użytkownika:</td>
+                    		<td><input type="text" th:field="*{username}" /></td>
+                    		<td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</td>
+                		</tr>
+                		<tr>
+                    		<td>Nowe hasło:</td>
+                    		<td><input type="password" th:field="*{password}" /></td>
+                    		<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</td>
+                		</tr>
+                		<tr>
+                    		<td>Powtórz hasło:</td>
+                    		<td><input type="password" th:field="*{confirmPassword}" /></td>
+                    		<td th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Error</td>
+                		</tr>	
+                 		<tr>
+                    		<td>Imię:</td>
+                    		<td><input type="text" th:field="*{firstName}" /></td>
+                    		<td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</td>
+                		</tr>          	
+                  		<tr>
+                    		<td>Nazwisko:</td>
+                    		<td><input type="text" th:field="*{lastName}" /></td>
+                    		<td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</td>
+                		</tr>      
+                	</table>   
+                	<div> Dane kontaktowe: </div>
+                	<table>    	
+                 		<tr>
+                    		<td>Adress e-mail:</td>
+                    		<td><input type="email" th:field="*{email}" /></td>
+                    		<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</td>
+                		</tr>         
+                		<tr>
+                    		<td>Miasto:</td>
+                    		<td><input type="text" th:field="*{city}" /></td>
+                    		<td>Kod pocztowy:</td>
+                    		<td><input type="text" th:field="*{cityPostCode}" /></td>
+                    		<td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Error</td>
+                    		<td th:if="${#fields.hasErrors('cityPostCode')}" th:errors="*{cityPostCode}">Error</td>
+                		</tr>
+                		<tr>
+                    		<td>Ulica:</td>
+                    		<td><input type="text" th:field="*{street}" /></td>
+                    		<td>Numer budynku/mieszkania:</td>
+                    		<td><input type="text" th:field="*{accommodationNumber}" /></td>
+                    		<td th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Error</td>
+                    		<td th:if="${#fields.hasErrors('accommodationNumber')}" th:errors="*{accommodationNumber}">Error</td>
+                		</tr>         	  
+                		<tr>
+                    		<td>Telefon kontaktowy:</td>
+                    		<td><input type="text" th:field="*{mobile}" /></td>
+                    		<td th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}">Error</td>
+                		</tr>        
+            		</table>
+            		<button type="submit" id="send" >Zarejesruj</button>
+            		<div>Pola z * są opcjonalne</div>
+            	</div>
+        	</form>
+        </div>
+    </body>
+</html>
