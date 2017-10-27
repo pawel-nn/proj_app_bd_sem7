@@ -1,4 +1,4 @@
-package app.operations;
+package app.operations.owner;
 
 public class ProductService {
 

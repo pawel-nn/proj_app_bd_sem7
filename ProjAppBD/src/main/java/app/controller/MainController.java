@@ -11,9 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class MainController {
-
-
+public class MainController {    
+    
 	@GetMapping("/")
 	String index() {
 		return "index";
@@ -38,20 +37,20 @@ public class MainController {
 	public String home(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
-		model.addAttribute("usernameMsg","Witaj: "+username);
+		model.addAttribute("usernameMsg","Hello: "+username);
 		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
 		Iterator<SimpleGrantedAuthority> it = authorities.iterator();
 		String authority = null;
 		if( it.hasNext() ) {
 			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
 			authority = sga.getAuthority();
-		}
+		} 
 		if(authority.equals("ROLE_OWNER")) {
 			model.addAttribute("roleMsg","Hi: owner");
-			return "home_admin";
+			return "home_owner";
 		} else if(authority.equals("ROLE_CLIENT")) {
 			model.addAttribute("roleMsg","Hi: client");
-			return "home_employee";
+			return "home_owner";
 		}
 		return "access_denied";
 	}

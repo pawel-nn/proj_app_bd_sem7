@@ -2,19 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
+        <title>Owner homepage</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	    <link href="../static/css/global.css"
            	  th:href="@{/css/global.css}"
-              rel="stylesheet" media="screen" />	
-		<title>Error</title>
+              rel="stylesheet" media="screen" />        
 	</head>
     <body>
+    
     	<header>
 			<h1 id="title">
-				Error
+				Owner page
 			</h1>
-			<p>Problems have been encountered</p>
-			<ul id="ulRet"> <li id="liRet"><a th:href="@{/}">Return to startpage</a></li> </ul>
 		</header>
+	
+		<hr id="hr1" />
+	
+		<p th:text="${usernameMsg}">username</p>
+		<p th:text="${roleMsg}">role</p>
+
+		<form th:action="@{/logout}" method="post"><input type="submit" value="Logout"/></form>
+
     </body>
 </html>

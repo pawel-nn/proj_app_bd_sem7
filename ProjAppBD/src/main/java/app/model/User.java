@@ -41,5 +41,12 @@ public class User {
 	
 	@Column(name = "failed_logins", nullable = false)
 	private Integer failedLogins;
+
+	public boolean hasOwnerRole() {
+		if(this.userRole.equals("ROLE_OWNER")) 
+			return true;
+		else
+			return false;
+	}
 	
 }

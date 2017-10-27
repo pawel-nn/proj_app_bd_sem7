@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            	.antMatchers("/**", "/css/**").permitAll()
+            	.antMatchers("/**", "/css/**", "/owner/**").permitAll()
             	.anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -37,8 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
       auth.jdbcAuthentication().dataSource(dataSource)
-      	  .usersByUsernameQuery("select username,password, enabled from spring_users where username=?")
-      	  .authoritiesByUsernameQuery("select username, role from spring_user_roles where username=?");
+      	  .usersByUsernameQuery("select username,password, enabled from users where username=?")
+      	  .authoritiesByUsernameQuery("select username, user_role from users where username=?");
     }
     
 }

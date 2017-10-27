@@ -12,6 +12,5 @@ public class SpringBootMainApp {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SpringBootMainApp.class, args);
 	}
-
 	
 }
