@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <link href="../static/css/global.css"
+           	  th:href="@{/css/global.css}"
+              rel="stylesheet" media="screen" />
+		<title>Nowy produkt</title>
+	</head>
+	
+    <body>
+
+		<header>
+			<h1>
+				Dodawanie nowego produktu
+			</h1>
+			<ul> 
+				<li><a th:href="@{/home}">Powrót do strony domowej</a></li> 
+			</ul>
+		</header>
+		
+		<hr id="hr1" />
+
+        <form id="myForm" th:action="@{/owner/productList/addProduct}" th:object="${productVO}" method="post">
+     		<div id="myFormStyle">
+            	<table>
+            		<tr>
+            			<th colspan="2"><div id="myFormTitle"> Add product: </div></th>
+            		</tr>
+                	<tr>
+                    	<td>Product name:</td>
+                    	<td><input type="text" th:field="*{name}" />Text</td>
+                	</tr>
+                	<tr>
+                    	<td>Price:</td>
+                    	<td><input type="text" th:field="*{price}" />Text</td>
+                	</tr>      	
+                	<tr>
+                    	<td>Ilość:</td>
+                    	<td><input type="number" th:field="*{stockSize}" />Text</td>
+                	</tr>
+                	<tr>
+                    	<td>Kod:</td>
+                    	<td><input type="number" th:field="*{code}" />Text</td>
+                	</tr>
+            	</table>
+            	<button type="submit" >Submit</button>
+            </div>
+        </form>
+    </body>
+</html>

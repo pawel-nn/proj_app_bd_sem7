@@ -9,9 +9,9 @@ public class UserValidation {
 
 	public NewPasswordDTO validateNewPassword(NewPasswordDTO newPasswordDTO) {
 		if(newPasswordDTO.getViewObject().getNewPassword_1().equals(newPasswordDTO.getViewObject().getNewPassword_2())) {
-			newPasswordDTO.setValidationResult(true);
+			newPasswordDTO.setValid(true);
 		} else {
-			newPasswordDTO.setValidationResult(false);
+			newPasswordDTO.setValid(false);
 		}
 		return newPasswordDTO;
 	}

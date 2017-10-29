@@ -1,82 +1,19 @@
-* Wszystkie strony */
-/*  */
-/*  Style definition   : ALL pages           */
-
 body {
 	margin-left: 3cm;
 	margin-right: 5cm;
+	background-color: #ecf7dd;
     margin-top: 50px;
 }
 
-#pageContent {
-	margin-left: 1cm;
+table, td, th {    
+    text-align: left;
 }
 
-#pageBreak {
-    margin-top:  20px;
-    margin-down: 20px;
+th, td {
+    padding: 10px;
 }
 
-.myNewClass {
-	margin-top: 2cm;
-	margin-bottom: 2cm;
+tr {
+	background-color: #f2f2f2
 }
 
-/*  <<< END >>>        : ALL pages           */
-/*  */
-/*  Style definition   : Page Navigation     */
-
-#pageNavigationField {
-	min-width: 200px;
-	width:200px ;
-    background-color: #c999f0;
-    border: none;
-    color: black;
-    padding: 6px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border: 1px solid #ff0000;
-}
-
-#pageNavigationField:hover {
-    background-color: #e1ffff;
-}
-
-/* !!! definiowanie stylu lokalnie #id element !!! */
-#pageNavigation li{
-    float: left
-}
-
-#pageNavigation li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 8px 8px;
-    text-decoration: none;
-}
-
-#pageNavigation li a:hover {
-    background-color: #111;
-}
-
-#pageNavigation ul {
-    min-width: 800px;
-    max-width: 900px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #aed0bd;
-}
-
-/*  <<< END >>>        : Page Navigation     */
-/*  */
-/*  Style definition   : ????                */
-
-
-
-
-
-/*  <<< END >>>        : ????                */
