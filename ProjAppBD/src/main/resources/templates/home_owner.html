@@ -10,18 +10,24 @@
 	</head>
     <body>
     
+    
+    
     	<header>
 			<h1 id="title">
 				Owner page
 			</h1>
+			<div>
+				<ul>
+					<li><form th:action="@{/logout}" method="post"><input type="submit" value="Logout"/></form></li>
+					<li><a th:href="@{/changePassword}">Change password</a></li>
+				</ul>	
+			</div>
 		</header>
 	
 		<hr id="hr1" />
 	
 		<p th:text="${usernameMsg}">username</p>
 		<p th:text="${roleMsg}">role</p>
-
-		<form th:action="@{/logout}" method="post"><input type="submit" value="Logout"/></form>
 
     </body>
 </html>

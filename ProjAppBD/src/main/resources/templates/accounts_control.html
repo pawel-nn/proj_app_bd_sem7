@@ -4,22 +4,22 @@
       
     <head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    	<link href="../static/css/core2.css"
-          th:href="@{/css/core2.css}"
-          rel="stylesheet" media="screen" />
+	    <link href="../static/css/global.css"
+           	  th:href="@{/css/global.css}"
+              rel="stylesheet" media="screen" />
 		<title>Accounts control</title>
 	</head>
 	
     <body>
 
 		<header>
-			<h1 id="title">
+			<h1>
 				Client and Employee accounts control
 			</h1>
-			<ul id="ulRet"> <li id="liRet"><a th:href="@{/home}">Return to homepage</a></li> </ul>
+			<ul> <li><a th:href="@{/home}">Return to homepage</a></li> </ul>
 		</header>
 		
-		<hr id="hr1" />
+		<hr/>
 
 		<div class="dataList">
 			<div th:if="${not isEmpty}">

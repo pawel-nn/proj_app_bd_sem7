@@ -7,9 +7,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import app.dataTransportObject.NewPasswordDTO;
 import app.model.User;
 import app.model.repository.UserRepository;
-import app.vo.PasswordViewObject;
+import app.validation.UserValidation;
 
 @Service
 public class UserService {
@@ -19,13 +20,20 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public boolean updateUserPassword(PasswordViewObject passwordViewObject, String username) {
+	@Autowired
+	private UserValidation userValidation;
+	
+	public boolean updateUserPassword(NewPasswordDTO newPasswordDTO, String username) {
 		try {
-			// TODO: VALIDATE
-			User user = userRepository.findByUsername(username);
-			user.setPassword(passwordViewObject.getNewPassword_1());
-			userRepository.save(user);
-			return true;
+			newPasswordDTO = userValidation.validateNewPassword(newPasswordDTO);
+			if(newPasswordDTO.isValidationResult()) {
+				User user = userRepository.findByUsername(username);
+				user.setPassword(newPasswordDTO.getViewObject().getNewPassword_1());
+				userRepository.save(user);
+				return true;
+			} else {
+				return false;
+			}
 		} catch (Exception ex) {
 			return false;
 		}

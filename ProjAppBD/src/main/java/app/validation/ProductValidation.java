@@ -1,8 +1,8 @@
-package app.operations.client;
+package app.validation;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderService {
+public class ProductValidation {
 
 }
