@@ -24,7 +24,7 @@ public class MainController {
     
 	@GetMapping("/")
 	String index() {
-		return "index";
+		return "login";
 	}
 
 	@RequestMapping("/login")
@@ -55,11 +55,11 @@ public class MainController {
 			authority = sga.getAuthority();
 		} 
 		if(authority.equals("ROLE_OWNER")) {
-			model.addAttribute("roleMsg","Hi: owner");
+			model.addAttribute("roleMsg","Witaj sprzedawco!");
 			return "home_owner";
 		} else if(authority.equals("ROLE_CLIENT")) {
-			model.addAttribute("roleMsg","Hi: client");
-			return "home_owner";
+			model.addAttribute("roleMsg","Witaj kliencie!");
+			return "home_client";
 		}
 		return "access_denied";
 	}

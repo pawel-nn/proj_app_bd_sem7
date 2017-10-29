@@ -44,22 +44,22 @@
 			 	<ul id="ulFixed" class="pager">
 			 		<div>
 			 			<li th:class="${pageNumber == 1?'disabled':''}">
-			 				<a type="button" th:href="@{/owner/accountsControl(page=1)}" id="menuActiveField" ><span>First</span></a>
+			 				<a type="button" th:href="@{/owner/accountsControl(page=1)}" ><span>First</span></a>
 			 			</li>
 						<li th:class="${pageNumber &lt;= 1?'disabled':''}" >
-							<a type="button" th:href="@{/owner/accountsControl(page=${pageNumber-1})}" id="menuActiveField" ><span>Previous</span></a>
+							<a type="button" th:href="@{/owner/accountsControl(page=${pageNumber-1})}" ><span>Previous</span></a>
 						</li>
 			 			<li style="float:right" th:class="${pageNumber == maxPagesNumber?'disabled':''}" >
-			 				<a type="button" th:href="@{/owner/accountsControl(page=${maxPagesNumber})}" id="menuActiveField" ><span>Last</span></a>
+			 				<a type="button" th:href="@{/owner/accountsControl(page=${maxPagesNumber})}" ><span>Last</span></a>
 			 			</li>
 						<li style="float:right" th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}" >
-							<a type="button" th:href="@{/owner/accountsControl(page=${pageNumber+1})}" id="menuActiveField"  th:disabled="${nextInp}" ><span>Next</span></a>
+							<a type="button" th:href="@{/owner/accountsControl(page=${pageNumber+1})}" th:disabled="${nextInp}" ><span>Next</span></a>
 						</li>
 					</div>
 				</ul>
 			</div> 
 			<div th:unless="${not isEmpty}">
-				<div id="attention">Attention: No data to be shown!</div>
+				<div>Uwaga, brak produktów w bazie!</div>
 			</div>
 		</div>
     </body>

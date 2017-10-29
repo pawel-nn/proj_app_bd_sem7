@@ -26,7 +26,7 @@ public class UserService {
 	public boolean updateUserPassword(NewPasswordDTO newPasswordDTO, String username) {
 		try {
 			newPasswordDTO = userValidation.validateNewPassword(newPasswordDTO);
-			if(newPasswordDTO.isValidationResult()) {
+			if(newPasswordDTO.isValid()) {
 				User user = userRepository.findByUsername(username);
 				user.setPassword(newPasswordDTO.getViewObject().getNewPassword_1());
 				userRepository.save(user);

@@ -24,13 +24,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
 
+	public Product(String name, BigDecimal validatedPrice, Integer stockSize, Integer code) {
+		this.name = name;
+		this.price = validatedPrice;
+		this.stockSize = stockSize;
+		this.code = code;		
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "product_id", unique = true, nullable = false)
 	private Integer productId;
 
 	@Column(name = "name", nullable = false, length = 45)
-	private String username;
+	private String name;
 	
 	@Digits(integer=10, fraction=2)
 	@Column(name = "price", nullable = false)
