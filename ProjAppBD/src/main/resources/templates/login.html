@@ -5,17 +5,16 @@
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	    <link href="../static/css/global.css"
            	  th:href="@{/css/global.css}"
-              rel="stylesheet" media="screen" />   
+              rel="stylesheet" media="screen" />
 		<title>Login</title>
 	</head>
     <body>
-     
 		<header>
 			<h1>Logowanie:</h1>
 		</header>
-		
+
 		<hr/>
-           
+
         <form th:action="@{/login}" method="post">
      		<div>
             	<table>
@@ -27,12 +26,12 @@
                     	<td>Hasło:</td>
                     	<td><input type="password" name="password" /></td>
                 	</tr>
-                	
+
             	</table>
-            	<input type="submit" id="send" value="Zaloguj"/>   
-            </div>            
+            	<input type="submit" id="send" value="Zaloguj"/>
+            </div>
         </form>
-        
+
         <div th:if="${param.error}">
         	<p>Błąd:</p>
         	<p>Niewłaściwe dane logowania.</p>
@@ -40,7 +39,7 @@
         <div th:if="${param.logout}">
         	<p>Uwaga:</p>
         	<p>Zostałeś wylogowany.</p>
-        </div>  
-     
+        </div>
+
     </body>
 </html>
