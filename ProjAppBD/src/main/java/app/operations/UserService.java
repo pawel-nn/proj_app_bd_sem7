@@ -18,6 +18,7 @@ import app.model.repository.CustomerRepository;
 import app.model.repository.UserRepository;
 import app.validation.CustomerValidation;
 import app.validation.UserValidation;
+import app.viewObject.CustomerVO;
 
 @Service
 public class UserService {
@@ -99,14 +100,13 @@ public class UserService {
 		customerDTO = customerValidation.validateNewCustomer(customerDTO);
 		if(customerDTO.isValid()) {
 			try {
-			Customer customer= customerRepository.save(new Customer( new CustomerDetails (
-					customerDTO.getViewObject().getCustomerDetailsVO().getAddress(), customerDTO.getViewObject().getCustomerDetailsVO().getCity(),
-					customerDTO.getViewObject().getCustomerDetailsVO().getDateOfBirth(), customerDTO.getViewObject().getCustomerDetailsVO().getName(), 
-					customerDTO.getViewObject().getCustomerDetailsVO().getPostcode(), customerDTO.getViewObject().getCustomerDetailsVO().getSurnname()),
-					new Country(
-							customerDTO.getViewObject().getCountryVO().getCountryCode(), customerDTO.getViewObject().getCountryVO().getCountryName())
-					));
-			customerDTO.getViewObject().setCustomerId(customer.getCustomerId());
+				CustomerVO vo = customerDTO.getViewObject();
+				User user = new User(vo.getUsername(), vo.getPassword_1(), "email", true, "ROLE_CLIENT") ;
+				CustomerDetails customerDetails = new CustomerDetails(vo.getCustomerDetailsVO().getName(), vo.getSurname(), "aaa", "bbb", "ccc", "ddd");
+				Country country = new Country("Polska","POL");
+				Customer customer = new Customer(user, customerDetails, country);
+			    customer = customerRepository.save(customer);
+			    customerDTO.getViewObject().setCustomerId(customer.getCustomerId());
 			return customerDTO;
 			} catch (Exception e) {
 				e.printStackTrace();

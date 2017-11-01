@@ -18,6 +18,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+	
+	public User(String username, String password, String email, boolean enabled, String userRole) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.userRole = userRole;
+		this.failedLogins = 2;
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
