@@ -11,10 +11,15 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import app.dataTransportObject.CustomerDTO;
 import app.dataTransportObject.NewPasswordDTO;
+import app.dataTransportObject.ProductDTO;
 import app.operations.UserService;
+import app.viewObject.CustomerVO;
 import app.viewObject.NewPasswordVO;
+import app.viewObject.ProductVO;
 
 @Controller
 public class MainController {   
@@ -87,5 +92,22 @@ public class MainController {
 	@GetMapping("/error")
 	public String error() {
 		return "error";
+	}
+	
+	@GetMapping("/registerCustomer")
+	public String addRegisterCustomerGET(CustomerVO customerVO, Model m) {
+		return "register_customer";
+	}
+
+	@PostMapping("/registerCustomer")
+	public String addRegisterCustomerPOST(CustomerVO customerVO, Model m, RedirectAttributes redirectAttributes) {
+		CustomerDTO customerDTO = new CustomerDTO(customerVO);
+		customerDTO = userService.registerCustomer(customerDTO);
+		if(customerDTO == null) {
+			m.addAttribute("msg", "Błąd, nie można utworzyć konta!");
+			return "result";	
+		}		
+		m.addAttribute("msg", "Utworzono konto");
+		return "result";	
 	}
 }

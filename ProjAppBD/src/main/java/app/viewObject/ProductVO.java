@@ -8,7 +8,6 @@ import lombok.Data;
 public class ProductVO {
 
 	public ProductVO(ProductVO productVO) {
-		super();
 		this.name = productVO.getName();
 		this.price = productVO.getPrice();
 		this.stockSize = productVO.getStockSize();
