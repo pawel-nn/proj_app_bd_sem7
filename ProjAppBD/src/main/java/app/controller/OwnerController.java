@@ -36,7 +36,7 @@ public class OwnerController {
 	}
 
 	@PostMapping("/owner/productList/addProduct")
-	public String addNreProductPOST(ProductVO productVO, BindingResult bindingResult, Model m, RedirectAttributes redirectAttributes) {
+	public String addNreProductPOST(ProductVO productVO, Model m, RedirectAttributes redirectAttributes) {
 		ProductDTO productDTO = new ProductDTO(productVO);
 		productDTO = productService.savePart(productDTO);
 		if(productDTO == null) {

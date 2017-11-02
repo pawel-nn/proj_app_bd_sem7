@@ -34,7 +34,5 @@ public class Country {
 	
 	@Column(name = "country_code", nullable = false, length = 6)
 	private String countryCode;
-	
-	
 
 }

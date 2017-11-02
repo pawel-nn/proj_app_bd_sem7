@@ -18,10 +18,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            	.antMatchers("/**", "/css/**").permitAll()
+            	.antMatchers("/registerCustomer", "/**", "/css/**").permitAll()
                 .antMatchers("/owner/**").access("hasRole('ROLE_OWNER')")
                 .antMatchers("/client/**").access("hasRole('ROLE_CLIENT')")
-                .antMatchers("/home", "/result").access("hasRole('ROLE_ADMIN') OR hasRole('ROLE_EMPLOYEE')")
+                .antMatchers("/home", "/result").access("hasRole('ROLE_ADMIN') OR hasRole('ROLE_CLIENT')")
             	.anyRequest().authenticated()
                 .and()
             .formLogin()

@@ -7,12 +7,7 @@ import lombok.Data;
 @Data
 public class ProductVO {
 
-	public ProductVO(ProductVO productVO) {
-		this.name = productVO.getName();
-		this.price = productVO.getPrice();
-		this.stockSize = productVO.getStockSize();
-		this.code = productVO.getCode();
-	}
+	
 	public static int NAME_MAX_LEN = 45;
 	
 	private String name;
