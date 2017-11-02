@@ -2,6 +2,7 @@ package app.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Customer {
 	
-	public Customer(CustomerDetails customerDetails, Country country) {
+	public Customer(User user, CustomerDetails customerDetails, Country country) {
+		this.user = user;
 		this.customerDetails = customerDetails;
 		this.country = country;
 	}
@@ -32,15 +34,15 @@ public class Customer {
 	@Column(name = "customer_id", unique = true, nullable = false)
 	private Integer customerId;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_details_id")
 	private CustomerDetails customerDetails;	
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="country_id")
 	private Country country;
 	

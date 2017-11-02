@@ -42,13 +42,14 @@ public class MainController {
 		return "access_denied";
 	}
 
-	@RequestMapping(value = "/home")
-	public String home() {
-		return "home_client";
-	}
+//	@RequestMapping(value = "/home")
+//	public String home() {
+//		return "home_client";
+//	}
 
 	@GetMapping("/home")
 	public String home(Model model) {
+		try {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		model.addAttribute("usernameMsg","Hello: "+username);
@@ -66,6 +67,7 @@ public class MainController {
 			model.addAttribute("roleMsg","Witaj kliencie!");
 			return "home_client";
 		}
+		} catch (Exception e){}
 		return "access_denied";
 	}
 	
@@ -96,11 +98,12 @@ public class MainController {
 	
 	@GetMapping("/registerCustomer")
 	public String addRegisterCustomerGET(CustomerVO customerVO, Model m) {
+		System.out.println("----------------------------------------");
 		return "register_customer";
 	}
 
 	@PostMapping("/registerCustomer")
-	public String addRegisterCustomerPOST(CustomerVO customerVO, Model m, RedirectAttributes redirectAttributes) {
+	public String addRegisterCustomerPOST(CustomerVO customerVO, Model m) {
 		CustomerDTO customerDTO = new CustomerDTO(customerVO);
 		customerDTO = userService.registerCustomer(customerDTO);
 		if(customerDTO == null) {
