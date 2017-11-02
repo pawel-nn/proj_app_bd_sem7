@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <link href="../static/css/global.css"
+           	  th:href="@{/css/global.css}"
+              rel="stylesheet" media="screen" />
+		<title>Kategoria produktu</title>
+	</head>
+	
+    <body>
+
+		<header>
+			<ul> 
+				<li><a th:href="@{/owner/productList}">Powrót</a></li> 
+			</ul>
+		</header>
+
+        <form id="myForm" th:action="@{/owner/productList/addProductCategory}" th:object="${productCategoryVO}" method="post">
+     		<div id="myFormStyle">
+            	<table>
+            		<tr>
+            			<th colspan="2"><div id="myFormTitle"> Dodaj kategorię produktu: </div></th>
+            		</tr>
+                	<tr>
+                    	<td>Nowa kategoria:</td>
+                    	<td><input type="text" th:field="*{productCategoryName}" /></td>
+                	</tr>
+            	</table>
+            	<button type="submit" >Dodaj</button>
+            </div>
+        </form>
+    </body>
+</html>

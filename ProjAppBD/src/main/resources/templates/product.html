@@ -39,11 +39,15 @@
 					<td>Kod:</td>
 					<td th:text="${product.code}">Text</td>
 				</tr>
+				<tr>
+					<td>Zdjęcie:</td>
+					<td><img th:src="@{${'/resources/images/' + product.productImage.productImageName}}" /></td>
+				</tr>  
 				<tr>	
 					<td>Operacje:</td>
 					<td>
 						<a th:href="@{/owner/products/updateProduct(productId=${product.productId})}"><span>Aktualizuj</span></a>/
-						<a th:href="@{/owner/products/deleteProduct(productId=${product.productId})}"><span>Usuń</span></a>
+						<a th:href="@{/owner/productList/deleteProduct(productId=${product.productId})}"><span>Usuń</span></a>
 					</td>
 				</tr>
 			</table>

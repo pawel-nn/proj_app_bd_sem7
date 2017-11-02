@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,11 +25,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
 
-	public Product(String name, BigDecimal validatedPrice, Integer stockSize, Integer code) {
+	public Product(ProductImage productImage, String name, BigDecimal validatedPrice, Integer stockSize, Integer code) {
+		this.productImage = productImage;
 		this.name = name;
 		this.price = validatedPrice;
 		this.stockSize = stockSize;
-		this.code = code;		
+		this.code = code;
 	}
 
 	@Id
@@ -49,11 +51,11 @@ public class Product {
 	@Column(name = "code", nullable = false)
 	private Integer code;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="producer_id")
 	private Producer producer;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="product_image_id")
 	private ProductImage productImage;
 	
