@@ -1,4 +1,4 @@
-package app.operations.owner;
+package app.operations;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -39,12 +39,12 @@ public class ProductService {
 		productDTO = productValidation.validateNewProduct(productDTO);
 		if(productDTO.isValid()) {
 			try {
-			saveImage(productPhoto);
-			ProductImage productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
-			Product product = new Product(productImage, productDTO.getViewObject().getName(), productDTO.getViewObject().getValidatedPrice(),
+				saveImage(productPhoto);
+				ProductImage productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
+				Product product = new Product(productImage, productDTO.getViewObject().getName(), productDTO.getViewObject().getValidatedPrice(),
 					productDTO.getViewObject().getStockSize(), productDTO.getViewObject().getCode());
-			product = productRepository.save(product);
-			productDTO.getViewObject().setProductId(product.getProductId());
+				product = productRepository.save(product);
+				productDTO.getViewObject().setProductId(product.getProductId());
 			return productDTO;
 			} catch (Exception e) {
 				e.printStackTrace();
