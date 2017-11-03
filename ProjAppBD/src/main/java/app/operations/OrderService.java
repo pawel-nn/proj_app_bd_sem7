@@ -1,4 +1,4 @@
-package app.operations.client;
+package app.operations;
 
 import org.springframework.stereotype.Service;
 

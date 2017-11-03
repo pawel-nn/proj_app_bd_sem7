@@ -23,13 +23,16 @@ public class Dictionary {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "dictionary_entry_id", unique = true, nullable = false)
-	private Integer dictionaryEntryId;
+	@Column(name = "dictionary_id", unique = true, nullable = false)
+	private Integer dictionaryId;
 
 	@ManyToOne
-	@JoinColumn(name = "category_name")
+	@JoinColumn(name = "dictionary_category_name_id")
 	private DictionaryCategoryName dictionaryCategoryName;
 
+	@Column(name = "dictionary_entry", nullable = false)
+	private String dictionaryEntry;
+	
 	@Column(name = "parent_table_id", nullable = false)
 	private Integer parentTableId;
 	

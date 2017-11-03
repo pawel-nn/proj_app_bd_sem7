@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <link href="../static/css/global.css"
+           	  th:href="@{/css/global.css}"
+              rel="stylesheet" media="screen" /> 
+		<title>Słownik</title>
+	</head>
+	
+    <body>
+
+		<header>
+			<h1>
+				Słownik
+			</h1>
+			<ul> 
+				<li>
+					<a th:href="@{/home}">Wróć do strony domowej</a>
+				</li> 
+			</ul> 
+		</header>
+		
+		<hr/>
+
+		<div class="dataList">
+			<div th:if="${dictionaryList.getSize() > 0}">
+				<h2>Lista haseł słownikowych:</h2>
+				<table>
+					<tr>
+						<th>Id</th>
+						<th>Nazwa</th>
+						<th>Rodzaj</th>
+						<th>Wartość z tabeli</th>
+					</tr>
+					<tr th:each="dictionary : ${dictionaryList}">
+						<td th:text="${dictionary.dictionaryId}">Text</td>
+						<td th:text="${dictionary.dictionaryEntry}">Text</td>
+						<td th:text="${dictionary.dictionaryCategoryName.categoryName}">Text</td>
+						<td th:text="${dictionary.parentTableId}">Text</td>
+					</tr>
+				</table>
+			 	<ul>
+			 		<div>
+			 			<li th:class="${pageNumber == 1?'disabled':''}">
+			 				<a type="button" th:href="@{/owner/dictionaryList(page=1)}"><span>Pierwsza</span></a>
+			 			</li>
+						<li th:class="${pageNumber &lt;= 1?'disabled':''}" >
+							<a type="button" th:href="@{/owner/dictionaryList(page=${pageNumber-1})}" ><span>Poprzednia</span></a>
+						</li>
+			 			<li th:class="${pageNumber == maxPagesNumber?'disabled':''}" >
+			 				<a type="button" th:href="@{/owner/dictionaryList(page=${maxPagesNumber})}"><span>Ostatnia</span></a>
+			 			</li>
+						<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}" >
+							<a type="button" th:href="@{/owner/dictionaryList(page=${pageNumber+1})}" th:disabled="${nextInp}" ><span>Następna</span></a>
+						</li>
+					</div>
+				</ul>
+			</div> 
+			<div th:unless="${dictionaryList.getSize() > 0}">
+				<div>Uwaga, brak haseł słownikowych!</div>
+			</div>
+		</div>
+    </body>
+</html>

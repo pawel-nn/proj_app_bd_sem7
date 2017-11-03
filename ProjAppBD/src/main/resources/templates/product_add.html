@@ -23,7 +23,7 @@
 		
 		<hr id="hr1" />
 
-        <form id="myForm" th:action="@{/owner/productList/addProduct}" th:object="${productVO}" method="post">
+        <form id="myForm" th:action="@{/owner/productList/addProduct}" th:object="${productVO}" method="post" enctype="multipart/form-data" >
      		<div id="myFormStyle">
             	<table>
             		<tr>
@@ -45,6 +45,10 @@
                     	<td>Kod:</td>
                     	<td><input type="number" th:field="*{code}" /></td>
                 	</tr>
+                	<tr>
+				    	<td>Zdjęcie:</td>
+				     	<td><input type="file" accept="image/x-png,image/gif,image/jpeg" name="productPhoto" /></td>
+				    </tr> 
             	</table>
             	<button type="submit" >Dodaj</button>
             </div>

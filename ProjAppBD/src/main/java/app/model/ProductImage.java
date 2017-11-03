@@ -19,12 +19,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductImage {
 
+	public ProductImage(String originalFilename) {
+		this.productImageName = originalFilename;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "product_image_id", unique = true, nullable = false)
 	private Integer productImageId;
 
 	@Column(name = "product_image_name", unique = true, nullable = false, length = 200)
-	private String producerName;
+	private String productImageName;
 	
 }

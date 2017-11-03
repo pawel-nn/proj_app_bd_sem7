@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class ProductVO {
-
 	
 	public static int NAME_MAX_LEN = 45;
 	
