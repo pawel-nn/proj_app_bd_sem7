@@ -14,6 +14,10 @@ tittle {
 	font-size: 250%;
 }
 
+h3 {
+	font-size: 200%;
+}
+
 h2 { 
 	font-size: 250%;
 }
@@ -69,13 +73,15 @@ input {
 }
 
 #logout {
-	min-width: 100px;
-	width: 250px;
+	min-width: 175px;
+    max-width: 250px;
 	height: 35px;
 }
 
 header ul, header li, header #logout, header #leftMenuHeader, header #leftMenuLogout {
-	width: 40%;
+	width: 22%;
+	overflow:auto;
+	float:left;
 	top: 25%;
 	margin-left: 25px; 
 }
@@ -89,6 +95,8 @@ header ul {
 header li {
 	height: 25px;
 	margin-top: 25px;
+	min-width: 175px;
+    max-width: 250px;
 }
 
 #emptyLi {
