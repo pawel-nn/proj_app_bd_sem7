@@ -3,7 +3,6 @@ package app.operations;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.nio.file.NoSuchFileException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.dataTransportObject.ProductCategoryDTO;
 import app.dataTransportObject.ProductDTO;
 import app.model.Product;
 import app.model.ProductImage;
@@ -74,14 +72,15 @@ public class ProductService {
 		}
 	}
 	
-	public void deleteProduct(Integer productId) {
+	public boolean deleteProduct(Integer productId) {
 		try {
 			Product product = productRepository.findByProductId(productId);
 			product.setProductCategory(null);
 			productRepository.save(product);
 			productRepository.delete(productId);
+			return true;
 		} catch ( Exception e ) {
-			
+			return false;
 		}
 	}
 
@@ -112,11 +111,6 @@ public class ProductService {
 
 	public Product getProductById(Integer productId) {
 		return productRepository.findByProductId(productId);
-	}
-
-	public ProductCategoryDTO saveProductCategory(ProductCategoryDTO productCategoryDTO) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

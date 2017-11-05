@@ -27,21 +27,21 @@ public class ProducerController {
 	@Autowired ProducerService producerService;
 	
     @GetMapping("/owner/producerList")
-    public String producerList(@RequestParam(value="page", required=false) Integer page, Model model) {
+    public String producerList(@RequestParam(value="page", required=false) Integer page, ProducerVO producerVO, Model model) {
     	producerService.getProducersByPagination(page, model);
     	return "producer_list";
     }
 
-	@PostMapping("/owner/producerList/addProducent")
+	@PostMapping("/owner/producerList/addProducer")
 	public String addNewProductCategoryPOST(ProducerVO producerVO, Model m) {
 		ProducerDTO producerDTO = new ProducerDTO(producerVO);
-		producerDTO = producerService.saveNewProducer(producerVO);
+		producerDTO = producerService.saveNewProducer(producerDTO);
 		if(producerDTO == null) {
 			m.addAttribute("msg", "Nie można dodac producenta.");
-			return "producer_list";	
+			return "redirect:/owner/producerList";
 		}
 		m.addAttribute("msg", "Dodano nowego producenta.");
-		return "producer_list";
+		return "redirect:/owner/producerList";
 	}
 	
     @GetMapping("/owner/producerList/deleteProducer")

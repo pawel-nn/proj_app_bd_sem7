@@ -19,6 +19,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductCategory {
 
+	public ProductCategory(String productCategoryName) {
+		this.productCategoryName = productCategoryName;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "product_category_id", unique = true, nullable = false)

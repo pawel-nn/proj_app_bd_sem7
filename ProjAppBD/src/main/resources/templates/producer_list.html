@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <link href="../static/css/global.css"
+           	  th:href="@{/css/global.css}"
+              rel="stylesheet" media="screen" /> 
+		<title>Lista producentów</title>
+	</head>
+	
+    <body>
+
+		<header>
+			<h1>
+				Lista producentów
+			</h1>
+			<ul> 
+				<li>
+					<a th:href="@{/home}">Return to homepage</a>
+				</li> 
+			</ul> 
+		</header>
+		
+		<hr/>
+
+		<div class="dataList">
+			<div th:if="${producerList.getSize() > 0}">
+				<h2>Lista kategorii:</h2>
+				<table>
+					<tr>
+						<th>Id</th>
+						<th>Nazwa</th>
+						<th>Operacje</th>
+					</tr>
+					<tr th:each="producer : ${producerList}">
+						<td th:text="${producer.producerId}">Text</td>
+						<td th:text="${producer.producerName}">Text</td>
+						<td>
+							<a th:href="@{'/owner/producerList/deleteProduct'(producerId=${producer.producerId},page=${pageNumber})}"><span>Update</span></a>/
+							<a th:href="@{'/owner/producerList/deleteProduct'(producerId=${producer.producerId},page=${pageNumber})}"><span>Delete</span></a>
+						</td>
+					</tr>
+				</table>
+			 	<ul>
+			 		<div>
+			 			<li th:class="${pageNumber == 1?'disabled':''}">
+			 				<a type="button" th:href="@{/owner/producerList(page=1)}"><span>Pierwsza</span></a>
+			 			</li>
+						<li th:class="${pageNumber &lt;= 1?'disabled':''}" >
+							<a type="button" th:href="@{/owner/producerList(page=${pageNumber-1})}" ><span>Poprzednia</span></a>
+						</li>
+			 			<li th:class="${pageNumber == maxPagesNumber?'disabled':''}" >
+			 				<a type="button" th:href="@{/owner/producerList(page=${maxPagesNumber})}"><span>Ostatnia</span></a>
+			 			</li>
+						<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}" >
+							<a type="button" th:href="@{/owner/producerList(page=${pageNumber+1})}" th:disabled="${nextInp}" ><span>Następna</span></a>
+						</li>
+					</div>
+				</ul>
+			</div> 
+			<div th:unless="${producerList.getSize() > 0}">
+				<div>Uwaga, brak kategorii w bazie!</div>
+			</div>
+		</div>
+		
+        <form id="myForm" th:action="@{/owner/producerList/addProducer}" th:object="${producerVO}" method="post">
+     		<div id="myFormStyle">
+            	<table>
+            		<tr>
+            			<th colspan="2"><div id="myFormTitle"> Dodaj nowego producenta: </div></th>
+            		</tr>
+                	<tr>
+                    	<td>Nowy producent:</td>
+                    	<td><input type="text" th:field="*{producerName}" /></td>
+                	</tr>
+            	</table>
+            	<button type="submit" >Dodaj</button>
+            </div>
+        </form>
+    </body>
+</html>

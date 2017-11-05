@@ -35,8 +35,8 @@
 						<th>Operacje</th>
 					</tr>
 					<tr th:each="productCategory : ${productCategoryList}">
-						<td th:text="${productCategory.dictionaryCategoryNameId}">Text</td>
-						<td th:text="${productCategory.categoryName}">Text</td>
+						<td th:text="${productCategory.productCategoryId}">Text</td>
+						<td th:text="${productCategory.productCategoryName}">Text</td>
 						<td>
 							<a th:href="@{'/owner/productCategoryList/deleteProduct'(productCategoryId=${productCategory.productCategoryId},page=${pageNumber})}"><span>Update</span></a>/
 							<a th:href="@{'/owner/productCategoryList/deleteProduct'(productCategoryId=${productCategory.productCategoryId},page=${pageNumber})}"><span>Delete</span></a>

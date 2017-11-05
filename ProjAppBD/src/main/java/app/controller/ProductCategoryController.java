@@ -24,7 +24,8 @@ public class ProductCategoryController {
 	@Autowired ProductCategoryService productCategoryService;
 	
     @GetMapping("/owner/productCategoryList")
-    public String productCategoryList(@RequestParam(value="page", required=false) Integer page, Model model) {
+    public String productCategoryList(@RequestParam(value="page", required=false) Integer page, ProductCategoryVO productCategoryVO, Model model) {
+    	System.out.println("1");
     	productCategoryService.getProductCategoriesByPagination(page, model);
     	return "product_category_list";
     }
@@ -35,17 +36,17 @@ public class ProductCategoryController {
 		productCategoryDTO = productCategoryService.saveProductCategory(productCategoryDTO);
 		if(productCategoryDTO == null) {
 			m.addAttribute("msg", "Nie można utworzyć nowej kategorii.");
-			return "product_category_list";	
+			return "redirect:/owner/productCategoryList";
 		}
 		m.addAttribute("msg", "Dodano nową kategorię.");
-		return "product_category_list";
+		return "redirect:/owner/productCategoryList";
 	}
 	
     @GetMapping("/owner/productCategoryList/deleteProductCategory")
     public String deleteProductCategoryGET(@RequestParam(value="page", required=true) Integer page,
     							   @RequestParam(value="productCategoryId", required=true) Integer productCategoryId) {
     	productCategoryService.deleteProductCategory(productCategoryId);
-    	return "redirect:/owner/productList?page=" + page;
+    	return "redirect:/owner/productCategoryList?page=" + page;
 	}
 	
 }
