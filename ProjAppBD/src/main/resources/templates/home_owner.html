@@ -1,38 +1,37 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	    <link href="../static/css/global.css"
-           	  th:href="@{/css/global.css}"
-              rel="stylesheet" media="screen" />      
-       <title>Strona domowa właściciela</title>  
-	</head>
-    <body>
-    
-    
-    
-    	<header>
-			<h1 id="title">
-				Strona domowa właściciela
-			</h1>
-			<div>
-				<form th:action="@{/logout}" method="post"><input type="submit" id="logout" value="Wyloguj"/></form>
-				<ul>
-					<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
-					<li><a th:href="@{/owner/productList}">Produkty</a></li>
-					<li><a th:href="@{/owner/productCategoryList}">Kategorie produktów</a></li>
-					<li><a th:href="@{/owner/producerList}">Producenci</a></li>
-				</ul>	
-			</div>
-		</header>
-	
-		<hr/>
-	
-		<div class="pageContext">
-			<p th:text="${usernameMsg}">username</p>
-			<p th:text="${roleMsg}">role</p>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head lang="en" th:include="../static/fragments/header :: header">
+<title>Strona domowa właściciela</title>
+</head>
+<body>
+
+
+
+	<header>
+		<h1 id="title">Strona domowa właściciela</h1>
+		<div>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" id="logout" value="Wyloguj" />
+			</form>
+			<ul>
+				<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
+				<li><a th:href="@{/owner/productList}">Produkty</a></li>
+				<li><a th:href="@{/owner/productCategoryList}">Kategorie
+						produktów</a></li>
+				<li><a th:href="@{/owner/producerList}">Producenci</a></li>
+			</ul>
 		</div>
-		
-    </body>
+	</header>
+
+	<hr />
+
+	<div class="pageContext">
+		<p th:text="${usernameMsg}">username</p>
+		<p th:text="${roleMsg}">role</p>
+	</div>
+
+</body>
 </html>

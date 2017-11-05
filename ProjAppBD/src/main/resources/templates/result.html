@@ -1,28 +1,23 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="../static/css/global.css" th:href="@{/css/global.css}"
-	rel="stylesheet" media="screen" />
-<title>Informacja</title>
-</head>
+	<head lang="en" th:include="../static/fragments/header :: header">
+		<title>Informacja</title>
+	</head>	
 
-<body>
-	<header>
+    <body>
+		<header>
+			<div>
+				<a th:href="@{/home}">Powrót do strony domowej</a>	
+			</div>	
+		</header>	
 		<div>
-			<a th:href="@{/home}">Powrót do strony domowej</a>
-		</div>
-	</header>
-
-	<div class="pageContext">
-		<div>
-			<h3 th:text="${msg}">Text</h3>
-		</div>
-	</div>
-</body>
+            <div>
+             	<h3 th:text="${msg}">Text</h3>    	
+        	</div>
+       	</div>
+    </body>
 </html>
 
 
