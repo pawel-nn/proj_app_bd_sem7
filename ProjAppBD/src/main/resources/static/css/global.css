@@ -81,7 +81,7 @@ header ul, header li, header #logout, header #leftMenuHeader, header #leftMenuLo
 }
 
 header ul {
-	margin-top: 25px;
+	margin-top: 30px;
 	position: fixed;
 	list-style: square;
 }
@@ -89,6 +89,10 @@ header ul {
 header li {
 	height: 25px;
 	margin-top: 25px;
+}
+
+#emptyLi {
+	height: 1px;
 }
 
 #leftMenuLogout {
@@ -129,4 +133,12 @@ header li {
 
 .pageContext li a:hover {
     background-color: #b0b0b0;
+}
+
+#addLinkButton {
+	display: block;
+	appearance: button;
+	min-width: 100px;
+    max-width: 200px;
+
 }

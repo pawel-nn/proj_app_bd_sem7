@@ -37,29 +37,29 @@
 				<div>
 					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=1)}"><span>Pierwsza</span></a></li>
 					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
-					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
 					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
+					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
 				</div>
 			</ul>
 		</div>
 		<div th:unless="${producerList.getSize() > 0}">
 			<div>Uwaga, brak kategorii w bazie!</div>
 		</div>
-	</div>
 
-	<form id="myForm" th:action="@{/owner/producerList/addProducer}" th:object="${producerVO}" method="post">
-		<div id="myFormStyle">
-			<table>
-				<tr>
-					<th colspan="2"><div id="myFormTitle">Dodaj nowego producenta:</div></th>
-				</tr>
-				<tr>
-					<td>Nowy producent:</td>
-					<td><input type="text" th:field="*{producerName}" /></td>
-				</tr>
-			</table>
-			<button type="submit" id="send">Dodaj</button>
-		</div>
-	</form>
+		<form id="myForm" th:action="@{/owner/producerList/addProducer}" th:object="${producerVO}" method="post">
+			<div id="myFormStyle">
+				<table>
+					<tr>
+						<th colspan="2"><div id="myFormTitle">Dodaj nowego producenta:</div></th>
+					</tr>
+					<tr>
+						<td>Nowy producent:</td>
+						<td><input type="text" th:field="*{producerName}" /></td>
+					</tr>
+				</table>
+				<button type="submit" id="send">Dodaj</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
