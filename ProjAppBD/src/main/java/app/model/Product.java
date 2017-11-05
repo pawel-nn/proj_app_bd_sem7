@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
 
-	public Product(ProductImage productImage, String name, BigDecimal validatedPrice, Integer stockSize, Integer code) {
+	public Product(ProductImage productImage, String name, BigDecimal validatedPrice, Integer stockSize, String code) {
 		this.productImage = productImage;
 		this.name = name;
 		this.price = validatedPrice;
@@ -48,8 +48,8 @@ public class Product {
 	@Column(name = "stock_size", nullable = false)
 	private Integer stockSize;
 	
-	@Column(name = "code", nullable = false)
-	private Integer code;
+	@Column(name = "code", length=12, nullable = false)
+	private String code;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="producer_id")

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
 <title>Słownik</title>
@@ -11,6 +9,7 @@
 
 	<header>
 		<h1>Słownik</h1>
+		<div id="leftMenuHeader">Menu:</div>
 		<ul>
 			<li><a th:href="@{/home}">Wróć do strony domowej</a></li>
 		</ul>
@@ -37,22 +36,10 @@
 			</table>
 			<ul>
 				<div>
-					<li th:class="${pageNumber == 1?'disabled':''}"><a
-						type="button" th:href="@{/owner/dictionaryList(page=1)}"><span>Pierwsza</span></a>
-					</li>
-					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a
-						type="button"
-						th:href="@{/owner/dictionaryList(page=${pageNumber-1})}"><span>Poprzednia</span></a>
-					</li>
-					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}">
-						<a type="button"
-						th:href="@{/owner/dictionaryList(page=${maxPagesNumber})}"><span>Ostatnia</span></a>
-					</li>
-					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}">
-						<a type="button"
-						th:href="@{/owner/dictionaryList(page=${pageNumber+1})}"
-						th:disabled="${nextInp}"><span>Następna</span></a>
-					</li>
+					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/dictionaryList(page=1)}"><span>Pierwsza</span></a></li>
+					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/dictionaryList(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
+					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/dictionaryList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/dictionaryList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
 				</div>
 			</ul>
 		</div>

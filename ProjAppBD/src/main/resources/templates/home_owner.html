@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
 	<title>Strona domowa właściciela</title>
 </head>
 <body>
 
-
-
 	<header>
 		<h1 id="title">Strona domowa właściciela</h1>
-		<div>
+		<div id="leftMenuLogout">
 			<form th:action="@{/logout}" method="post">
 				<input type="submit" id="logout" value="Wyloguj" />
 			</form>
-			<ul>
-				<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
-				<li><a th:href="@{/owner/productList}">Produkty</a></li>
-				<li><a th:href="@{/owner/productCategoryList}">Kategorie
-						produktów</a></li>
-				<li><a th:href="@{/owner/producerList}">Producenci</a></li>
-			</ul>
 		</div>
+		<div id="leftMenuHeader">Menu:</div>
+		<ul>
+			<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
+			<li><a th:href="@{/owner/accountsControl}">Zarządzaj kontami</a></li>
+			<li id="emptyLi"></li>
+			<li><a th:href="@{/owner/productList}">Produkty</a></li>
+			<li id="emptyLi"></li>
+			<li><a th:href="@{/owner/productCategoryList}">Kategorie produktów</a></li>
+			<li><a th:href="@{/owner/producerList}">Producenci</a></li>
+		</ul>
 	</header>
 
 	<hr />
