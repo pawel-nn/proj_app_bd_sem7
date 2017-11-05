@@ -20,6 +20,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Producer {
 
+	public Producer(String producerName) {
+		this.producerName = producerName;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "producer_id", unique = true, nullable = false)
