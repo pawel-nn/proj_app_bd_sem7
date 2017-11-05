@@ -1,29 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="../static/css/global.css" th:href="@{/css/global.css}"
-	rel="stylesheet" media="screen" />
+<link href="../static/css/global.css" th:href="@{/css/global.css}" rel="stylesheet" media="screen" />
 <title>Rejestracja klienta</title>
 </head>
 
 <body>
 	<header>
 		<h1>Rejestracja klienta</h1>
-		<div id="shortLinks">
-			<ul>
-				<li><a th:href="@{/}">Wróć do strony domowej</a></li>
-			</ul>
-		</div>
+		<div id="leftMenuHeader">Menu:</div>
+		<ul>
+			<li><a th:href="@{/}">Wróć do strony domowej</a></li>
+		</ul>
 	</header>
 	<hr />
 
 	<div class="pageContext">
-		<form th:action="@{/registerCustomer}" th:object="${customerVO}"
-			method="post">
+		<form th:action="@{/registerCustomer}" th:object="${customerVO}" method="post">
 			<div>
 				<table>
 					<tr>

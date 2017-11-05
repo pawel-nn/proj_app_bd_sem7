@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
 <title>Strona domowa klienta</title>
@@ -10,6 +8,7 @@
 
 	<header>
 		<h1 id="title">Strona domowa klienta</h1>
+		<div id="leftMenuHeader">Menu:</div>
 		<div>
 			<form th:action="@{/logout}" method="post">
 				<input type="submit" id="logout" value="Wyloguj" />
