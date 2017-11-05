@@ -12,7 +12,7 @@ public class ProductVO {
 	private String name;
 	private String price;
 	private Integer stockSize;
-	private Integer code;
+	private String code;
 	
 	private Integer productId;
 	private BigDecimal validatedPrice;

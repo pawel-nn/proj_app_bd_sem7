@@ -36,10 +36,10 @@
 			</table>
 			<ul id="ulFixed" class="pager">
 				<div>
-					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=1)}"><span>First</span></a></li>
-					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${pageNumber-1})}"><span>Previous</span></a></li>
-					<li style="float: right" th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Next</span></a></li>
-					<li style="float: right" th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${maxPagesNumber})}"><span>Last</span></a></li>
+					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=1)}"><span>Pierwsza</span></a></li>
+					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
+					<li style="float: right" th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+					<li style="float: right" th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
 				</div>
 			</ul>
 		</div>

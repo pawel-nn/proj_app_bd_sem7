@@ -45,18 +45,19 @@
 				<div>
 					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=1)}"><span>Pierwsza</span></a></li>
 					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
-					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
 					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
+					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
 				</div>
 			</ul>
 		</div>
 		<div th:unless="${productList.getSize() > 0}">
 			<div>Uwaga, brak produktów w bazie!</div>
 		</div>
-
+		
 		<div>
-			<a type="button" th:href="@{/owner/productList/addProduct}"><span>Dodaj nowy produkt!</span></a>
+			<a id="addLinkButton" th:href="@{/owner/productList/addProduct}"><span>Dodaj nowy produkt</span></a>
 		</div>
+		
 	</div>
 </body>
 </html>
