@@ -1,62 +1,70 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-      
-	<head lang="en" th:include="../static/fragments/header :: header">
-		<title>Accounts control</title>
-	</head>
-	
-    <body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-		<header>
-			<h1>
-				Client and Employee accounts control
-			</h1>
-			<ul> <li><a th:href="@{/home}">Return to homepage</a></li> </ul>
-		</header>
-		
-		<hr/>
+<head lang="en" th:include="../static/fragments/header :: header">
+<title>Accounts control</title>
+</head>
 
-		<div class="dataList">
-			<div th:if="${not isEmpty}">
-				<h2 id="title">User list:</h2>
-				<table>
-					<tr>
-						<th>Username</th>
-						<th>Role</th>
-						<th>Enabled</th>
-						<th>Action</th>
-					</tr>
-					<tr th:each="user : ${userList}">
-						<td th:text="${user.username}">Username</td>
-						<td th:text="${user.userRole}">Text</td>
-						<td th:text="${user.enabled}">Text</td>
-						<td>
-							<a th:href="@{'/owner/accountsControl/blockUser'(username=${user.username},page=${pageNumber})}"><span>Block</span></a>/
-							<a th:href="@{'/owner/accountsControl/unlockUser'(username=${user.username},page=${pageNumber})}"><span>Unlock</span></a>
-						</td>
-					</tr>
-				</table>
-			 	<ul id="ulFixed" class="pager">
-			 		<div>
-			 			<li th:class="${pageNumber == 1?'disabled':''}">
-			 				<a type="button" th:href="@{/owner/accountsControl(page=1)}" ><span>First</span></a>
-			 			</li>
-						<li th:class="${pageNumber &lt;= 1?'disabled':''}" >
-							<a type="button" th:href="@{/owner/accountsControl(page=${pageNumber-1})}" ><span>Previous</span></a>
-						</li>
-			 			<li style="float:right" th:class="${pageNumber == maxPagesNumber?'disabled':''}" >
-			 				<a type="button" th:href="@{/owner/accountsControl(page=${maxPagesNumber})}" ><span>Last</span></a>
-			 			</li>
-						<li style="float:right" th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}" >
-							<a type="button" th:href="@{/owner/accountsControl(page=${pageNumber+1})}" th:disabled="${nextInp}" ><span>Next</span></a>
-						</li>
-					</div>
-				</ul>
-			</div> 
-			<div th:unless="${not isEmpty}">
-				<div>Uwaga, brak produktów w bazie!</div>
-			</div>
+<body>
+
+	<header>
+		<h1>Client and Employee accounts control</h1>
+		<ul>
+			<li><a th:href="@{/home}">Return to homepage</a></li>
+		</ul>
+	</header>
+
+	<hr />
+
+	<div class="pageContext">
+		<div th:if="${not isEmpty}">
+			<h2 id="title">User list:</h2>
+			<table>
+				<tr>
+					<th>Username</th>
+					<th>Role</th>
+					<th>Enabled</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="user : ${userList}">
+					<td th:text="${user.username}">Username</td>
+					<td th:text="${user.userRole}">Text</td>
+					<td th:text="${user.enabled}">Text</td>
+					<td><a
+						th:href="@{'/owner/accountsControl/blockUser'(username=${user.username},page=${pageNumber})}"><span>Block</span></a>/
+						<a
+						th:href="@{'/owner/accountsControl/unlockUser'(username=${user.username},page=${pageNumber})}"><span>Unlock</span></a>
+					</td>
+				</tr>
+			</table>
+			<ul id="ulFixed" class="pager">
+				<div>
+					<li th:class="${pageNumber == 1?'disabled':''}"><a
+						type="button" th:href="@{/owner/accountsControl(page=1)}"><span>First</span></a>
+					</li>
+					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a
+						type="button"
+						th:href="@{/owner/accountsControl(page=${pageNumber-1})}"><span>Previous</span></a>
+					</li>
+					<li style="float: right"
+						th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a
+						type="button"
+						th:href="@{/owner/accountsControl(page=${maxPagesNumber})}"><span>Last</span></a>
+					</li>
+					<li style="float: right"
+						th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}">
+						<a type="button"
+						th:href="@{/owner/accountsControl(page=${pageNumber+1})}"
+						th:disabled="${nextInp}"><span>Next</span></a>
+					</li>
+				</div>
+			</ul>
 		</div>
-    </body>
+		<div th:unless="${not isEmpty}">
+			<div>Uwaga, brak produktów w bazie!</div>
+		</div>
+	</div>
+</body>
 </html>

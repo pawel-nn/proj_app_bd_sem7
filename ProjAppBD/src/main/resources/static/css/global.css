@@ -1,21 +1,78 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css");
 
 body {
-	margin-left: 3cm;
-	margin-right: 5cm;
 	background-color: #ecf7dd;
-    margin-top: 50px;
+    margin-top: 35px;  
+    margin-bottom: 50px;
+}
+
+header {
+	
+}
+
+h1 {
+	text-align: center;
+}
+
+hr {
+	width: 50%;
+	margin: 0 auto;
+}
+
+table {
+	border: 3px solid black;
+    border-collapse: collapse;
+    width: 60%;
 }
 
 table, td, th {    
-    text-align: left;
+	border: 1px solid black;
 }
 
 th, td {
     padding: 10px;
+    text-align: center;
 }
 
 tr {
-	background-color: #f2f2f2
+	background-color: #f2f2f2;
 }
 
+input {
+	width: 95%;
+}
+
+#send {
+	margin-top: 25px;
+	width: 250px;
+	height: 35px;
+	margin-top: 25px;
+}
+
+.pageContext {
+	width: 50%;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+#logout {
+	position: fixed;
+	width: 250px;
+	height: 35px;
+}
+
+header ul, header li, header #logout {
+	top: 25%;
+	margin-left: 25px; 
+}
+
+header ul {
+	margin-top: 75px;
+	position: fixed;
+	list-style: square;
+}
+
+header li {
+	height: 25px;
+	margin-top: 25px;
+}

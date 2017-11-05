@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    
-    <head lang="en" th:include="../static/fragments/header :: header"> 
-       <title>Strona domowa klienta</title>  
-	</head>
-    <body>
-    
-    
-    
-    	<header>
-			<h1 id="title">
-				Strona domowa klienta
-			</h1>
-			<div>
-				<ul>
-					<li><form th:action="@{/logout}" method="post"><input type="submit" value="Wyloguj"/></form></li>
-					<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
-				</ul>	
-			</div>
-		</header>
-	
-		<hr/>
-	
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head lang="en" th:include="../static/fragments/header :: header">
+<title>Strona domowa klienta</title>
+</head>
+<body>
+
+	<header>
+		<h1 id="title">Strona domowa klienta</h1>
+		<div>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" id="logout" value="Wyloguj" />
+			</form>
+			<ul>
+				<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<hr />
+
+	<div class="pageContext">
 		<p th:text="${usernameMsg}">username</p>
 		<p th:text="${roleMsg}">role</p>
+	</div>
 
-    </body>
+</body>
 </html>
