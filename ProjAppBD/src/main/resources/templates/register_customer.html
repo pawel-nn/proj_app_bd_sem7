@@ -1,55 +1,56 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-      
-    <head>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	    <link href="../static/css/global.css"
-           	  th:href="@{/css/global.css}"
-              rel="stylesheet" media="screen" />
-		<title>Rejestracja klienta</title>
-	</head>
-	
-    <body>
-		<header>
-			<h1>
-				Rejestracja klienta
-			</h1>
-						<div id="shortLinks">
-				<ul>
-					<li><a th:href="@{/}">Wróć do strony domowej</a></li>
-				</ul>	
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/global.css" th:href="@{/css/global.css}"
+	rel="stylesheet" media="screen" />
+<title>Rejestracja klienta</title>
+</head>
+
+<body>
+	<header>
+		<h1>Rejestracja klienta</h1>
+		<div id="shortLinks">
+			<ul>
+				<li><a th:href="@{/}">Wróć do strony domowej</a></li>
+			</ul>
+		</div>
+	</header>
+	<hr />
+
+	<div class="pageContext">
+		<form th:action="@{/registerCustomer}" th:object="${customerVO}"
+			method="post">
+			<div>
+				<table>
+					<tr>
+						<td>Nazwa użytkownika:</td>
+						<td><input type="text" th:field="*{username}" /></td>
+					</tr>
+					<tr>
+						<td>Nowe hasło:</td>
+						<td><input type="password" th:field="*{password_1}" /></td>
+					</tr>
+					<tr>
+						<td>Powtórz hasło:</td>
+						<td><input type="password" th:field="*{password_2}" /></td>
+					</tr>
+					<tr>
+						<td>Imię:</td>
+						<td><input type="text" th:field="*{customerDetailsVO.name}" /></td>
+					</tr>
+					<tr>
+						<td>Nazwisko:</td>
+						<td><input type="text" th:field="*{surname}" /></td>
+					</tr>
+				</table>
+				<button type="submit" id="send">Zarejesruj</button>
+				<div>Pola z * są opcjonalne</div>
 			</div>
-		</header>	
-		<hr/>
-		<div id="pageContent">
-        	<form th:action="@{/registerCustomer}" th:object="${customerVO}" method="post">
-     			<div>
-            		<table>
-                		<tr>
-                 	   		<td>Nazwa użytkownika:</td>
-                    		<td><input type="text" th:field="*{username}" /></td>
-                		</tr>
-                		<tr>
-                    		<td>Nowe hasło:</td>
-                    		<td><input type="password" th:field="*{password_1}" /></td>
-                		</tr>
-                		<tr>
-                    		<td>Powtórz hasło:</td>
-                    		<td><input type="password" th:field="*{password_2}" /></td>
-                		</tr>	
-                 		<tr>
-                    		<td>Imię:</td>
-                    		<td><input type="text" th:field="*{customerDetailsVO.name}" /></td>
-                		</tr>          	
-                  		<tr>
-                    		<td>Nazwisko:</td>
-                    		<td><input type="text" th:field="*{surname}" /></td>
-                    	</tr>      
-                	</table>   
-            		<button type="submit" id="send" >Zarejesruj</button>
-            		<div>Pola z * są opcjonalne</div>
-            	</div>
-        	</form>
-        </div>
-    </body>
+		</form>
+	</div>
+</body>
 </html>

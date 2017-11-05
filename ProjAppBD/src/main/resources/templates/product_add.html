@@ -1,57 +1,60 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-      
-    <head>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	    <link href="../static/css/global.css"
-           	  th:href="@{/css/global.css}"
-              rel="stylesheet" media="screen" />
-		<title>Nowy produkt</title>
-	</head>
-	
-    <body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-		<header>
-			<h1>
-				Dodawanie nowego produktu
-			</h1>
-			<ul> 
-				<li><a th:href="@{/home}">Powrót do strony domowej</a></li> 
-			</ul>
-		</header>
-		
-		<hr id="hr1" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/global.css" th:href="@{/css/global.css}"
+	rel="stylesheet" media="screen" />
+<title>Nowy produkt</title>
+</head>
 
-        <form id="myForm" th:action="@{/owner/productList/addProduct}" th:object="${productVO}" method="post" enctype="multipart/form-data" >
-     		<div id="myFormStyle">
-            	<table>
-            		<tr>
-            			<th colspan="2"><div id="myFormTitle"> Dodawanie nowego produktu: </div></th>
-            		</tr>
-                	<tr>
-                    	<td>Nazwa produktu:</td>
-                    	<td><input type="text" th:field="*{name}" /></td>
-                	</tr>
-                	<tr>
-                    	<td>Cena:</td>
-                    	<td><input type="text" th:field="*{price}" /></td>
-                	</tr>      	
-                	<tr>
-                    	<td>Ilość:</td>
-                    	<td><input type="number" th:field="*{stockSize}" /></td>
-                	</tr>
-                	<tr>
-                    	<td>Kod:</td>
-                    	<td><input type="number" th:field="*{code}" /></td>
-                	</tr>
-                	<tr>
-				    	<td>Zdjęcie:</td>
-				     	<td><input type="file" accept="image/x-png,image/gif,image/jpeg" name="productPhoto" /></td>
-				    </tr> 
-            	</table>
-            	<button type="submit" >Dodaj</button>
-            </div>
-        </form>
-    </body>
+<body>
+
+	<header>
+		<h1>Dodawanie nowego produktu</h1>
+		<ul>
+			<li><a th:href="@{/home}">Powrót do strony domowej</a></li>
+		</ul>
+	</header>
+
+	<hr id="hr1" />
+
+	<div class="pageContext">
+		<form id="myForm" th:action="@{/owner/productList/addProduct}"
+			th:object="${productVO}" method="post" enctype="multipart/form-data">
+			<div id="myFormStyle">
+				<table>
+					<tr>
+						<th colspan="2"><div id="myFormTitle">Dodawanie nowego
+								produktu:</div></th>
+					</tr>
+					<tr>
+						<td>Nazwa produktu:</td>
+						<td><input type="text" th:field="*{name}" /></td>
+					</tr>
+					<tr>
+						<td>Cena:</td>
+						<td><input type="text" th:field="*{price}" /></td>
+					</tr>
+					<tr>
+						<td>Ilość:</td>
+						<td><input type="number" th:field="*{stockSize}" /></td>
+					</tr>
+					<tr>
+						<td>Kod:</td>
+						<td><input type="number" th:field="*{code}" /></td>
+					</tr>
+					<tr>
+						<td>Zdjęcie:</td>
+						<td><input type="file"
+							accept="image/x-png,image/gif,image/jpeg" name="productPhoto" /></td>
+					</tr>
+				</table>
+				<button type="submit" id="send" >Dodaj</button>
+			</div>
+		</form>
+	</div>
+</body>
 </html>

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
       
     <head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -21,7 +23,8 @@
 			</div>
 		</header>	
 		<hr/>
-		<div id="pageContent">
+		
+		<div class="pageContext">
         	<form th:action="@{/registerCustomer}" th:object="${customerVO}" method="post">
      			<div>
             		<table>

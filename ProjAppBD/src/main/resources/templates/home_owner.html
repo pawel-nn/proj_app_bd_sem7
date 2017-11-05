@@ -17,8 +17,8 @@
 				Strona domowa właściciela
 			</h1>
 			<div>
+				<form th:action="@{/logout}" method="post"><input type="submit" id="logout" value="Wyloguj"/></form>
 				<ul>
-					<li><form th:action="@{/logout}" method="post"><input type="submit" value="Wyloguj"/></form></li>
 					<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
 					<li><a th:href="@{/owner/productList}">Produkty</a></li>
 					<li><a th:href="@{/owner/productCategoryList}">Kategorie produktów</a></li>
@@ -29,8 +29,10 @@
 	
 		<hr/>
 	
-		<p th:text="${usernameMsg}">username</p>
-		<p th:text="${roleMsg}">role</p>
-
+		<div class="pageContext">
+			<p th:text="${usernameMsg}">username</p>
+			<p th:text="${roleMsg}">role</p>
+		</div>
+		
     </body>
 </html>

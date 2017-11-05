@@ -10,24 +10,24 @@
 	</head>
     <body>
     
-    
-    
     	<header>
 			<h1 id="title">
 				Strona domowa klienta
 			</h1>
 			<div>
+				<form th:action="@{/logout}" method="post"><input type="submit" id="logout" value="Wyloguj"/></form>
 				<ul>
-					<li><form th:action="@{/logout}" method="post"><input type="submit" value="Wyloguj"/></form></li>
 					<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
 				</ul>	
 			</div>
 		</header>
 	
 		<hr/>
-	
-		<p th:text="${usernameMsg}">username</p>
-		<p th:text="${roleMsg}">role</p>
+		
+		<div class="pageContext">
+			<p th:text="${usernameMsg}">username</p>
+			<p th:text="${roleMsg}">role</p>
+		</div>
 
     </body>
 </html>

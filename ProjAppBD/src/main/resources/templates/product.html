@@ -1,56 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-      
-    <head>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	    <link href="../static/css/global.css"
-           	  th:href="@{/css/global.css}"
-              rel="stylesheet" media="screen" />
-		<title>Produkt</title>
-	</head>
-	
-    <body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-		<header>
-			<h1>
-				Produkt
-			</h1>
-			<ul>
-				<li><a th:href="@{/owner/productList}">Wróć do listy produktów</a></li>
-				<li><a th:href="@{/home}">Wróć do strony domowej</a></li> 
-			</ul>
-		</header>
-		
-		<hr/>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/global.css" th:href="@{/css/global.css}"
+	rel="stylesheet" media="screen" />
+<title>Produkt</title>
+</head>
 
-		<div>		
-			<div> Nazwa produktu: <span th:text="${product.name}">Text</span></div>
-			<table>
-				<tr>
-					<td>Cena:</td>
-					<td th:text="${product.price}">Text</td>
-				</tr>
-				<tr>
-					<td>Ilość:</td>
-					<td th:text="${product.stockSize}">Text</td>
-				</tr>
-				<tr>		
-					<td>Kod:</td>
-					<td th:text="${product.code}">Text</td>
-				</tr>
-				<tr>
-					<td>Zdjęcie:</td>
-					<td><img th:src="@{${'/resources/images/' + product.productImage.productImageName}}" /></td>
-				</tr>  
-				<tr>	
-					<td>Operacje:</td>
-					<td>
-						<a th:href="@{/owner/products/updateProduct(productId=${product.productId})}"><span>Aktualizuj</span></a>/
-						<a th:href="@{/owner/productList/deleteProduct(productId=${product.productId})}"><span>Usuń</span></a>
-					</td>
-				</tr>
-			</table>
+<body>
+
+	<header>
+		<h1>Produkt</h1>
+		<ul>
+			<li><a th:href="@{/owner/productList}">Wróć do listy
+					produktów</a></li>
+			<li><a th:href="@{/home}">Wróć do strony domowej</a></li>
+		</ul>
+	</header>
+
+	<hr />
+
+	<div class="pageContext">
+		<div>
+			Nazwa produktu: <span th:text="${product.name}">Text</span>
 		</div>
-    </body>
+		<table>
+			<tr>
+				<td>Cena:</td>
+				<td th:text="${product.price}">Text</td>
+			</tr>
+			<tr>
+				<td>Ilość:</td>
+				<td th:text="${product.stockSize}">Text</td>
+			</tr>
+			<tr>
+				<td>Kod:</td>
+				<td th:text="${product.code}">Text</td>
+			</tr>
+			<tr>
+				<td>Zdjęcie:</td>
+				<td><img
+					th:src="@{${'/resources/images/' + product.productImage.productImageName}}" /></td>
+			</tr>
+			<tr>
+				<td>Operacje:</td>
+				<td><a
+					th:href="@{/owner/products/updateProduct(productId=${product.productId})}"><span>Aktualizuj</span></a>/
+					<a
+					th:href="@{/owner/productList/deleteProduct(productId=${product.productId})}"><span>Usuń</span></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
 </html>

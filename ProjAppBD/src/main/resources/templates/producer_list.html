@@ -25,7 +25,7 @@
 		
 		<hr/>
 
-		<div class="dataList">
+		<div class="pageContext">
 			<div th:if="${producerList.getSize() > 0}">
 				<h2>Lista kategorii:</h2>
 				<table>
@@ -76,7 +76,7 @@
                     	<td><input type="text" th:field="*{producerName}" /></td>
                 	</tr>
             	</table>
-            	<button type="submit" >Dodaj</button>
+            	<button type="submit" id="send" >Dodaj</button>
             </div>
         </form>
     </body>
