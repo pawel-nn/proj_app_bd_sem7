@@ -1,39 +1,32 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="../static/css/global.css" th:href="@{/css/global.css}"
-	rel="stylesheet" media="screen" />
+<link href="../static/css/global.css" th:href="@{/css/global.css}" rel="stylesheet" media="screen" />
 <title>Kategoria produktu</title>
 </head>
 
 <body>
 
 	<header>
+		<h1>Aktualizacja kategorii produktu</h1>
+		<div id="leftMenuHeader">Menu:</div>
 		<ul>
 			<li><a th:href="@{/owner/productCategoryList}">Powrót</a></li>
 		</ul>
 	</header>
 
 	<div class="pageContext">
-		<form id="myForm"
-			th:action="@{/owner/productCategoryList/updateProductCategory?productCategoryId=(productCategoryId)}"
-			th:object="${productCategoryVO}" method="post">
+		<form id="myForm" th:action="@{/owner/productCategoryList/updateProductCategory?productCategoryId=(productCategoryId)}" th:object="${productCategoryVO}" method="post">
 			<div id="myFormStyle">
 				<table>
 					<tr>
-						<th colspan="2"><div id="myFormTitle">Aktualizuj
-								kategorię produktu:</div></th>
+						<th colspan="2"><div id="myFormTitle">Aktualizuj kategorię produktu:</div></th>
 					</tr>
 					<tr>
 						<td>Kategoria:</td>
-						<td><input type="text" th:field="*{productCategoryName}" />
-							<input type="number" hidden="hidden"
-							th:value="*{productCategoryId}" th:field="*{productCategoryId}" />
-						</td>
+						<td><input type="text" th:field="*{productCategoryName}" /> <input type="number" hidden="hidden" th:value="*{productCategoryId}" th:field="*{productCategoryId}" /></td>
 
 					</tr>
 				</table>

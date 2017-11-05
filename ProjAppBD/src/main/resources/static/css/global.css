@@ -10,7 +10,16 @@ header {
 	
 }
 
+tittle {
+	font-size: 250%;
+}
+
+h2 { 
+	font-size: 250%;
+}
+
 h1 {
+	font-size: 300%;
 	text-align: center;
 }
 
@@ -29,8 +38,12 @@ table, td, th {
 	border: 1px solid black;
 }
 
+th {
+	height: 15px;
+}
+
 th, td {
-    padding: 10px;
+    padding: 5px;
     text-align: center;
 }
 
@@ -46,7 +59,7 @@ input {
 	margin-top: 25px;
 	width: 250px;
 	height: 35px;
-	margin-top: 25px;
+	margin-down: 25px;
 }
 
 .pageContext {
@@ -56,18 +69,19 @@ input {
 }
 
 #logout {
-	position: fixed;
+	min-width: 100px;
 	width: 250px;
 	height: 35px;
 }
 
-header ul, header li, header #logout {
+header ul, header li, header #logout, header #leftMenuHeader, header #leftMenuLogout {
+	width: 40%;
 	top: 25%;
 	margin-left: 25px; 
 }
 
 header ul {
-	margin-top: 75px;
+	margin-top: 25px;
 	position: fixed;
 	list-style: square;
 }
@@ -75,4 +89,44 @@ header ul {
 header li {
 	height: 25px;
 	margin-top: 25px;
+}
+
+#leftMenuLogout {
+	position: block;
+}
+
+#leftMenuHeader {
+	position: fixed; 
+	font-size: 150%;
+}
+
+.pageContext ul {
+    list-style-type: none;
+	width: 50%;
+	margin: 0 auto;
+    overflow: hidden;
+    background-color: #dddddd;
+    margin-top: 15px;  
+    margin-bottom: 20px;
+    float: left;
+    min-width: 400px;
+    max-width: 400px;
+}
+
+.pageContext li {
+    float: left;
+}
+
+.pageContext li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.pageContext li a:hover {
+    background-color: #b0b0b0;
 }

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-<head>
+<head lang="en" th:include="../static/fragments/header :: header">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="../static/css/global.css" th:href="@{/css/global.css}"
-	rel="stylesheet" media="screen" />
+<link href="../static/css/global.css" th:href="@{/css/global.css}" rel="stylesheet" media="screen" />
 <title>Lista produktów</title>
 </head>
 
@@ -14,6 +11,7 @@
 
 	<header>
 		<h1>Lista produktów</h1>
+		<div id="leftMenuHeader">Menu:</div>
 		<ul>
 			<li><a th:href="@{/home}">Return to homepage</a></li>
 		</ul>
@@ -34,38 +32,21 @@
 					<th>Operacje</th>
 				</tr>
 				<tr th:each="product : ${productList}">
-					<td><a
-						th:href="@{/owner/productList/product(productId=${product.productId})}"><span
-							th:text="${product.productId}">id</span></a></td>
+					<td><a th:href="@{/owner/productList/product(productId=${product.productId})}"><span th:text="${product.productId}">id</span></a></td>
 					<td th:text="${product.name}">Text</td>
 					<td th:text="${product.price}">Text</td>
 					<td th:text="${product.stockSize}">Text</td>
 					<td th:text="${product.code}">Text</td>
-					<td><a
-						th:href="@{'/owner/productList/updateProduct'(productId=${product.productId},page=${pageNumber})}"><span>Update</span></a>/
-						<a
-						th:href="@{'/owner/productList/deleteProduct'(productId=${product.productId},page=${pageNumber})}"><span>Delete</span></a>
+					<td><a th:href="@{'/owner/productList/updateProduct'(productId=${product.productId},page=${pageNumber})}"><span>Update</span></a>/ <a th:href="@{'/owner/productList/deleteProduct'(productId=${product.productId},page=${pageNumber})}"><span>Delete</span></a>
 					</td>
 				</tr>
 			</table>
 			<ul>
 				<div>
-					<li th:class="${pageNumber == 1?'disabled':''}"><a
-						type="button" th:href="@{/owner/productList(page=1)}"><span>Pierwsza</span></a>
-					</li>
-					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a
-						type="button"
-						th:href="@{/owner/productList(page=${pageNumber-1})}"><span>Poprzednia</span></a>
-					</li>
-					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}">
-						<a type="button"
-						th:href="@{/owner/productList(page=${maxPagesNumber})}"><span>Ostatnia</span></a>
-					</li>
-					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}">
-						<a type="button"
-						th:href="@{/owner/productList(page=${pageNumber+1})}"
-						th:disabled="${nextInp}"><span>Następna</span></a>
-					</li>
+					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=1)}"><span>Pierwsza</span></a></li>
+					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
+					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
 				</div>
 			</ul>
 		</div>
@@ -74,8 +55,7 @@
 		</div>
 
 		<div>
-			<a type="button" th:href="@{/owner/productList/addProduct}"><span>Dodaj
-					nowy produkt!</span></a>
+			<a type="button" th:href="@{/owner/productList/addProduct}"><span>Dodaj nowy produkt!</span></a>
 		</div>
 	</div>
 </body>
