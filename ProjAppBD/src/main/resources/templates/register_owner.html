@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-<head lang="en" th:include="../static/fragments/header :: header">
+<head>
 	<title>Rejestracja klienta</title>
 </head>
 
 <body>
 	<header>
-		<h1>Rejestracja klienta</h1>
+		<h1>Rejestracja konta właściciela</h1>
 		<div id="leftMenuHeader">Menu:</div>
 		<ul>
 			<li><a th:href="@{/}">Wróć do strony domowej</a></li>
@@ -16,7 +16,7 @@
 	<hr />
 
 	<div class="pageContext">
-		<form th:action="@{/registerCustomer}" th:object="${customerVO}" method="post">
+		<form th:action="@{/registerOwner}" th:object="${ownerVO}" method="post">
 			<div>
 				<table>
 					<tr>
@@ -35,30 +35,9 @@
 						<td>Email:</td>
 						<td><input type="email" th:field="*{userVO.email}" /></td>
 					</tr>
-					<div>Szczegóły:</div>
 					<tr>
-						<td>Imię:</td>
-						<td><input type="text" th:field="*{customerDetailsVO.name}" /></td>
-					</tr>
-					<tr>
-						<td>Nazwisko:</td>
-						<td><input type="text" th:field="*{customerDetailsVO.surname}" /></td>
-					</tr>
-					<tr>
-						<td>Rok urodzenia:</td>
-						<td><input type="text" th:field="*{customerDetailsVO.dateOfBirth}" /></td>
-					</tr>
-					<tr>
-						<td>Miasto:</td>
-						<td><input type="text" th:field="*{customerDetailsVO.city}" /></td>
-					</tr>
-					<tr>
-						<td>Adres domu:</td>
-						<td><input type="text" th:field="*{customerDetailsVO.address}" /></td>
-					</tr>
-					<tr>
-						<td>Kod pocztowy:</td>
-						<td><input type="text" th:field="*{customerDetailsVO.postcode}" /></td>
+						<td>Skret:</td>
+						<td><input type="text" th:field="*{secret}" /></td>
 					</tr>
 				</table>
 				<button type="submit" id="send">Zarejesruj</button>

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import app.viewObject.CustomerDetailsVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,15 @@ public class CustomerDetails {
 		this.postcode = postcode;
 	}
 	
+	public CustomerDetails(CustomerDetailsVO customerDetailsVO) {
+		this.name = customerDetailsVO.getName();
+		this.surnname = customerDetailsVO.getSurnname();
+		this.dateOfBirth = customerDetailsVO.getDateOfBirth();
+		this.address = customerDetailsVO.getAddress();
+		this.city = customerDetailsVO.getCity();
+		this.postcode = customerDetailsVO.getPostcode();
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "customer_details_id", unique = true, nullable = false)

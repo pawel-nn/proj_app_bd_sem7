@@ -15,11 +15,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.dataTransportObject.CustomerDTO;
 import app.dataTransportObject.NewPasswordDTO;
+import app.dataTransportObject.OwnerDTO;
 import app.dataTransportObject.ProductDTO;
 import app.operations.ProductService;
 import app.operations.UserService;
 import app.viewObject.CustomerVO;
 import app.viewObject.NewPasswordVO;
+import app.viewObject.OwnerVO;
 import app.viewObject.ProductVO;
 
 @Controller
@@ -45,11 +47,6 @@ public class MainController {
 	public String accesssDenied() {
 		return "access_denied";
 	}
-
-//	@RequestMapping(value = "/home")
-//	public String home() {
-//		return "home_client";
-//	}
 
 	@GetMapping("/home")
 	public String home(Model model) {
@@ -102,7 +99,6 @@ public class MainController {
 	
 	@GetMapping("/registerCustomer")
 	public String addRegisterCustomerGET(CustomerVO customerVO, Model m) {
-		System.out.println("----------------------------------------");
 		return "register_customer";
 	}
 
@@ -117,4 +113,23 @@ public class MainController {
 		m.addAttribute("msg", "Utworzono konto");
 		return "result";	
 	}
+	
+	
+	@GetMapping("/registerOwner")
+	public String addRegisterOwnerGET(OwnerVO ownerVO, Model m) {
+		return "register_owner";
+	}
+
+	@PostMapping("/registerOwner")
+	public String addRegisterOwnerOST(OwnerVO ownerVO, Model m) {
+		OwnerDTO ownerDTO = new OwnerDTO(ownerVO);
+		ownerDTO = userService.registerOwner(ownerDTO);
+		if(ownerDTO == null) {
+			m.addAttribute("msg", "Błąd, nie można utworzyć konta!");
+			return "result";	
+		}		
+		m.addAttribute("msg", "Utworzono konto");
+		return "result";	
+	}
+	
 }
