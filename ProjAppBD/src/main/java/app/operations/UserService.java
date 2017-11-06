@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import app.dataTransportObject.CustomerDTO;
 import app.dataTransportObject.NewPasswordDTO;
+import app.dataTransportObject.OwnerDTO;
 import app.model.Country;
 import app.model.Customer;
 import app.model.CustomerDetails;
@@ -17,8 +18,10 @@ import app.model.User;
 import app.model.repository.CustomerRepository;
 import app.model.repository.UserRepository;
 import app.validation.CustomerValidation;
+import app.validation.OwnerValidation;
 import app.validation.UserValidation;
 import app.viewObject.CustomerVO;
+import app.viewObject.OwnerVO;
 
 @Service
 public class UserService {
@@ -36,6 +39,9 @@ public class UserService {
 	
 	@Autowired
 	private CustomerValidation customerValidation;
+	
+	@Autowired
+	private OwnerValidation ownerValidation;
 	
 	public boolean updateUserPassword(NewPasswordDTO newPasswordDTO, String username) {
 		try {
@@ -101,13 +107,31 @@ public class UserService {
 		if(customerDTO.isValid()) {
 			try {
 				CustomerVO vo = customerDTO.getViewObject();
-				User user = new User(vo.getUsername(), vo.getPassword_1(), "email", true, "ROLE_CLIENT") ;
-				CustomerDetails customerDetails = new CustomerDetails(vo.getCustomerDetailsVO().getName(), vo.getSurname(), "aaa", "bbb", "ccc", "ddd");
+				CustomerDetails customerDetails = new CustomerDetails(vo.getCustomerDetailsVO());
+				User user = new User(vo.getUserVO().getUsername(), vo.getUserVO().getPassword_1(), vo.getUserVO().getEmail(), true, "ROLE_CUSTOMER") ;
 				Country country = new Country("Polska","POL");
 				Customer customer = new Customer(user, customerDetails, country);
 			    customer = customerRepository.save(customer);
 			    customerDTO.getViewObject().setCustomerId(customer.getCustomerId());
 			return customerDTO;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	public OwnerDTO registerOwner(OwnerDTO ownerDTO) {
+		ownerDTO = ownerValidation.validateNewOwner(ownerDTO);
+		if(ownerDTO.isValid()) {
+			try {
+				OwnerVO vo = ownerDTO.getViewObject();
+				User user = new User(vo.getUserVO().getUsername(), vo.getUserVO().getPassword_1(), vo.getUserVO().getEmail(), true, "ROLE_OWNER");
+				user = userRepository.save(user);
+			    ownerDTO.getViewObject().setOwnerId(user.getUserId());
+			return ownerDTO;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
