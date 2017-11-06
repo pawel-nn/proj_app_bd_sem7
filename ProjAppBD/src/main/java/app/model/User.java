@@ -26,7 +26,7 @@ public class User {
 		this.email = email;
 		this.enabled = enabled;
 		this.userRole = userRole;
-		this.failedLogins = 2;
+		this.failedLogins = 0;
 	}
 
 	@Id
