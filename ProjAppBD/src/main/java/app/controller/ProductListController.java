@@ -16,7 +16,7 @@ public class ProductListController {
 	@RequestMapping("/showProductList")
 	public String showProductList(@RequestParam(value="page", required=false) Integer page, Model model){
 		productService.getProductsByPagination(page, model);
-		return "product_list";
+		return "product_list_client";
 	}
 	//process html form
 	
