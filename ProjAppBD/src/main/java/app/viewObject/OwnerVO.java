@@ -1,11 +1,12 @@
 package app.viewObject;
 
-import app.model.User;
 import lombok.Data;
 
 @Data
 public class OwnerVO {
 
-	private User user;
+	private UserVO userVO;
+	private Integer ownerId;
+	private String secret;
 	
 }

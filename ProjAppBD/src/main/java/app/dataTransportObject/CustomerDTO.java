@@ -1,5 +1,6 @@
 package app.dataTransportObject;
 
+import app.viewObject.CustomerDetailsVO;
 import app.viewObject.CustomerVO;
 
 public class CustomerDTO extends ValidationDTO<CustomerVO>{
