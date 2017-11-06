@@ -61,6 +61,7 @@ public class MainController {
 			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
 			authority = sga.getAuthority();
 		} 
+		model.addAttribute("authority", authority);
 		if(authority.equals("ROLE_OWNER")) {
 			model.addAttribute("roleMsg","Witaj sprzedawco!");
 			return "home_owner";
