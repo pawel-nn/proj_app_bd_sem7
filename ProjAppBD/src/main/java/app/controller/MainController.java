@@ -17,6 +17,7 @@ import app.dataTransportObject.CustomerDTO;
 import app.dataTransportObject.NewPasswordDTO;
 import app.dataTransportObject.OwnerDTO;
 import app.dataTransportObject.ProductDTO;
+import app.operations.ProductService;
 import app.operations.UserService;
 import app.viewObject.CustomerVO;
 import app.viewObject.NewPasswordVO;
@@ -28,10 +29,13 @@ public class MainController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired ProductService productService;
     
 	@GetMapping("/")
-	String index() {
-		return "login";
+	String index(@RequestParam(value="page", required=false) Integer page, Model model) {
+		productService.getProductsByPagination(page, model);
+		return "product_list_client";
 	}
 
 	@RequestMapping("/login")
@@ -57,6 +61,7 @@ public class MainController {
 			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
 			authority = sga.getAuthority();
 		} 
+		model.addAttribute("authority", authority);
 		if(authority.equals("ROLE_OWNER")) {
 			model.addAttribute("roleMsg","Witaj sprzedawco!");
 			return "home_owner";

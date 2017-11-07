@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -8,7 +9,7 @@
 </head>
 <body>
 	<header>
-		<h1>Logowanie:</h1>
+		<h4>Logowanie:</h4>
 	</header>
 
 	<hr />
@@ -27,7 +28,8 @@
 					</tr>
 
 				</table>
-				<input type="submit" id="send" value="Zaloguj" />
+				<input class="btn waves-effect waves-teal" type="submit" id="send" value="Zaloguj" />
+				<a class="btn waves-effect waves-teal" href="@{/registerCustomer}">Zarejestruj się</a>
 			</div>
 		</form>
 
