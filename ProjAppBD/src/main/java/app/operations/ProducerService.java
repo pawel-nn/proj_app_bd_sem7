@@ -1,5 +1,7 @@
 package app.operations;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,10 @@ public class ProducerService {
     
     @Autowired
     private ProducerValidation producerValidation;
+    
+    public ArrayList<Producer> findAllProducers() {
+    	return (ArrayList<Producer>) producerRepository.findAll();
+    }
     
 	public void getProducersByPagination(Integer pageReq, Model model) {
     	int usersNumber = (int) producerRepository.count();

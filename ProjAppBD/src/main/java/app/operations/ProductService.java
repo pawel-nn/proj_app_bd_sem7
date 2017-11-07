@@ -14,10 +14,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.dataTransportObject.ProductDTO;
+import app.model.Producer;
 import app.model.Product;
+import app.model.ProductCategory;
 import app.model.ProductImage;
+import app.model.repository.ProducerRepository;
+import app.model.repository.ProductCategoryRepository;
 import app.model.repository.ProductRepository;
 import app.validation.ProductValidation;
+import app.viewObject.ProductVO;
 
 @Service
 public class ProductService {
@@ -31,16 +36,24 @@ public class ProductService {
     private ProductRepository productRepository;
 	
     @Autowired
+    private ProducerRepository producerRepository;
+    
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
+    
+    @Autowired
     private ProductValidation productValidation;
     
 	public ProductDTO saveProduct(MultipartFile productPhoto, ProductDTO productDTO) {
 		productDTO = productValidation.validateNewProduct(productDTO);
 		if(productDTO.isValid()) {
 			try {
+				ProductVO vo = productDTO.getViewObject();
 				saveImage(productPhoto);
+				ProductCategory productCategory = productCategoryRepository.findByProductCategoryId(vo.getProductCategoryId());
+				Producer producer = producerRepository.findByProducerId(vo.getProducerId());
 				ProductImage productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
-				Product product = new Product(productImage, productDTO.getViewObject().getName(), productDTO.getViewObject().getValidatedPrice(),
-					productDTO.getViewObject().getStockSize(), productDTO.getViewObject().getCode());
+				Product product = new Product(productImage, productCategory, producer, vo.getName(), vo.getValidatedPrice(), vo.getStockSize(), vo.getCode());
 				product = productRepository.save(product);
 				productDTO.getViewObject().setProductId(product.getProductId());
 			return productDTO;

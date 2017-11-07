@@ -1,5 +1,7 @@
 package app.operations;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import app.dataTransportObject.ProductCategoryDTO;
+import app.model.Producer;
 import app.model.ProductCategory;
 import app.model.repository.ProductCategoryRepository;
 import app.validation.ProductCategoryValidation;
@@ -22,6 +25,10 @@ public class ProductCategoryService {
 	
     @Autowired
     private ProductCategoryValidation productCategoryValidation;
+    
+    public ArrayList<ProductCategory> findAllProductCategory() {
+    	return (ArrayList<ProductCategory>) productCategoryRepository.findAll();
+    }
     
 	public void getProductCategoriesByPagination(Integer pageReq, Model model) {
     	int usersNumber = (int) productCategoryRepository.count();

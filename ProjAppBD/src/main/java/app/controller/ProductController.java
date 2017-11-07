@@ -1,5 +1,7 @@
 package app.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.dataTransportObject.ProductDTO;
+import app.model.Producer;
 import app.model.Product;
+import app.model.ProductCategory;
+import app.operations.ProducerService;
+import app.operations.ProductCategoryService;
 import app.operations.ProductService;
 import app.viewObject.ProductVO;
 
@@ -19,6 +25,10 @@ import app.viewObject.ProductVO;
 public class ProductController {
 
 	@Autowired ProductService productService;
+	
+	@Autowired ProducerService producerService;
+	
+	@Autowired ProductCategoryService productCategoryService;
 	
     @GetMapping("/owner/productList")
     public String productList(@RequestParam(value="page", required=false) Integer page, Model model) {
@@ -28,6 +38,10 @@ public class ProductController {
 	
 	@GetMapping("/owner/productList/addProduct")
 	public String addNewProductGET(ProductVO productVO, Model m) {
+		ArrayList<Producer> producerList = producerService.findAllProducers();
+		ArrayList<ProductCategory> productCategoryList = productCategoryService.findAllProductCategory();
+		m.addAttribute("producerList", producerList );
+		m.addAttribute("productCategoryList", productCategoryList );
 		return "product_add";
 	}
 
@@ -37,6 +51,10 @@ public class ProductController {
 		productDTO = productService.saveProduct(productPhoto, productDTO);
 		if(productDTO == null) {
 			m.addAttribute("msg", "Błąd, nie można utworzyć produktu!");
+			ArrayList<Producer> producerList = producerService.findAllProducers();
+			ArrayList<ProductCategory> productCategoryList = productCategoryService.findAllProductCategory();
+			m.addAttribute("producerList", producerList );
+			m.addAttribute("productCategoryList", productCategoryList );
 			return "product_add";	
 		}
 		redirectAttributes.addAttribute("productId", productDTO.getViewObject().getProductId());

@@ -2,6 +2,8 @@ package app.viewObject;
 
 import java.math.BigDecimal;
 
+import app.model.Producer;
+import app.model.ProductCategory;
 import lombok.Data;
 
 @Data
@@ -16,5 +18,8 @@ public class ProductVO {
 	
 	private Integer productId;
 	private BigDecimal validatedPrice;
+	
+	private Integer producerId;
+	private Integer productCategoryId;
 
 }
