@@ -22,7 +22,7 @@ public class ResourcesController {
     @GetMapping(value = "/resources/images/{photoName}", produces = "image/png")
     public ResponseEntity<byte[]> getProductPhoto(@PathVariable(value="photoName") String photoName, Model model) {	
     	System.out.println("photoName=" +photoName);
-		String filePath = dirPath + File.separator + photoName;
+		String filePath = dirPath + File.separator + photoName + ".png";
 		File photo = new File(filePath);
 		byte[] bytes = new byte[(int) photo.length()];
 		try {

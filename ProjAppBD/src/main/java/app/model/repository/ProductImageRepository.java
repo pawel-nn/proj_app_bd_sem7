@@ -10,7 +10,7 @@ import app.model.ProductImage;
 @Transactional
 @Repository
 public interface ProductImageRepository extends CrudRepository<ProductImage, Integer> {
-	
-	
 
+	ProductImage findByProductImageName(String productImageName);
+	
 }

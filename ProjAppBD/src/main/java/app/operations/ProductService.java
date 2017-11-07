@@ -20,6 +20,7 @@ import app.model.ProductCategory;
 import app.model.ProductImage;
 import app.model.repository.ProducerRepository;
 import app.model.repository.ProductCategoryRepository;
+import app.model.repository.ProductImageRepository;
 import app.model.repository.ProductRepository;
 import app.validation.ProductValidation;
 import app.viewObject.ProductVO;
@@ -42,6 +43,9 @@ public class ProductService {
     private ProductCategoryRepository productCategoryRepository;
     
     @Autowired
+    private ProductImageRepository productImageRepository;
+    
+    @Autowired
     private ProductValidation productValidation;
     
 	public ProductDTO saveProduct(MultipartFile productPhoto, ProductDTO productDTO) {
@@ -49,10 +53,13 @@ public class ProductService {
 		if(productDTO.isValid()) {
 			try {
 				ProductVO vo = productDTO.getViewObject();
-				saveImage(productPhoto);
+				ProductImage productImage = productImageRepository.findByProductImageName(productPhoto.getOriginalFilename());
+				if(productImage == null) {
+					saveImage(productPhoto);
+				    productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
+				}
 				ProductCategory productCategory = productCategoryRepository.findByProductCategoryId(vo.getProductCategoryId());
 				Producer producer = producerRepository.findByProducerId(vo.getProducerId());
-				ProductImage productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
 				Product product = new Product(productImage, productCategory, producer, vo.getName(), vo.getValidatedPrice(), vo.getStockSize(), vo.getCode());
 				product = productRepository.save(product);
 				productDTO.getViewObject().setProductId(product.getProductId());
