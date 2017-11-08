@@ -1,9 +1,12 @@
 package app.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -13,7 +16,6 @@ import app.dataTransportObject.OwnerDTO;
 import app.model.Country;
 import app.model.Customer;
 import app.model.CustomerDetails;
-import app.model.Product;
 import app.model.User;
 import app.model.repository.CustomerRepository;
 import app.model.repository.UserRepository;
@@ -43,12 +45,22 @@ public class UserService {
 	@Autowired
 	private OwnerValidation ownerValidation;
 	
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder;
+    }
+    
+    public String encode(String password) {
+    	return passwordEncoder().encode(password);
+    }
+	
 	public boolean updateUserPassword(NewPasswordDTO newPasswordDTO, String username) {
 		try {
 			newPasswordDTO = userValidation.validateNewPassword(newPasswordDTO);
 			if(newPasswordDTO.isValid()) {
 				User user = userRepository.findByUsername(username);
-				user.setPassword(newPasswordDTO.getViewObject().getNewPassword_1());
+				user.setPassword(encode(newPasswordDTO.getViewObject().getNewPassword_1()));
 				userRepository.save(user);
 				return true;
 			} else {
@@ -108,7 +120,7 @@ public class UserService {
 			try {
 				CustomerVO vo = customerDTO.getViewObject();
 				CustomerDetails customerDetails = new CustomerDetails(vo.getCustomerDetailsVO());
-				User user = new User(vo.getUserVO().getUsername(), vo.getUserVO().getPassword_1(), vo.getUserVO().getEmail(), true, "ROLE_CUSTOMER") ;
+				User user = new User(vo.getUserVO().getUsername(), encode(vo.getUserVO().getPassword_1()), vo.getUserVO().getEmail(), true, "ROLE_CUSTOMER") ;
 				Country country = new Country("Polska","POL");
 				Customer customer = new Customer(user, customerDetails, country);
 			    customer = customerRepository.save(customer);
@@ -128,7 +140,7 @@ public class UserService {
 		if(ownerDTO.isValid()) {
 			try {
 				OwnerVO vo = ownerDTO.getViewObject();
-				User user = new User(vo.getUserVO().getUsername(), vo.getUserVO().getPassword_1(), vo.getUserVO().getEmail(), true, "ROLE_OWNER");
+				User user = new User(vo.getUserVO().getUsername(), encode(vo.getUserVO().getPassword_1()), vo.getUserVO().getEmail(), true, "ROLE_OWNER");
 				user = userRepository.save(user);
 			    ownerDTO.getViewObject().setOwnerId(user.getUserId());
 			return ownerDTO;
