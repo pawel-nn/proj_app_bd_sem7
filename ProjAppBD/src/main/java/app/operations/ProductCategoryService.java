@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import app.dataTransportObject.ProductCategoryDTO;
 import app.model.Producer;
 import app.model.ProductCategory;
+import app.model.repository.DictionaryRepository;
 import app.model.repository.ProductCategoryRepository;
 import app.validation.ProductCategoryValidation;
 
@@ -25,6 +26,9 @@ public class ProductCategoryService {
 	
     @Autowired
     private ProductCategoryValidation productCategoryValidation;
+    
+    @Autowired
+    private DictionaryService dictionaryRepository;
     
     public ArrayList<ProductCategory> findAllProductCategory() {
     	return (ArrayList<ProductCategory>) productCategoryRepository.findAll();
@@ -53,7 +57,8 @@ public class ProductCategoryService {
 		if(productCategoryDTO.isValid()) {
 			try {
 				ProductCategory productCategory = new ProductCategory(productCategoryDTO.getViewObject().getProductCategoryName());
-				productCategoryRepository.save(productCategory);
+				productCategory = productCategoryRepository.save(productCategory);
+				dictionaryRepository.saveDictionaryKeyword(productCategoryDTO.getViewObject().getProductCategoryName(),productCategory.getProductCategoryId(),DictionaryCategoryType.PRODUCT_CATEGORY.getName());
 			return productCategoryDTO;
 			} catch (Exception e) {
 				e.printStackTrace();

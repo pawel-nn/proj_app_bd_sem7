@@ -19,6 +19,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DictionaryCategoryName {
 
+	public DictionaryCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "dictionary_category_name_id", unique = true, nullable = false)

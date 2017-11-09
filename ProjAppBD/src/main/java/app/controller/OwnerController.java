@@ -1,11 +1,15 @@
 package app.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import app.model.Dictionary;
+import app.operations.DictionaryService;
 import app.operations.UserService;
 
 
@@ -14,6 +18,9 @@ public class OwnerController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private DictionaryService dictionaryService;
 	
     @GetMapping("/owner/accountsControl")
     public String accountsControl(@RequestParam(value="page", required=false) Integer page, Model model) {
@@ -34,5 +41,11 @@ public class OwnerController {
     	userService.unlockUser(username);
     	return "redirect:/owner/accountsControl?page=" + page;
 	}
+    
+    @GetMapping("/owner/dictionary")
+    public String productCategoryList(@RequestParam(value="page", required=false) Integer page, Model model) {
+    	dictionaryService.getDictionaryListByPagination(page, model);
+    	return "dictionary";
+    }
 
 }

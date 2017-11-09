@@ -16,6 +16,7 @@ import app.dataTransportObject.OwnerDTO;
 import app.model.Country;
 import app.model.Customer;
 import app.model.CustomerDetails;
+import app.model.DictionaryCategoryName;
 import app.model.User;
 import app.model.repository.CustomerRepository;
 import app.model.repository.UserRepository;
@@ -44,6 +45,9 @@ public class UserService {
 	
 	@Autowired
 	private OwnerValidation ownerValidation;
+	
+    @Autowired
+    private DictionaryService dictionaryRepository;
 	
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -125,6 +129,7 @@ public class UserService {
 				Customer customer = new Customer(user, customerDetails, country);
 			    customer = customerRepository.save(customer);
 			    customerDTO.getViewObject().setCustomerId(customer.getCustomerId());
+			    dictionaryRepository.saveDictionaryKeyword(customer.getCountry().getCountryName(),customer.getCountry().getCountryId(),DictionaryCategoryType.COUNTRY.getName());
 			return customerDTO;
 			} catch (Exception e) {
 				e.printStackTrace();
