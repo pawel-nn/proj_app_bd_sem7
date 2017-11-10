@@ -7,16 +7,19 @@
 
 <body>
 
-	<header>
-		<h1>Lista produktów</h1>
-		<div id="leftMenuHeader">Menu:</div>
-		<ul>
-			<li><a th:href="@{/home}">Return to homepage</a></li>
-		</ul>
-	</header>
+	<nav class="teal lighten-2" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="#" class="brand-logo">Logo</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a th:href="@{/home}">Strona główna</a></li>
+			</ul>
 
-	<hr />
-
+			<ul id="nav-mobile" class="side-nav">
+				<li><a th:href="@{/login}">Zaloguj</a></li>
+			</ul>
+		</div>
+	</nav>
+	
 	<div class="pageContext">
 		<div th:if="${productList.getSize() > 0}">
 			<h2>Lista produktów:</h2>

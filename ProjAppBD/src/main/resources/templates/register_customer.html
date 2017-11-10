@@ -6,14 +6,18 @@
 </head>
 
 <body>
-	<header>
-		<h1>Rejestracja klienta</h1>
-		<div id="leftMenuHeader">Menu:</div>
-		<ul>
-			<li><a th:href="@{/}">Wróć do strony domowej</a></li>
-		</ul>
-	</header>
-	<hr />
+	<nav class="teal lighten-2" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="#" class="brand-logo">Logo</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a th:href="@{/}">Strona główna</a></li>
+			</ul>
+
+			<ul id="nav-mobile" class="side-nav">
+				<li><a th:href="@{/login}">Zaloguj</a></li>
+			</ul>
+		</div>
+	</nav>
 
 	<div class="pageContext">
 		<form th:action="@{/registerCustomer}" th:object="${customerVO}" method="post">
@@ -35,7 +39,7 @@
 						<td>Email:</td>
 						<td><input type="email" th:field="*{userVO.email}" /></td>
 					</tr>
-					<div>Szczegóły:</div>
+				
 					<tr>
 						<td>Imię:</td>
 						<td><input type="text" th:field="*{customerDetailsVO.name}" /></td>
@@ -61,8 +65,7 @@
 						<td><input type="text" th:field="*{customerDetailsVO.postcode}" /></td>
 					</tr>
 				</table>
-				<button type="submit" id="send">Zarejesruj</button>
-				<div>Pola z * są opcjonalne</div>
+				<button class="waves-effect waves-light btn" type="submit" id="send">Zarejesruj</button>
 			</div>
 		</form>
 	</div>

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-<head>
+<head lang="en" th:include="../static/fragments/header :: header">
 	<title>Rejestracja klienta</title>
 </head>
 
 <body>
-	<header>
-		<h1>Rejestracja konta właściciela</h1>
-		<div id="leftMenuHeader">Menu:</div>
-		<ul>
-			<li><a th:href="@{/}">Wróć do strony domowej</a></li>
-		</ul>
-	</header>
-	<hr />
+	<nav class="teal lighten-2" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="#" class="brand-logo">Logo</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a th:href="@{/}">Strona główna</a></li>
+			</ul>
+			
+			<ul id="nav-mobile" class="side-nav">
+				<li><a th:href="@{/login}">Zaloguj</a></li>
+			</ul>
+		</div>
+	</nav>
 
 	<div class="pageContext">
 		<form th:action="@{/registerOwner}" th:object="${ownerVO}" method="post">
@@ -40,8 +44,7 @@
 						<td><input type="text" th:field="*{secret}" /></td>
 					</tr>
 				</table>
-				<button type="submit" id="send">Zarejesruj</button>
-				<div>Pola z * są opcjonalne</div>
+				<button class="waves-effect waves-light btn" type="submit" id="send">Zarejesruj</button>
 			</div>
 		</form>
 	</div>

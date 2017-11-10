@@ -31,7 +31,7 @@ public class CustomerDetails {
 	
 	public CustomerDetails(CustomerDetailsVO customerDetailsVO) {
 		this.name = customerDetailsVO.getName();
-		this.surnname = customerDetailsVO.getSurnname();
+		this.surnname = customerDetailsVO.getSurname();
 		this.dateOfBirth = customerDetailsVO.getDateOfBirth();
 		this.address = customerDetailsVO.getAddress();
 		this.city = customerDetailsVO.getCity();
