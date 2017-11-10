@@ -1,7 +1,10 @@
 package app.operations;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import app.dataTransportObject.ProductCategoryDTO;
-import app.model.Producer;
 import app.model.ProductCategory;
-import app.model.repository.DictionaryRepository;
 import app.model.repository.ProductCategoryRepository;
 import app.validation.ProductCategoryValidation;
 
@@ -20,7 +21,11 @@ import app.validation.ProductCategoryValidation;
 public class ProductCategoryService {
 
     private static int MAX_ROWS_PER_PAGE = 20;	
-	
+    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    
+	@Autowired
+	private DatabaseLogService databaseLogService;
+    
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
 	
@@ -50,6 +55,8 @@ public class ProductCategoryService {
     	model.addAttribute("productCategoryList", productCategoryList);
     	model.addAttribute("pageNumber",pageNumber);
     	model.addAttribute("maxPagesNumber",maxPagesNumber); 
+    	log.info("PCS: Get product category List.");
+    	databaseLogService.info("PCS: Get product category List.");
 	}
 
 	public ProductCategoryDTO saveProductCategory(ProductCategoryDTO productCategoryDTO) {
@@ -59,8 +66,12 @@ public class ProductCategoryService {
 				ProductCategory productCategory = new ProductCategory(productCategoryDTO.getViewObject().getProductCategoryName());
 				productCategory = productCategoryRepository.save(productCategory);
 				dictionaryRepository.saveDictionaryKeyword(productCategoryDTO.getViewObject().getProductCategoryName(),productCategory.getProductCategoryId(),DictionaryCategoryType.PRODUCT_CATEGORY.getName());
-			return productCategoryDTO;
+				log.info("PCS: New product category created: {}.", productCategoryDTO.getViewObject().getProductCategoryName());
+				databaseLogService.info("PCS: New product category created: " + productCategoryDTO.getViewObject().getProductCategoryName());
+				return productCategoryDTO;
 			} catch (Exception e) {
+				log.error("PCS: Product category: {} cannot be created.", productCategoryDTO.getViewObject().getProductCategoryName());
+				databaseLogService.error("PCS: Product category: " +productCategoryDTO.getViewObject().getProductCategoryName()+ " cannot be created." );
 				e.printStackTrace();
 				return null;
 			}
@@ -73,8 +84,12 @@ public class ProductCategoryService {
 		try {
 			ProductCategory productCategory = productCategoryRepository.findByProductCategoryId(productCategoryId);
 			productCategoryRepository.delete(productCategory);
+			log.info("PCS: Product category of id: {} was deleted.", productCategoryId);
+			databaseLogService.info("PCS: Product category of id: " +productCategoryId+ "was deleted.");
 			return true;
 		} catch ( Exception e ) {
+			log.error("PCS: Product category of id: {} cannot be deleted.", productCategoryId);
+			databaseLogService.info("PCS: Product category of id: " +productCategoryId+ " cannot be deleted.");
 			return false;
 		}		
 	}

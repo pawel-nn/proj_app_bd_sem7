@@ -3,8 +3,11 @@ package app.operations;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.invoke.MethodHandles;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,8 +33,12 @@ public class ProductService {
 
 	private static final String rootPath = "C:\\";
 	private static final String dirPath = rootPath + File.separator + "projectFiles";
-	
+    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    
     private static int MAX_ROWS_PER_PAGE = 10;	
+    
+	@Autowired
+	private DatabaseLogService databaseLogService;
     
     @Autowired
     private ProductRepository productRepository;
@@ -57,18 +64,27 @@ public class ProductService {
 				if(productImage == null) {
 					saveImage(productPhoto);
 				    productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
+				} else {
+					log.warn("PtS: Product image already in DB");
+					databaseLogService.warn("PtS: Product image already in DB");
 				}
 				ProductCategory productCategory = productCategoryRepository.findByProductCategoryId(vo.getProductCategoryId());
 				Producer producer = producerRepository.findByProducerId(vo.getProducerId());
 				Product product = new Product(productImage, productCategory, producer, vo.getName(), vo.getValidatedPrice(), vo.getStockSize(), vo.getCode());
 				product = productRepository.save(product);
 				productDTO.getViewObject().setProductId(product.getProductId());
-			return productDTO;
+				log.info("PtS: New product: {}.", productDTO.getViewObject().getName());
+				databaseLogService.info("PtS: New product: " + productDTO.getViewObject().getName());
+				return productDTO;
 			} catch (Exception e) {
+				log.error("PtS: Product: {}, cannot be created.", productDTO.getViewObject().getName());
+				databaseLogService.error("PtS: Product: " +productDTO.getViewObject().getName()+ ", cannot be created.");
 				e.printStackTrace();
 				return null;
 			}
 		} else {
+	    	log.info("PtS: New product not valid.");
+	    	databaseLogService.info("PtS: Product not valid.");
 			return null;
 		}
 	}
@@ -85,8 +101,12 @@ public class ProductService {
 				File convertedFile = new File(filePath);
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(convertedFile));
 				stream.write(bytes);
-				stream.close();		
+				stream.close();	
+				log.warn("PtS: New image saved.");
+				databaseLogService.warn("PtS: New image saved.");
 		} else {
+			log.warn("PtS: Product image is null.");
+			databaseLogService.warn("PtS: Product image is null.");
 			return;
 //			throw new NoSuchFileException("File not given!");
 		}
@@ -98,8 +118,12 @@ public class ProductService {
 			product.setProductCategory(null);
 			productRepository.save(product);
 			productRepository.delete(productId);
+			log.info("PtS: Product of id: {} was deleted.", productId);
+			databaseLogService.info("PtS: Product of id: " +productId+ "was deleted.");
 			return true;
 		} catch ( Exception e ) {
+			log.error("PtS: Product of id: {} cannot be deleted.", productId);
+			databaseLogService.info("PtS: Product of id: " +productId+ " cannot be deleted.");
 			return false;
 		}
 	}
@@ -119,7 +143,9 @@ public class ProductService {
     		model.addAttribute("isEmpty", false);
     	model.addAttribute("productList", productList);
     	model.addAttribute("pageNumber",pageNumber);
-    	model.addAttribute("maxPagesNumber",maxPagesNumber);   
+    	model.addAttribute("maxPagesNumber",maxPagesNumber); 
+    	log.info("PtS: Get product List.");
+    	databaseLogService.info("PtS: Get product List.");
 	}
 
 	public boolean existsProduct(Integer productId) {
@@ -130,6 +156,8 @@ public class ProductService {
 	}
 
 	public Product getProductById(Integer productId) {
+    	log.info("PtS: Get product by id: {}", productId);
+    	databaseLogService.info("\"PtS: Get product by id: " + productId);
 		return productRepository.findByProductId(productId);
 	}
 

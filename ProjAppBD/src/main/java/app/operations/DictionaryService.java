@@ -1,5 +1,9 @@
 package app.operations;
 
+import java.lang.invoke.MethodHandles;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,12 +14,17 @@ import org.springframework.ui.Model;
 import app.model.Dictionary;
 import app.model.DictionaryCategoryName;
 import app.model.repository.DictionaryRepository;
+import app.model.repository.LogMessageRepository;
 
 @Service
 public class DictionaryService {
     
     private static int MAX_ROWS_PER_PAGE = 10;	
-	
+    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    
+	@Autowired
+	private DatabaseLogService databaseLogService;
+    
     @Autowired
     private DictionaryRepository dictionaryRepository;
 
@@ -24,7 +33,11 @@ public class DictionaryService {
 			DictionaryCategoryName dictionaryCategoryName = new DictionaryCategoryName(categoryName);
 			Dictionary dictionary = new Dictionary(dictionaryCategoryName, keyword, idx);
 			dictionary = dictionaryRepository.save(dictionary);
+			log.info("DS: New keyword created: {}.", keyword);
+			databaseLogService.info("DS: New keyword created: " + keyword);
 		} catch(Exception e) {
+			log.error("DS: Keyword: {}, cannot be created.", keyword);
+			databaseLogService.error("DS: Keyword: " +keyword+ ", cannot be created.");
 			e.printStackTrace();
 			return;
 		}
@@ -46,6 +59,8 @@ public class DictionaryService {
     	model.addAttribute("dictionaryList", dictionaryList);
     	model.addAttribute("pageNumber",pageNumber);
     	model.addAttribute("maxPagesNumber",maxPagesNumber); 
+    	log.info("DS: Get keyword list");
+    	databaseLogService.info("DS: Get keyword list");
 	}
 
 }
