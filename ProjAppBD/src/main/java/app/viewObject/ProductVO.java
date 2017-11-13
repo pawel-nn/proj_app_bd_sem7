@@ -7,6 +7,15 @@ import lombok.Data;
 @Data
 public class ProductVO {
 	
+	public ProductVO(Integer producerId, Integer productCategoryId, String name, String price, int stockSize, String code) {
+		this.name = name;
+		this.price = price;
+		this.stockSize = stockSize;
+		this.code = code;
+		this.producerId = producerId;
+		this.productCategoryId = productCategoryId;
+	}
+	
 	public static int NAME_MAX_LEN = 45;
 	
 	private String name;
@@ -16,5 +25,10 @@ public class ProductVO {
 	
 	private Integer productId;
 	private BigDecimal validatedPrice;
+	
+	private Integer producerId;
+	private Integer productCategoryId;
 
+	private String errorMsg;
+	private boolean invalidOverall;
 }

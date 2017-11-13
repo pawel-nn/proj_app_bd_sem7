@@ -20,9 +20,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomerDetails {
 	
-	public CustomerDetails(String name, String surnname, String dateOfBirth, String address, String city, String postcode) {
+	public CustomerDetails(String name, String surname, String dateOfBirth, String address, String city, String postcode) {
 		this.name = name;
-		this.surnname = surnname;
+		this.surname = surname;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
 		this.city = city;
@@ -31,7 +31,7 @@ public class CustomerDetails {
 	
 	public CustomerDetails(CustomerDetailsVO customerDetailsVO) {
 		this.name = customerDetailsVO.getName();
-		this.surnname = customerDetailsVO.getSurname();
+		this.surname = customerDetailsVO.getSurname();
 		this.dateOfBirth = customerDetailsVO.getDateOfBirth();
 		this.address = customerDetailsVO.getAddress();
 		this.city = customerDetailsVO.getCity();
@@ -47,7 +47,7 @@ public class CustomerDetails {
 	private String name;
 	
 	@Column(name = "surnname", nullable = false, length = 45)
-	private String surnname;
+	private String surname;
 	
 	@Column(name = "date_of_birth", nullable = false, length = 45)
 	private String dateOfBirth;

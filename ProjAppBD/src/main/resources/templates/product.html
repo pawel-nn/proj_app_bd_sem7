@@ -36,6 +36,14 @@
 				<td th:text="${product.code}">Text</td>
 			</tr>
 			<tr>
+				<td>Producent:</td>
+				<td th:text="${product.producer.producerName}">Text</td>
+			</tr>
+			<tr>
+				<td>Kategoria:</td>
+				<td th:text="${product.productCategory.productCategoryName}">Text</td>
+			</tr>
+			<tr>
 				<td>Zdjęcie:</td>
 				<td><img th:src="@{${'/resources/images/' + product.productImage.productImageName}}" /></td>
 			</tr>

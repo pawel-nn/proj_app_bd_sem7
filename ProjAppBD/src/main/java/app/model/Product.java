@@ -25,8 +25,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
 
-	public Product(ProductImage productImage, String name, BigDecimal validatedPrice, Integer stockSize, String code) {
+	public Product(ProductImage productImage, ProductCategory productCategory, Producer producer, String name, BigDecimal validatedPrice, Integer stockSize, String code) {
 		this.productImage = productImage;
+		this.productCategory = productCategory;
+		this.producer = producer;
+		this.name = name;
+		this.price = validatedPrice;
+		this.stockSize = stockSize;
+		this.code = code;
+	}
+
+	public Product(Integer productId, ProductImage productImage, ProductCategory productCategory, Producer producer, String name, BigDecimal validatedPrice, Integer stockSize, String code) {
+		this.productId = productId;
+		this.productImage = productImage;
+		this.productCategory = productCategory;
+		this.producer = producer;
 		this.name = name;
 		this.price = validatedPrice;
 		this.stockSize = stockSize;

@@ -25,7 +25,6 @@ public class ProductCategoryController {
 	
     @GetMapping("/owner/productCategoryList")
     public String productCategoryList(@RequestParam(value="page", required=false) Integer page, ProductCategoryVO productCategoryVO, Model model) {
-    	System.out.println("1");
     	productCategoryService.getProductCategoriesByPagination(page, model);
     	return "product_category_list";
     }

@@ -13,22 +13,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name= "dictionary_category_names")
+@Table(name= "log_message_types")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DictionaryCategoryName {
+public class LogMessageType {
 
-	public DictionaryCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public LogMessageType(String messageType) {
+		this.messageType = messageType;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "dictionary_category_name_id", unique = true, nullable = false)
-	private Integer dictionaryCategoryNameId;
+	@Column(name = "log_message_type_id", unique = true, nullable = false)
+	private Integer logMessageTypeId;
 
-	@Column(name = "category_name", unique = true, length = 45)
-	private String categoryName;
+	@Column(name = "message_type", length = 45)
+	private String messageType;
 	
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head lang="en" th:include="../static/fragments/header :: header">
+	<title>Słownik</title>
+</head>
+
+<body>
+
+	<header>
+		<h1>Słownik</h1>
+		<div id="leftMenuHeader">Menu:</div>
+		<ul>
+			<li><a th:href="@{/home}">Return to homepage</a></li>
+		</ul>
+	</header>
+
+	<hr />
+
+	<div class="pageContext">
+		<div th:if="${dictionaryList.getSize() > 0}">
+			<h2>Słownik:</h2>
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Hasło</th>
+					<th>Typ</th>
+					<th>Index w tabeli</th>
+				</tr>
+				<tr th:each="dict : ${dictionaryList}">
+					<td th:text="${dict.dictionaryId}">Text</td>
+					<td th:text="${dict.dictionaryKeyword}">Text</td>
+					<td th:text="${dict.dictionaryCategoryName.categoryName}">Text</td>
+					<td th:text="${dict.parentTableId}">Text</td>
+				</tr>
+			</table>
+			<ul>
+				<div>
+					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/dictionary(page=1)}"><span>Pierwsza</span></a></li>
+					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/dictionary(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
+					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/dictionary(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
+					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/dictionary(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+				</div>
+			</ul>
+		</div>
+		<div th:unless="${dictionaryList.getSize() > 0}">
+			<div>Uwaga, słownik jest pusty!</div>
+		</div>
+	</div>
+</body>
+</html>

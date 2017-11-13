@@ -5,12 +5,10 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import app.model.ProductImage;
+import app.model.LogMessage;
 
 @Transactional
 @Repository
-public interface ProductImageRepository extends CrudRepository<ProductImage, Integer> {
+public interface LogMessageRepository extends CrudRepository<LogMessage, Integer> {
 
-	ProductImage findByProductImageName(String productImageName);
-	
 }

@@ -41,6 +41,20 @@
 						<td><input type="text" th:field="*{code}" /></td>
 					</tr>
 					<tr>
+						<td>Producent:</td>
+						<td><select th:field="*{producerId}">
+								<option value="" selected="true">Wybierz producenta</option>
+								<option th:each="producer : ${producerList}" th:value="${producer.producerId}" th:text="${producer.producerName}">Opt</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>Kategoria:</td>
+						<td><select th:field="*{productCategoryId}">
+								<option value="" selected="true">Wybierz kategorię</option>
+								<option th:each="productCategory : ${productCategoryList}" th:value="${productCategory.productCategoryId}" th:text="${productCategory.productCategoryName}">Opt</option>
+						</select></td>
+					</tr>
+					<tr>
 						<td>Zdjęcie:</td>
 						<td><input type="file" accept="image/x-png,image/gif,image/jpeg" name="productPhoto" /></td>
 					</tr>
