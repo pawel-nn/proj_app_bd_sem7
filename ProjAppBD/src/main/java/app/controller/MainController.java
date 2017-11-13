@@ -65,7 +65,7 @@ public class MainController {
 		if(authority.equals("ROLE_OWNER")) {
 			model.addAttribute("roleMsg","Witaj sprzedawco!");
 			return "home_owner";
-		} else if(authority.equals("ROLE_CLIENT")) {
+		} else if(authority.equals("ROLE_CUSTOMER")) {
 			model.addAttribute("roleMsg","Witaj kliencie!");
 			return "home_client";
 		}

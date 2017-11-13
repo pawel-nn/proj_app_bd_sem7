@@ -11,7 +11,7 @@ import app.dataTransportObject.ProductDTO;
 import app.viewObject.ProductVO;
 
 @Controller
-public class ClientController {
+public class CustomerController {
 
 
 }

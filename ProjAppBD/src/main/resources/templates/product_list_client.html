@@ -13,9 +13,12 @@
 		<div class="nav-wrapper container">
 			<a id="logo-container" href="#" class="brand-logo">Logo</a>
 			<ul class="right hide-on-med-and-down">
-				<li><a th:href="@{/login}">Zaloguj</a></li>
-				<li><a th:if="${authority != null}">heh</a></li>
-				<li><a th:if="${authority == null}">heheeee</a></li>
+				<li><a th:href="@{/login}" th:if="${authority == null}">Zaloguj</a></li>
+				<li th:if="${authority != null}">
+				<form th:action="@{/logout}" method="post">
+					<input  class="waves-effect waves-light btn" type="submit" value="Wyloguj" />
+				</form>
+				</li>
 			</ul>
 
 			<ul id="nav-mobile" class="side-nav">
