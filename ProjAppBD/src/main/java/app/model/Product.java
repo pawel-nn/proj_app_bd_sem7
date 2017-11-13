@@ -35,6 +35,17 @@ public class Product {
 		this.code = code;
 	}
 
+	public Product(Integer productId, ProductImage productImage, ProductCategory productCategory, Producer producer, String name, BigDecimal validatedPrice, Integer stockSize, String code) {
+		this.productId = productId;
+		this.productImage = productImage;
+		this.productCategory = productCategory;
+		this.producer = producer;
+		this.name = name;
+		this.price = validatedPrice;
+		this.stockSize = stockSize;
+		this.code = code;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "product_id", unique = true, nullable = false)

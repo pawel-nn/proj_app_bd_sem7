@@ -15,4 +15,6 @@ public interface DictionaryRepository extends CrudRepository<Dictionary, Integer
 
 	Page<Dictionary> findAll(Pageable pageable);
 
+	Dictionary findByDictionaryKeyword(String dictionaryKeyword);
+
 }

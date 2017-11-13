@@ -4,7 +4,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +27,6 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails {
 	
 	public User(String username, String password, String email, boolean enabled, String userRole) {
-		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -37,6 +35,16 @@ public class User implements UserDetails {
 		this.failedLogins = 0;
 	}
 
+	public User(Integer userId, String username, String password, String email, boolean enabled, String userRole) {
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.userRole = userRole;
+		this.failedLogins = 0;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "user_id", unique = true, nullable = false)

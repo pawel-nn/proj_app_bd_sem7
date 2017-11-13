@@ -15,6 +15,7 @@ public class ProductValidation {
 		productDTO.setValid(false);
 		try {
 			ProductVO pvo = productDTO.getViewObject();
+			pvo.setInvalidOverall(true);
 			if(pvo.getStockSize() != null && pvo.getPrice() != null && StringUtils.isNotBlank(pvo.getName())  && StringUtils.isNotBlank(pvo.getCode()))
 				if(pvo.getCode().length() == 12 && pvo.getStockSize() >= 0 && pvo.getName().length() < ProductVO.NAME_MAX_LEN+1) {
 					pvo.setValidatedPrice(new BigDecimal(pvo.getPrice().replaceAll(",", ".")));

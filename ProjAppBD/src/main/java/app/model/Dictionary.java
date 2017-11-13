@@ -37,7 +37,7 @@ public class Dictionary {
 	@JoinColumn(name = "dictionary_category_name_id")
 	private DictionaryCategoryName dictionaryCategoryName;
 
-	@Column(name = "dictionary_keyword", nullable = false)
+	@Column(name = "dictionary_keyword", unique = true, nullable = false)
 	private String dictionaryKeyword;
 
 	@Column(name = "parent_table_id", nullable = false)

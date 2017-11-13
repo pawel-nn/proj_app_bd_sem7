@@ -33,28 +33,28 @@ public class ProductService {
 
 	private static final String rootPath = "C:\\";
 	private static final String dirPath = rootPath + File.separator + "projectFiles";
-    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    
-    private static int MAX_ROWS_PER_PAGE = 10;	
-    
+	private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+	private static int MAX_ROWS_PER_PAGE = 10;	
+
 	@Autowired
 	private DatabaseLogService databaseLogService;
-    
-    @Autowired
-    private ProductRepository productRepository;
-	
-    @Autowired
-    private ProducerRepository producerRepository;
-    
-    @Autowired
-    private ProductCategoryRepository productCategoryRepository;
-    
-    @Autowired
-    private ProductImageRepository productImageRepository;
-    
-    @Autowired
-    private ProductValidation productValidation;
-    
+
+	@Autowired
+	private ProductRepository productRepository;
+
+	@Autowired
+	private ProducerRepository producerRepository;
+
+	@Autowired
+	private ProductCategoryRepository productCategoryRepository;
+
+	@Autowired
+	private ProductImageRepository productImageRepository;
+
+	@Autowired
+	private ProductValidation productValidation;
+
 	public ProductDTO saveProduct(MultipartFile productPhoto, ProductDTO productDTO) {
 		productDTO = productValidation.validateNewProduct(productDTO);
 		if(productDTO.isValid()) {
@@ -62,8 +62,11 @@ public class ProductService {
 				ProductVO vo = productDTO.getViewObject();
 				ProductImage productImage = productImageRepository.findByProductImageName(productPhoto.getOriginalFilename());
 				if(productImage == null) {
-					saveImage(productPhoto);
-				    productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
+					if(saveImage(productPhoto)) {
+						productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
+					} else {
+						productImage = new ProductImage("no_photo");
+					}
 				} else {
 					log.warn("PtS: Product image already in DB");
 					databaseLogService.warn("PtS: Product image already in DB");
@@ -73,45 +76,47 @@ public class ProductService {
 				Product product = new Product(productImage, productCategory, producer, vo.getName(), vo.getValidatedPrice(), vo.getStockSize(), vo.getCode());
 				product = productRepository.save(product);
 				productDTO.getViewObject().setProductId(product.getProductId());
+				productDTO.getViewObject().setInvalidOverall(false);
 				log.info("PtS: New product: {}.", productDTO.getViewObject().getName());
 				databaseLogService.info("PtS: New product: " + productDTO.getViewObject().getName());
 				return productDTO;
 			} catch (Exception e) {
 				log.error("PtS: Product: {}, cannot be created.", productDTO.getViewObject().getName());
 				databaseLogService.error("PtS: Product: " +productDTO.getViewObject().getName()+ ", cannot be created.");
-				e.printStackTrace();
-				return null;
+				productDTO.getViewObject().setErrorMsg("Błąd. Produkt nie może być utworzony.");
+				return productDTO;
 			}
 		} else {
-	    	log.info("PtS: New product not valid.");
-	    	databaseLogService.info("PtS: Product not valid.");
-			return null;
+			log.info("PtS: New product not valid.");
+			databaseLogService.info("PtS: Product not valid.");
+			return productDTO;
 		}
 	}
-	
-	private void saveImage(MultipartFile productPhoto ) throws Exception{
+
+	private boolean saveImage(MultipartFile productPhoto ) throws Exception{
 		if (!productPhoto.isEmpty() && productPhoto.getOriginalFilename().split("\\.")[1].equals("png")) {
-				byte[] bytes = productPhoto.getBytes();
+			byte[] bytes = productPhoto.getBytes();
 
-				String filePath = dirPath + File.separator + productPhoto.getOriginalFilename();			
-				File dir = new File(dirPath);
-				if (!dir.exists())
-					dir.mkdirs();
+			String filePath = dirPath + File.separator + productPhoto.getOriginalFilename();			
+			File dir = new File(dirPath);
+			if (!dir.exists())
+				dir.mkdirs();
 
-				File convertedFile = new File(filePath);
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(convertedFile));
-				stream.write(bytes);
-				stream.close();	
-				log.warn("PtS: New image saved.");
-				databaseLogService.warn("PtS: New image saved.");
+			File convertedFile = new File(filePath);
+			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(convertedFile));
+			stream.write(bytes);
+			stream.close();	
+			log.warn("PtS: New image saved.");
+			databaseLogService.warn("PtS: New image saved.");
+			return true;
 		} else {
 			log.warn("PtS: Product image is null.");
 			databaseLogService.warn("PtS: Product image is null.");
-			return;
-//			throw new NoSuchFileException("File not given!");
+			return false;
+			//			throw new NoSuchFileException("File not given!");
 		}
 	}
-	
+
 	public boolean deleteProduct(Integer productId) {
 		try {
 			Product product = productRepository.findByProductId(productId);
@@ -129,23 +134,23 @@ public class ProductService {
 	}
 
 	public void getProductsByPagination(Integer pageReq, Model model) {
-    	int usersNumber = (int) productRepository.count();
-    	int maxPagesNumber = (int) (Math.ceil(1.0*usersNumber/MAX_ROWS_PER_PAGE));
-    	int pageNumber = 1;
-    	if( maxPagesNumber == 0 )
-    		maxPagesNumber = 1;
-    	if(pageReq != null)
-    		pageNumber = pageReq;
-    	Page<Product> productList = (Page<Product>) productRepository.findAll(new PageRequest(pageNumber - 1, MAX_ROWS_PER_PAGE, Sort.Direction.ASC, "name"));
-    	if(productList.getNumberOfElements() == 0) 
-    		model.addAttribute("isEmpty", true); 
-    	else 
-    		model.addAttribute("isEmpty", false);
-    	model.addAttribute("productList", productList);
-    	model.addAttribute("pageNumber",pageNumber);
-    	model.addAttribute("maxPagesNumber",maxPagesNumber); 
-    	log.info("PtS: Get product List.");
-    	databaseLogService.info("PtS: Get product List.");
+		int usersNumber = (int) productRepository.count();
+		int maxPagesNumber = (int) (Math.ceil(1.0*usersNumber/MAX_ROWS_PER_PAGE));
+		int pageNumber = 1;
+		if( maxPagesNumber == 0 )
+			maxPagesNumber = 1;
+		if(pageReq != null)
+			pageNumber = pageReq;
+		Page<Product> productList = (Page<Product>) productRepository.findAll(new PageRequest(pageNumber - 1, MAX_ROWS_PER_PAGE, Sort.Direction.ASC, "name"));
+		if(productList.getNumberOfElements() == 0) 
+			model.addAttribute("isEmpty", true); 
+		else 
+			model.addAttribute("isEmpty", false);
+		model.addAttribute("productList", productList);
+		model.addAttribute("pageNumber",pageNumber);
+		model.addAttribute("maxPagesNumber",maxPagesNumber); 
+		log.info("PtS: Get product List.");
+		databaseLogService.info("PtS: Get product List.");
 	}
 
 	public boolean existsProduct(Integer productId) {
@@ -156,8 +161,8 @@ public class ProductService {
 	}
 
 	public Product getProductById(Integer productId) {
-    	log.info("PtS: Get product by id: {}", productId);
-    	databaseLogService.info("\"PtS: Get product by id: " + productId);
+		log.info("PtS: Get product by id: {}", productId);
+		databaseLogService.info("\"PtS: Get product by id: " + productId);
 		return productRepository.findByProductId(productId);
 	}
 

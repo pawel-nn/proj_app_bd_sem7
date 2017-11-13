@@ -16,5 +16,7 @@ public interface ProductCategoryRepository extends PagingAndSortingRepository<Pr
 	public Page<ProductCategory> findAll(Pageable pageable);
 
 	ProductCategory findByProductCategoryId(Integer productCategoryId);
+
+	public ProductCategory findByProductCategoryName(String string);
 	
 }

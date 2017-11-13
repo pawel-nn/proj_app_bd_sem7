@@ -49,7 +49,7 @@ public class ProductController {
 	public String addNewProductPOST(@RequestParam("productPhoto") MultipartFile productPhoto, ProductVO productVO, BindingResult bindingResult, Model m, RedirectAttributes redirectAttributes) {
 		ProductDTO productDTO = new ProductDTO(productVO);
 		productDTO = productService.saveProduct(productPhoto, productDTO);
-		if(productDTO == null) {
+		if(productDTO.getViewObject().isInvalidOverall()) {
 			m.addAttribute("msg", "Błąd, nie można utworzyć produktu!");
 			ArrayList<Producer> producerList = producerService.findAllProducers();
 			ArrayList<ProductCategory> productCategoryList = productCategoryService.findAllProductCategory();

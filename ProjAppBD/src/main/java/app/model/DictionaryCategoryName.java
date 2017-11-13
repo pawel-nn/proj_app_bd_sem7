@@ -28,7 +28,7 @@ public class DictionaryCategoryName {
 	@Column(name = "dictionary_category_name_id", unique = true, nullable = false)
 	private Integer dictionaryCategoryNameId;
 
-	@Column(name = "category_name", length = 45)
+	@Column(name = "category_name", unique = true, length = 45)
 	private String categoryName;
 	
 }

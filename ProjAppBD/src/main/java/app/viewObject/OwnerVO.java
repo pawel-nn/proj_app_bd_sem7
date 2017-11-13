@@ -6,7 +6,8 @@ import lombok.Data;
 public class OwnerVO {
 
 	private UserVO userVO;
-	private Integer ownerId;
 	private String secret;
 	
+	private String errorMsg;
+	private boolean invalidOverall;
 }
