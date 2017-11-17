@@ -60,16 +60,22 @@ public class ProductService {
 		if(productDTO.isValid()) {
 			try {
 				ProductVO vo = productDTO.getViewObject();
-				ProductImage productImage = productImageRepository.findByProductImageName(productPhoto.getOriginalFilename());
-				if(productImage == null) {
-					if(saveImage(productPhoto)) {
-						productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
+				ProductImage productImage = new ProductImage("no_photo");
+				if(productPhoto != null) {
+					if(productImageRepository.findByProductImageName(productPhoto.getOriginalFilename()) == null) {
+						if(saveImage(productPhoto)) {
+							productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
+						} else {
+							productImage = new ProductImage("no_photo");
+						}
 					} else {
-						productImage = new ProductImage("no_photo");
+						log.warn("PtS: Product image already in DB");
+						databaseLogService.warn("PtS: Product image already in DB");
 					}
 				} else {
-					log.warn("PtS: Product image already in DB");
-					databaseLogService.warn("PtS: Product image already in DB");
+					log.warn("PtS: Product image is null");
+					databaseLogService.warn("PtS: Product image is null");
+					productImage = new ProductImage("no_photo");
 				}
 				ProductCategory productCategory = productCategoryRepository.findByProductCategoryId(vo.getProductCategoryId());
 				Producer producer = producerRepository.findByProducerId(vo.getProducerId());

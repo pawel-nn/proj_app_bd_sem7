@@ -14,12 +14,11 @@ import org.springframework.ui.Model;
 import app.model.Dictionary;
 import app.model.DictionaryCategoryName;
 import app.model.repository.DictionaryRepository;
-import app.model.repository.LogMessageRepository;
 
 @Service
 public class DictionaryService {
     
-    private static int MAX_ROWS_PER_PAGE = 10;	
+    private static int MAX_ROWS_PER_PAGE = 10;
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     
 	@Autowired

@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class CustomerDetailsVO {
 
+	public CustomerDetailsVO() {}
+	
 	private Integer customerDetailsId;
 	private String name;
 	private String surname;

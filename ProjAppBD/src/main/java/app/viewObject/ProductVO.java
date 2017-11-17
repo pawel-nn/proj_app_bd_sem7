@@ -16,6 +16,8 @@ public class ProductVO {
 		this.productCategoryId = productCategoryId;
 	}
 	
+	public ProductVO() {}
+	
 	public static int NAME_MAX_LEN = 45;
 	
 	private String name;

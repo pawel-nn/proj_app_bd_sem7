@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
 <title>Lista produktów</title>
@@ -15,9 +13,9 @@
 			<ul class="right hide-on-med-and-down">
 				<li><a th:href="@{/login}" th:if="${authority == null}">Zaloguj</a></li>
 				<li th:if="${authority != null}">
-				<form th:action="@{/logout}" method="post">
-					<input  class="waves-effect waves-light btn" type="submit" value="Wyloguj" />
-				</form>
+					<form th:action="@{/logout}" method="post">
+						<input class="waves-effect waves-light btn" type="submit" value="Wyloguj" />
+					</form>
 				</li>
 			</ul>
 
@@ -28,13 +26,13 @@
 	</nav>
 
 	<div class="row">
-		
-		 <div class="col s12 m4 l3">
-		 <ul>
-		 	<li>kategoria 1</li>
-		 	<li>kategoria 2</li>
-		 </ul>
-		 </div>
+
+		<div class="col s12 m4 l3">
+			<ul>
+				<li>kategoria 1</li>
+				<li>kategoria 2</li>
+			</ul>
+		</div>
 
 		<div class="col s12 m8 l9">
 			<div th:if="${productList.getSize() > 0}">
@@ -48,31 +46,20 @@
 					<tr th:each="product : ${productList}">
 						<td th:text="${product.name}">Text</td>
 						<td th:text="${product.price}">Text</td>
-						<td><span th:if="${product.stockSize &gt; 10}">Na
-								stanie</span> <span th:if="${product.stockSize &lt; 10}">Na
-								wyczerpaniu</span></td>
+						<td><span th:if="${product.stockSize &gt; 10}">Na stanie</span> <span th:if="${product.stockSize &lt; 10}">Na wyczerpaniu</span></td>
 						<!--  		<td th:text="${product.stockSize}">Text</td>  		-->
 						<td>Dodaj do koszyka</td>
 					</tr>
 				</table>
 				<ul id="lista_w_linii">
-						<li th:class="${pageNumber == 1?'disabled':''}"><a
-							class="waves-effect waves-light btn" th:href="@{/showProductList(page=1)}"><span>Pierwsza</span></a></li>
-						<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a
-							class="waves-effect waves-light btn"
-							th:href="@{/showProductList(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
-						<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a
-							class="waves-effect waves-light btn"
-							th:href="@{/showProductList(page=${pageNumber+1})}"
-							th:disabled="${nextInp}"><span>Następna</span></a></li>
-						<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a
-							class="waves-effect waves-light btn"
-							th:href="@{/showProductList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+					<li th:class="${pageNumber == 1?'disabled':''}"><a class="waves-effect waves-light btn" th:href="@{/showProductList(page=1)}"><span>Pierwsza</span></a></li>
+					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a class="waves-effect waves-light btn" th:href="@{/showProductList(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
+					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a class="waves-effect waves-light btn" th:href="@{/showProductList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
+					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a class="waves-effect waves-light btn" th:href="@{/showProductList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
 				</ul>
 			</div>
 			<div th:unless="${productList.getSize() > 0}">
-				<div>Ooops... W sklepie wszystko wykupiono. Proszę przyjść
-					pózniej</div>
+				<div>Ooops... W sklepie wszystko wykupiono. Proszę przyjść pózniej</div>
 			</div>
 
 		</div>

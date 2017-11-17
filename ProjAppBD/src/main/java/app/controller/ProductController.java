@@ -39,7 +39,7 @@ public class ProductController {
 	@GetMapping("/owner/productList/addProduct")
 	public String addNewProductGET(ProductVO productVO, Model m) {
 		ArrayList<Producer> producerList = producerService.findAllProducers();
-		ArrayList<ProductCategory> productCategoryList = productCategoryService.findAllProductCategory();
+		ArrayList<ProductCategory> productCategoryList = productCategoryService.getAllProductCategory();
 		m.addAttribute("producerList", producerList );
 		m.addAttribute("productCategoryList", productCategoryList );
 		return "product_add";
@@ -52,7 +52,7 @@ public class ProductController {
 		if(productDTO.getViewObject().isInvalidOverall()) {
 			m.addAttribute("msg", "Błąd, nie można utworzyć produktu!");
 			ArrayList<Producer> producerList = producerService.findAllProducers();
-			ArrayList<ProductCategory> productCategoryList = productCategoryService.findAllProductCategory();
+			ArrayList<ProductCategory> productCategoryList = productCategoryService.getAllProductCategory();
 			m.addAttribute("producerList", producerList );
 			m.addAttribute("productCategoryList", productCategoryList );
 			return "product_add";	
@@ -63,16 +63,14 @@ public class ProductController {
 	
     @GetMapping("/owner/productList/deleteProduct")
     public String deleteProductGET(@RequestParam(value="page", required=true) Integer page,
-    							   @RequestParam(value="productId", required=true) Integer productId) {
-    	productService.deleteProduct(productId);
+    							   @RequestParam(value="oId", required=true) Integer oId) {
+    	productService.deleteProduct(oId);
     	return "redirect:/owner/productList?page=" + page;
 	}
 
 	@GetMapping("/owner/productList/product")
-	public String productGET(@RequestParam(value="productId", required=false) Integer productId, Model m) {
-		if(!productService.existsProduct(productId))
-			return "bad_request";
-		Product product = productService.getProductById(productId);
+	public String productGET(@RequestParam(value="oId", required=false) Integer oId, Model m) {
+		Product product = productService.getProductById(oId);
 		m.addAttribute("product", product);
 		return "product";
 	}

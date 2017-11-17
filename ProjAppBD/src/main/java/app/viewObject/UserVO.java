@@ -12,6 +12,8 @@ public class UserVO {
 		this.email = email;
 	}
 	
+	public UserVO() {}
+	
 	private Integer userId;
 	private String username;
 	private String password_1;
