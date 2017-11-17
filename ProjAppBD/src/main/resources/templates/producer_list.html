@@ -32,7 +32,7 @@
 				<tr th:each="producer : ${producerList}">
 					<td th:text="${producer.producerId}">Text</td>
 					<td th:text="${producer.producerName}">Text</td>
-					<td><a th:href="@{'/owner/producerList/deleteProduct'(producerId=${producer.producerId},page=${pageNumber})}"><span>Update</span></a>/ <a th:href="@{'/owner/producerList/deleteProduct'(producerId=${producer.producerId},page=${pageNumber})}"><span>Delete</span></a>
+					<td><a th:href="@{'/owner/producerList/deleteProduct'(oId=${producer.producerId},page=${pageNumber})}"><span>Update</span></a>/ <a th:href="@{'/owner/producerList/deleteProduct'(oId=${producer.producerId},page=${pageNumber})}"><span>Delete</span></a>
 					</td>
 				</tr>
 			</table>

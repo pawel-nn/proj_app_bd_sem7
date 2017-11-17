@@ -35,8 +35,12 @@ public class ProductCategoryService {
     @Autowired
     private DictionaryService dictionaryRepository;
     
-    public ArrayList<ProductCategory> findAllProductCategory() {
+    public ArrayList<ProductCategory> getAllProductCategory() {
     	return (ArrayList<ProductCategory>) productCategoryRepository.findAll();
+    }
+    
+    public ProductCategory getProductCategoryById(Integer productCategoryId) {
+    	return (ProductCategory) productCategoryRepository.findByProductCategoryId(productCategoryId);
     }
     
 	public void getProductCategoriesByPagination(Integer pageReq, Model model) {
@@ -72,7 +76,26 @@ public class ProductCategoryService {
 			} catch (Exception e) {
 				log.error("PCS: Product category: {} cannot be created.", productCategoryDTO.getViewObject().getProductCategoryName());
 				databaseLogService.error("PCS: Product category: " +productCategoryDTO.getViewObject().getProductCategoryName()+ " cannot be created." );
-				e.printStackTrace();
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	public ProductCategoryDTO updateProductCategory(ProductCategoryDTO productCategoryDTO) {
+		productCategoryDTO = productCategoryValidation.validateNewProduct(productCategoryDTO);
+		if(productCategoryDTO.isValid()) {
+			try {
+				ProductCategory productCategory = new ProductCategory(productCategoryDTO.getViewObject().getProductCategoryName(), productCategoryDTO.getViewObject().getUId());
+				productCategory = productCategoryRepository.save(productCategory);
+				dictionaryRepository.saveDictionaryKeyword(productCategoryDTO.getViewObject().getProductCategoryName(),productCategory.getProductCategoryId(),DictionaryCategoryType.PRODUCT_CATEGORY.getName());
+				log.info("PCS: New product category created: {}.", productCategoryDTO.getViewObject().getProductCategoryName());
+				databaseLogService.info("PCS: New product category created: " + productCategoryDTO.getViewObject().getProductCategoryName());
+				return productCategoryDTO;
+			} catch (Exception e) {
+				log.error("PCS: Product category: {} cannot be created.", productCategoryDTO.getViewObject().getProductCategoryName());
+				databaseLogService.error("PCS: Product category: " +productCategoryDTO.getViewObject().getProductCategoryName()+ " cannot be created." );
 				return null;
 			}
 		} else {

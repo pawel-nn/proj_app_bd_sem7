@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import app.dataTransportObject.ProductCategoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,11 @@ public class ProductCategory {
 
 	public ProductCategory(String productCategoryName) {
 		this.productCategoryName = productCategoryName;
+	}
+	
+	public ProductCategory(String productCategoryName, Integer productCategoryId) {
+		this.productCategoryName = productCategoryName;
+		this.productCategoryId = productCategoryId;
 	}
 
 	@Id

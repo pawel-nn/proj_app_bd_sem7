@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class ProductImageVO {
 
-	private Integer productImageId;
+	public ProductImageVO() {}
 	
+	private Integer productImageId;
 	private String productImageName;
 	
 }

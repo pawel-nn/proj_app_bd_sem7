@@ -9,14 +9,14 @@
 
 	<header>
 		<h1>Aktualizacja kategorii produktu</h1>
-		<div id="leftMenuHeader">Menu:</div>
+		<div>Menu:</div>
 		<ul>
 			<li><a th:href="@{/owner/productCategoryList}">Powrót</a></li>
 		</ul>
 	</header>
 
 	<div class="pageContext">
-		<form id="myForm" th:action="@{/owner/productCategoryList/updateProductCategory?productCategoryId=(productCategoryId)}" th:object="${productCategoryVO}" method="post">
+		<form th:action="@{/owner/productCategoryList/updateProductCategory?oId=(productCategoryId)}" th:object="${productCategoryVO}" method="post">
 			<div id="myFormStyle">
 				<table>
 					<tr>
@@ -24,13 +24,18 @@
 					</tr>
 					<tr>
 						<td>Kategoria:</td>
-						<td><input type="text" th:field="*{productCategoryName}" /> <input type="number" hidden="hidden" th:value="*{productCategoryId}" th:field="*{productCategoryId}" /></td>
-
+						<td><input type="text" th:field="*{productCategoryName}" /></td>
+						<input type="number" hidden="hidden" th:value="*{uId}"  th:field="*{uId}" />
 					</tr>
 				</table>
-				<button type="submit" id="send">Dodaj</button>
+				<button type="submit" id="send">Aktualizuj</button>
 			</div>
 		</form>
 	</div>
+	
+	<div th:if="${result != null}">
+		<span th:text="${result}"></span>
+	</div>
+	
 </body>
 </html>
