@@ -1,5 +1,6 @@
 package app.operations;
 
+
 public enum DictionaryCategoryType {
 	
 	COUNTRY("Kraj"), PRODUCT_CATEGORY("Kategoria Produktu");

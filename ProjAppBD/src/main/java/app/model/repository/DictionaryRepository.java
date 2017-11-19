@@ -1,5 +1,7 @@
 package app.model.repository;
 
+import java.util.ArrayList;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -15,6 +17,6 @@ public interface DictionaryRepository extends CrudRepository<Dictionary, Integer
 
 	Page<Dictionary> findAll(Pageable pageable);
 
-	Dictionary findByDictionaryKeyword(String dictionaryKeyword);
+	ArrayList<Dictionary> findByDictionaryKeyword(String dictionaryKeyword);
 
 }
