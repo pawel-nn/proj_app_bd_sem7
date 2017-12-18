@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head lang="en" th:include="../static/fragments/header :: header">
+<title>Zakup produktów</title>
+</head>
+
+<body>
+
+    <header>
+   	 <h1>Dokonaj zakupu:</h1>
+   	 <div id="leftMenuHeader">Menu:</div>
+   	 <ul>
+   		 <li><a th:href="@{/}">Wróć do listy produktów</a></li>
+   		 <li><a th:href="@{/home}">Wróć do strony domowej</a></li>
+   	 </ul>
+    </header>
+
+    <form th:action="@{/customer/order/buy}" th:object="${buyProductsVO}" method="post">
+   	 <table>
+   		 <tr>
+   			 <th colspan="2"><div id="myFormTitle">Dodaj do koszyka:</div></th>
+   		 </tr>
+   		 <tr>
+   			 <td>Rodzaj dostawy:</td>
+   			 <td><select th:field="*{shipmentType}">
+   					 <option th:each="shipmentType : ${shipmentTypeValues}" th:value="${shipmentType.toString()}" th:text="${shipmentType.name}">Opt</option>
+   			 </select></td>
+   		 </tr>
+   		 <tr>
+   			 <td colspan="2"><button type="submit" id="send">Dodaj do koszyka</button></td>
+   		 </tr>
+   	 </table>
+    </form>
+
+</body>
+</html>

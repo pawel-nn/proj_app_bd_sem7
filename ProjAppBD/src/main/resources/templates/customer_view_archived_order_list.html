@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head lang="en" th:include="../static/fragments/header :: header">
+<title>Lista produktów</title>
+</head>
+
+<body>
+    <nav class="teal lighten-2" role="navigation">
+   	 <div class="nav-wrapper container">
+   		 <a id="logo-container" href="#" class="brand-logo">Logo</a>
+   		 <ul class="right hide-on-med-and-down">
+   			 <li><a th:href="@{/login}" th:if="${authority == null}">Zaloguj</a></li>
+   			 <li th:if="${authority != null}">
+   				 <form th:action="@{/logout}" method="post">
+   					 <input class="waves-effect waves-light btn" type="submit" value="Wyloguj" />
+   				 </form>
+   			 </li>
+   			 <li>
+   				 <span th:if="${customer != null}">
+   					 <a th:href="@{/customer/order}"><span>Zobacz zamówienie</span></a>
+   				 </span>
+   				 <span th:if="${customer == null}">
+   					 <a th:href="@{/login}"><span>Zobacz zamówienie</span></a>
+   				 </span>
+   			 </li>
+   		 </ul>
+
+   		 <ul id="nav-mobile" class="side-nav">
+   			 <li><a th:href="@{/login}">Zaloguj</a></li>
+   		 </ul>
+   	 </div>
+    </nav>
+
+    <div class="row">
+
+   	 <div class="col s12 m4 l3">
+   		 <ul>
+   			 <li>kategoria 1</li>
+   			 <li>kategoria 2</li>
+   		 </ul>
+   	 </div>
+
+   	 <div class="col s12 m8 l9">
+   		 <div th:if="${productList.getSize() > 0}">
+   			 <table class="responsive-table highlight">
+   				 <tr>
+   					 <th>Nazwa</th>
+   					 <th>Cena</th>
+   					 <th>Dostępność</th>
+   					 <th></th>
+   				 </tr>
+   				 <tr th:each="product : ${productList}">
+   					 <td th:text="${product.name}">Text</td>
+   					 <td th:text="${product.price}">Text</td>
+   					 <td><span th:if="${product.stockSize &gt; 10}">Na stanie</span> <span th:if="${product.stockSize &lt; 10}">Na wyczerpaniu</span></td>
+   					 <!-- 		 <td th:text="${product.stockSize}">Text</td> 		 -->
+   					 <td>
+   						 <span th:if="${customer != null}">
+   							 <a th:href="@{'/customer/order/addProduct'(productId=${product.productId},page=${pageNumber})}"><span>Dodaj do koszyka</span></a>
+   						 </span>
+   						 <span th:if="${customer == null}">
+   							 <a th:href="@{/login}"><span>Dodaj do koszyka</span></a>
+   						 </span>
+   					 </td>
+   				 </tr>
+   			 </table>
+   			 <ul id="lista_w_linii">
+   				 <li th:class="${pageNumber == 1?'disabled':''}"><a class="waves-effect waves-light btn" th:href="@{/(page=1)}"><span>Pierwsza</span></a></li>
+   				 <li th:class="${pageNumber &lt;= 1?'disabled':''}"><a class="waves-effect waves-light btn" th:href="@{/(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
+   				 <li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a class="waves-effect waves-light btn" th:href="@{/(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
+   				 <li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a class="waves-effect waves-light btn" th:href="@{/(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+   			 </ul>
+   		 </div>
+   		 <div th:unless="${productList.getSize() > 0}">
+   			 <div>Ooops... W sklepie wszystko wykupiono. Proszę przyjść pózniej</div>
+   		 </div>
+
+   	 </div>
+    </div>
+</body>
+</html>

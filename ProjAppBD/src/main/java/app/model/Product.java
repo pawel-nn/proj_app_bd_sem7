@@ -45,6 +45,12 @@ public class Product {
 		this.stockSize = stockSize;
 		this.code = code;
 	}
+	
+	@Override
+    public int hashCode() {
+        return (productId == null) ? 0 : productId.hashCode();
+    }
+
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
