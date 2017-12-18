@@ -11,6 +11,9 @@ import app.model.Producer;
 @Repository
 public interface ProducerRepository extends PagingAndSortingRepository<Producer, Integer> {
 
-	public Producer findByProducerId(Integer producerId);
+    public Producer findByProducerId(Integer producerId);
+
+    public Producer findByProducerName(String producerName);
+
 
 }
