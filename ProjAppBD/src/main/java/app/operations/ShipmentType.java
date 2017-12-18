@@ -1,6 +1,6 @@
 package app.operations;
 
-public class ShipmentType {
+public enum ShipmentType {
 
 	BY_POST("Przesyłka pocztą"), BY_DELIVERY("Przesyłka kurierem");
 

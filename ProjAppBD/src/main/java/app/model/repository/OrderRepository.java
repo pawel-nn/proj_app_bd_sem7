@@ -12,7 +12,9 @@ import app.model.Order;
 import app.operations.OrderStatusType;
 
 
-public class OrderRepository extends JpaRepository<Order, Integer> {
+@Transactional
+@Repository
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 	public List<Order> findByOrderStatusAndCustomer(OrderStatusType orderStatus, Customer customer);
 

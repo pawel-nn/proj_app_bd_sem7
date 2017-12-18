@@ -38,10 +38,6 @@ import groovy.transform.Synchronized;
 @Service
 public class OrderService {
 
-	private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-	@Autowired
-	private DatabaseLogService databaseLogService;
 
 	private static int MAX_ROWS_PER_PAGE = 10;
 	private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

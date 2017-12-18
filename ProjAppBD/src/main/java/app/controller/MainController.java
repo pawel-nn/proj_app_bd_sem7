@@ -110,10 +110,6 @@ public class MainController {
 		return "error";
 	}
 
-	@GetMapping("/registerCustomer")
-	public String addRegisterCustomerGET(CustomerVO customerVO, Model m) {
-		return "register_customer";
-	}
 
 	@PostMapping("/registerCustomer")
 	public String addRegisterCustomerPOST(CustomerVO customerVO, Model m) {

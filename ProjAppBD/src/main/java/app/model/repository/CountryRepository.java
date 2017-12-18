@@ -15,9 +15,5 @@ public interface CountryRepository extends CrudRepository<Country, Integer> {
 
 	public Country findByCountryId(Integer countryId);
 	
-	 public ArrayList<Country> getAllCountries() {
-	   	 return (ArrayList<Country>) countryRepository.findAll();
-	    }
-
 
 }

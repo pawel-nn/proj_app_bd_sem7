@@ -2,9 +2,9 @@ package app.dataTransportObject;
 
 import app.viewObject.BuyProductsVO;
 
-public class BuyProductsDTO {
+public class BuyProductsDTO extends ValidationDTO<BuyProductsVO>{
 	public BuyProductsDTO(BuyProductsVO buyProductsVO) {
-		super();
+		super(buyProductsVO, false);
 	}
 
 }
