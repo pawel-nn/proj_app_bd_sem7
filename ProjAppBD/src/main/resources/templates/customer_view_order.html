@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head lang="en" th:include="../static/fragments/header :: header">
+<title>Zamówienie</title>
+</head>
+
+<body>
+
+    <header>
+   	 <ul>
+   		 <li><a th:href="@{/}">Wróć do list produktów</a></li>
+   	 </ul>
+    </header>
+
+    <hr />
+
+    <div class="pageContext">
+   	 <div>
+   		 <h3>Zamówienie:</h3>
+   	 </div>
+   	 <div th:if="${order != null}">
+   		 <div>
+   			 <table>
+   				 <tr>
+   					 <th>Unikalny numer zamówienia:</th>
+   					 <td th:text="${order.orderId}">Text</td>
+   				 </tr>
+   				 <tr>
+   					 <th>Data utworzenia zamówienia:</th>
+   					 <td th:text="${order.creationTime}">Text</td>
+   				 </tr>
+   			 </table>
+   		 </div>
+   		 <div th:if="${!order.productList.isEmpty()}">
+   			 <table>
+   				 <tr>
+   					 <th>Nazwa</th>
+   					 <th>Producent</th>
+   					 <th>Kategoria</th>
+   					 <th>Ilość</th>
+   					 <th>Cena ogółem</th>
+   				 </tr>
+   				 <tr th:each="productFromList : ${order.productList}">
+   					 <td th:text="${productFromList.product.name}">Text</td>
+   					 <td th:text="${productFromList.product.producer}">Text</td>
+   					 <td th:text="${productFromList.product.productCategory}">Text</td>
+   					 <td th:text="${productFromList.numberOfProducts}">Text</td>
+   					 <td th:text="${productFromList.totalPrice}">Text</td>
+   					 <td><a th:href="@{/customer/order/deleteProduct(productId=${productFromList.product.productId})}"><span>Usuń</span></a></td>
+   				 </tr>
+   			 </table>
+   		 </div>
+   	 </div>
+   	 <div th:if="${order != null}">
+   		 <div>Uwaga, brak kategorii w bazie!</div>
+   	 </div>
+   	 <div>
+   		 <a th:href="@{/customer/order/buy}"><span>Dokonaj zakupu!</span></a>
+   	 </div>
+    </div>
+</body>
+</html>

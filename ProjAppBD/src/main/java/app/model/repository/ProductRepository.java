@@ -12,5 +12,7 @@ import app.model.Product;
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
 
 	public Product findByProductId(Integer productId);
+	
+	public Product findByName(String productName);
 
 }
