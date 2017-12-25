@@ -16,6 +16,7 @@ public class ProductCategoryVO {
 	
 	public void setUp(String productCategoryName, Integer uId) {
 		this.uId = uId;
+		this.productCategoryId = uId;
 		this.productCategoryName = productCategoryName;
 	}
 	

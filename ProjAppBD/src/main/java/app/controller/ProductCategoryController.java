@@ -1,11 +1,8 @@
 package app.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,14 +43,14 @@ public class ProductCategoryController {
 	}
     
 	@GetMapping("/owner/productCategoryList/updateProductCategory")
-	public String addRegisterOwnerGET(@RequestParam(value="oId", required=true) Integer oId, ProductCategoryVO productCategoryVO, Model m) {
+	public String updateProductCategoryGET(@RequestParam(value="oId", required=true) Integer oId, ProductCategoryVO productCategoryVO, Model m) {
 		ProductCategory productCategory = productCategoryService.getProductCategoryById(oId);
 		productCategoryVO.setUp(productCategory.getProductCategoryName(), productCategory.getProductCategoryId());
 		return "product_category_update";
 	}
 
 	@PostMapping("/owner/productCategoryList/updateProductCategory")
-	public String addRegisterOwnerOST(@RequestParam(value="oId", required=false) Integer oId, ProductCategoryVO productCategoryVO, BindingResult bindingResult, Model m) {
+	public String updateProductCategoryOST(@RequestParam(value="oId", required=false) Integer oId, ProductCategoryVO productCategoryVO, Model m) {
 		ProductCategoryDTO productCategoryDTO = new ProductCategoryDTO(productCategoryVO);
 		productCategoryDTO = productCategoryService.updateProductCategory(productCategoryDTO);
 		if(productCategoryDTO == null) {

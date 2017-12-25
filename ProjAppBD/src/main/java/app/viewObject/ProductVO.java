@@ -31,6 +31,4 @@ public class ProductVO {
 	private Integer producerId;
 	private Integer productCategoryId;
 
-	private String errorMsg;
-	private boolean invalidOverall;
 }

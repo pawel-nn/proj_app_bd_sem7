@@ -79,7 +79,7 @@ public class ProductServiceTest {
 		ProductDTO productDTO = new ProductDTO(productVO);
 		MultipartFile productPhoto = new MockMultipartFile("file.png", "file.png", "image/png", new byte[0]);
 		productDTO = productService.saveProduct(productPhoto, productDTO);
-		Assert.assertFalse(productDTO.getViewObject().isInvalidOverall());
+		Assert.assertTrue(productDTO.isValid());
      }
 
 }

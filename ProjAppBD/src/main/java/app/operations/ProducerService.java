@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 
 import app.dataTransportObject.ProducerDTO;
 import app.model.Producer;
+import app.model.ProductCategory;
 import app.model.repository.ProducerRepository;
 import app.validation.ProducerValidation;
 
@@ -31,6 +32,9 @@ public class ProducerService {
     
     @Autowired
     private ProducerValidation producerValidation;
+    
+    @Autowired
+    private DictionaryService dictionaryRepository;
     
     public ArrayList<Producer> findAllProducers() {
     	return (ArrayList<Producer>) producerRepository.findAll();
@@ -57,7 +61,7 @@ public class ProducerService {
 	}
 
 	public ProducerDTO saveNewProducer(ProducerDTO producerDTO) {
-		producerDTO = producerValidation.validateNewProduct(producerDTO);
+		producerDTO = producerValidation.validateNewProducer(producerDTO);
 		if(producerDTO.isValid()) {
 			try {
 				Producer producer = new Producer(producerDTO.getViewObject().getProducerName());
@@ -88,6 +92,34 @@ public class ProducerService {
 			databaseLogService.info("PrS: Producer of id: " +producerId+ " cannot be deleted.");
 			return false;
 		}	
+	}
+
+	public Producer getProducerById(Integer producerId) {
+		return producerRepository.findByProducerId(producerId);
+	}
+
+	public ProducerDTO updateProducer(ProducerDTO producerDTO) {
+		producerDTO = producerValidation.validateNewProducer(producerDTO);
+		Producer oldProducer = producerRepository.findByProducerId(producerDTO.getViewObject().getUId());
+		if(producerDTO.isValid() && oldProducer != null) {
+			try {
+				Producer newProducer = new Producer(producerDTO.getViewObject().getProducerName(), producerDTO.getViewObject().getUId());
+				newProducer = producerRepository.save(newProducer);
+				dictionaryRepository.updateDictionaryKeyword(oldProducer.getProducerName(), newProducer.getProducerName());
+				log.info("PS: Producer update from {} to {}.", oldProducer.getProducerName(), newProducer.getProducerName());
+				databaseLogService.info("PS: Producer updated: " + producerDTO.getViewObject().getProducerName());
+				return producerDTO;
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error("PS: Producer: {} cannot be updated to {}.", oldProducer.getProducerName(), producerDTO.getViewObject().getProducerName());
+				databaseLogService.error("PS: Producer: "+oldProducer.getProducerName()+" cannot be updated to " + producerDTO.getViewObject().getProducerName() );
+				return null;
+			}
+		} else {
+			log.error("PS: Invalid request!");
+			databaseLogService.error("PS: Invalid request!");
+			return null;
+		}
 	}
 
 }

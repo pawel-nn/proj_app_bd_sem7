@@ -9,7 +9,7 @@ import app.viewObject.ProducerVO;
 @Service
 public class ProducerValidation {
 
-	public ProducerDTO validateNewProduct(ProducerDTO producerDTO) {
+	public ProducerDTO validateNewProducer(ProducerDTO producerDTO) {
 		producerDTO.setValid(false);
 		try {
 			ProducerVO pvo = producerDTO.getViewObject();

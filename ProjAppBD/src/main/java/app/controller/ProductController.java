@@ -49,7 +49,7 @@ public class ProductController {
 	public String addNewProductPOST(@RequestParam("productPhoto") MultipartFile productPhoto, ProductVO productVO, BindingResult bindingResult, Model m, RedirectAttributes redirectAttributes) {
 		ProductDTO productDTO = new ProductDTO(productVO);
 		productDTO = productService.saveProduct(productPhoto, productDTO);
-		if(productDTO.getViewObject().isInvalidOverall()) {
+		if(productDTO.isValid()) {
 			m.addAttribute("msg", "Błąd, nie można utworzyć produktu!");
 			ArrayList<Producer> producerList = producerService.findAllProducers();
 			ArrayList<ProductCategory> productCategoryList = productCategoryService.getAllProductCategory();
@@ -57,7 +57,7 @@ public class ProductController {
 			m.addAttribute("productCategoryList", productCategoryList );
 			return "product_add";	
 		}
-		redirectAttributes.addAttribute("productId", productDTO.getViewObject().getProductId());
+		redirectAttributes.addAttribute("oId", productDTO.getViewObject().getProductId());
 		return "redirect:/owner/productList/product";
 	}
 	

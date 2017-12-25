@@ -22,7 +22,7 @@
 
 	<div class="pageContext">
 		<div th:if="${producerList.getSize() > 0}">
-			<h2>Lista kategorii:</h2>
+			<h2>Lista producentów:</h2>
 			<table>
 				<tr>
 					<th>Id</th>
@@ -32,7 +32,8 @@
 				<tr th:each="producer : ${producerList}">
 					<td th:text="${producer.producerId}">Text</td>
 					<td th:text="${producer.producerName}">Text</td>
-					<td><a th:href="@{'/owner/producerList/deleteProduct'(oId=${producer.producerId},page=${pageNumber})}"><span>Update</span></a>/ <a th:href="@{'/owner/producerList/deleteProduct'(oId=${producer.producerId},page=${pageNumber})}"><span>Delete</span></a>
+					<td><a th:href="@{'/owner/producerList/updateProducer'(oId=${producer.producerId},page=${pageNumber})}"><span>Aktualizuj</span></a>/ 
+					<a th:href="@{'/owner/producerList/deleteProducer'(oId=${producer.producerId},page=${pageNumber})}"><span>Usuń</span></a>
 					</td>
 				</tr>
 			</table>
