@@ -62,8 +62,10 @@ public class ProductController {
 	}
 	
     @GetMapping("/owner/productList/deleteProduct")
-    public String deleteProductGET(@RequestParam(value="page", required=true) Integer page,
+    public String deleteProductGET(@RequestParam(value="page", required=false) Integer page,
     							   @RequestParam(value="oId", required=true) Integer oId) {
+    	if(page == null)
+    		page = 0;
     	productService.deleteProduct(oId);
     	return "redirect:/owner/productList?page=" + page;
 	}
@@ -73,6 +75,34 @@ public class ProductController {
 		Product product = productService.getProductById(oId);
 		m.addAttribute("product", product);
 		return "product";
+	}
+	
+	@GetMapping("/owner/productList/updateProduct")
+	public String updateProductGET(@RequestParam(value="oId", required=true) Integer oId, ProductVO productVO, Model m) {
+		Product product = productService.getProductById(oId);
+		productVO.setUp(product);
+		ArrayList<Producer> producerList = producerService.findAllProducers();
+		ArrayList<ProductCategory> productCategoryList = productCategoryService.getAllProductCategory();
+		m.addAttribute("producerList", producerList );
+		m.addAttribute("productCategoryList", productCategoryList );
+		return "product_update";
+	}
+
+	@PostMapping("/owner/productList/updateProduct")
+	public String updateProductPOST(@RequestParam("productPhoto") MultipartFile productPhoto, @RequestParam(value="oId", required=false) Integer oId, ProductVO productVO, Model m) {
+		productVO.setProductId(productVO.getUId());
+		ProductDTO productDTO = new ProductDTO(productVO);
+		productDTO = productService.saveProduct(productPhoto, productDTO);
+		if(productDTO == null) {
+			m.addAttribute("result", "Błąd, nie można zaktualizować produktu!");
+			ArrayList<Producer> producerList = producerService.findAllProducers();
+			ArrayList<ProductCategory> productCategoryList = productCategoryService.getAllProductCategory();
+			m.addAttribute("producerList", producerList );
+			m.addAttribute("productCategoryList", productCategoryList );
+			return "product_update";	
+		}
+		m.addAttribute("result", "Zaktualizowano produkt.");
+    	return "redirect:/owner/productList/product?oId=" + oId;
 	}
 	
 }

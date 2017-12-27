@@ -69,8 +69,8 @@ public class ProductServiceTest {
         	.thenReturn(p);
         
         Mockito
-        	.when(productRepository.save(new Product(pi, pc, p, "Product name", new BigDecimal(100), 25, "012345678910")))
-        	.thenReturn(new Product(1, pi, pc, p, "Product name", new BigDecimal(100), 25, "012345678910"));
+        	.when(productRepository.save(new Product(pi, pc, p, "Product name", new BigDecimal(100), 25, "012345678910",null)))
+        	.thenReturn(new Product(pi, pc, p, "Product name", new BigDecimal(100), 25, "012345678910", 1));
     }
     
     @Test

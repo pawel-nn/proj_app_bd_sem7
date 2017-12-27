@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
-	<title>Nowy produkt</title>
+<title>Aktualizacja produktu</title>
 </head>
 
 <body>
 
 	<header>
-		<h1>Dodawanie nowego produktu</h1>
+		<h1>Aktualizacja produktu</h1>
 		<div id="leftMenuHeader">Menu:</div>
 		<ul>
 			<li><a th:href="@{/home}">Powrót do strony domowej</a></li>
@@ -18,11 +18,11 @@
 	<hr id="hr1" />
 
 	<div class="pageContext">
-		<form id="myForm" th:action="@{/owner/productList/addProduct}" th:object="${productVO}" method="post" enctype="multipart/form-data">
+		<form id="myForm" th:action="@{'/owner/productList/updateProduct'(oId=${productVO.productId})}" th:object="${productVO}" method="post" enctype="multipart/form-data">
 			<div id="myFormStyle">
 				<table>
 					<tr>
-						<th colspan="2"><div id="myFormTitle">Stwórz produkt:</div></th>
+						<th colspan="2"><div id="myFormTitle">Aktualizuj produkt:</div></th>
 					</tr>
 					<tr>
 						<td>Nazwa produktu:</td>
@@ -43,23 +43,24 @@
 					<tr>
 						<td>Producent:</td>
 						<td><select th:field="*{producerId}">
-								<option value="" selected="true">Wybierz producenta</option>
+								<option value="">Wybierz producenta</option>
 								<option th:each="producer : ${producerList}" th:value="${producer.producerId}" th:text="${producer.producerName}">Opt</option>
 						</select></td>
 					</tr>
 					<tr>
 						<td>Kategoria:</td>
 						<td><select th:field="*{productCategoryId}">
-								<option value="" selected="true">Wybierz kategorię</option>
+								<option value="">Wybierz kategorię</option>
 								<option th:each="productCategory : ${productCategoryList}" th:value="${productCategory.productCategoryId}" th:text="${productCategory.productCategoryName}">Opt</option>
 						</select></td>
 					</tr>
 					<tr>
 						<td>Zdjęcie:</td>
-						<td><input type="file" accept="image/x-png,image/gif,image/jpeg" name="productPhoto" /></td>
+						<td><input type="file" accept="image/x-png,image/gif,image/jpeg" name="productPhoto" /> 
+						<input type="number" hidden="hidden" th:value="*{uId}" th:field="*{uId}" /></td>
 					</tr>
 				</table>
-				<button type="submit" id="send">Dodaj</button>
+				<button type="submit" id="send">Aktualizuj</button>
 			</div>
 		</form>
 	</div>

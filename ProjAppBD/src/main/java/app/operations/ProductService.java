@@ -63,12 +63,27 @@ public class ProductService {
 				ProductImage productImage;
 				log.warn("PtS: Product image is null");
 				databaseLogService.warn("PtS: Product image is null");
-				productImage = productImageRepository.findByProductImageName("no_photo");
-				if(productImage == null)
-					productImage = new ProductImage("no_photo");
+				if(vo.getProductId() == null) {
+					if(productPhoto != null && StringUtils.isNotBlank(productPhoto.getOriginalFilename())) {
+						saveImage(productPhoto);
+						productImage = new ProductImage(productPhoto.getOriginalFilename());
+					} else {
+						productImage = productImageRepository.findByProductImageName("no_photo");
+						if(productImage == null)
+							productImage = new ProductImage("no_photo");
+					}
+				} else {
+					Product dbProduct = productRepository.findByProductId(vo.getProductId());
+					if(productPhoto != null && StringUtils.isNotBlank(productPhoto.getOriginalFilename())) {
+						saveImage(productPhoto);
+						productImage = productImageRepository.findByProductImageName(dbProduct.getProductImage().getProductImageName());
+						productImage.setProductImageName(productPhoto.getOriginalFilename());
+					} else 
+						productImage = dbProduct.getProductImage();
+				}
 				ProductCategory productCategory = productCategoryRepository.findByProductCategoryId(vo.getProductCategoryId());
 				Producer producer = producerRepository.findByProducerId(vo.getProducerId());
-				Product product = new Product(productImage, productCategory, producer, vo.getName(), vo.getValidatedPrice(), vo.getStockSize(), vo.getCode());
+				Product product = new Product(productImage, productCategory, producer, vo.getName(), vo.getValidatedPrice(), vo.getStockSize(), vo.getCode(), vo.getProductId());
 				product = productRepository.save(product);
 				productDTO.getViewObject().setProductId(product.getProductId());
 				log.info("PtS: New product: {}.", productDTO.getViewObject().getName());

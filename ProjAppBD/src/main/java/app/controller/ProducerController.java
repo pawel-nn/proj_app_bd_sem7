@@ -57,7 +57,7 @@ public class ProducerController {
 			m.addAttribute("result", "Błąd, nie można aktualizować nazwy producenta!");
 			return "producer_update";	
 		}		
-		m.addAttribute("result", "Zaktualizowano nazwę producenta.");
+		m.addAttribute("result", "Aktualizowano nazwę producenta.");
 		return "producer_update";	
 	}
     

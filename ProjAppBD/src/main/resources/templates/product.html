@@ -7,18 +7,21 @@
 
 <body>
 
-	<header>
-		<h1>Produkt</h1>
-		<div id="leftMenuHeader">Menu:</div>
-		<ul>
+	<nav class="teal lighten-2" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="#" class="brand-logo">Logo</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a th:href="@{/home}">Strona główna</a></li>
+			</ul>
+
+			<ul id="nav-mobile" class="side-nav">
 			<li><a th:href="@{/owner/productList}">Wróć do listy produktów</a></li>
 			<li><a th:href="@{/home}">Wróć do strony domowej</a></li>
-		</ul>
-	</header>
+			</ul>
+		</div>
+	</nav>
 
-	<hr />
-
-	<div class="pageContext">
+	<div class="col s12 m8 l9">
 		<div>
 			<h3><span th:text="${product.name}">Text</span></h3>
 		</div>
@@ -49,7 +52,7 @@
 			</tr>
 			<tr>
 				<td>Operacje:</td>
-				<td><a th:href="@{/owner/products/updateProduct(productId=${product.productId})}"><span>Aktualizuj</span></a>/ <a th:href="@{/owner/productList/deleteProduct(productId=${product.productId})}"><span>Usuń</span></a></td>
+				<td><a th:href="@{/owner/productList/updateProduct(oId=${product.productId})}"><span>Aktualizuj</span></a>/ <a th:href="@{/owner/productList/deleteProduct(productId=${product.productId})}"><span>Usuń</span></a></td>
 			</tr>
 		</table>
 	</div>

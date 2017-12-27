@@ -38,7 +38,7 @@ public class ProductValidation {
 				}
 			if(productPhoto != null && StringUtils.isNotBlank(productPhoto.getOriginalFilename())) {
 				ProductImage productImage = productImageRepository.findByProductImageName(productPhoto.getOriginalFilename());
-				if(productImage != null) {
+				if(productImage != null && productDTO.getViewObject().getProductId() == null) { // not checked at merge
 					log.warn("PtS: Product image already in DB");
 					databaseLogService.warn("PtS: Product image already in DB");
 					productDTO.setErrorMsg("Zdjęcie o podanej nazwie już istnieje.");
