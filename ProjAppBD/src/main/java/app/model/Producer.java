@@ -24,6 +24,11 @@ public class Producer {
 		this.producerName = producerName;
 	}
 
+	public Producer(String producerName, Integer uId) {
+		this.producerName = producerName;
+		this.producerId = uId;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "producer_id", unique = true, nullable = false)

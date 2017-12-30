@@ -16,6 +16,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 
 	  public User findByUsername(String username);
 	  
+	  public User findByUserRole(String userRole);
+	  
 	  public boolean exists(Integer userId);
 	  
 	  public Iterable<User> findAll(Sort sort);

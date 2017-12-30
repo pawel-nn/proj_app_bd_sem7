@@ -38,7 +38,8 @@
 					<td th:text="${product.price}">Text</td>
 					<td th:text="${product.stockSize}">Text</td>
 					<td th:text="${product.code}">Text</td>
-					<td><a th:href="@{'/owner/productList/updateProduct'(oId=${product.productId},page=${pageNumber})}"><span>Update</span></a>/ <a th:href="@{'/owner/productList/deleteProduct'(oId=${product.productId},page=${pageNumber})}"><span>Delete</span></a>
+					<td><a th:href="@{'/owner/productList/updateProduct'(oId=${product.productId},page=${pageNumber})}"><span>Aktualizuj</span></a>/ 
+					<a th:href="@{'/owner/productList/deleteProduct'(oId=${product.productId},page=${pageNumber})}"><span>Usuń</span></a>
 					</td>
 				</tr>
 			</table>

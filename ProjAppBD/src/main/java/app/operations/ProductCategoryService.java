@@ -67,9 +67,9 @@ public class ProductCategoryService {
 		productCategoryDTO = productCategoryValidation.validateNewProduct(productCategoryDTO);
 		if(productCategoryDTO.isValid()) {
 			try {
-				ProductCategory productCategory = new ProductCategory(productCategoryDTO.getViewObject().getProductCategoryName());
-				productCategory = productCategoryRepository.save(productCategory);
-				dictionaryRepository.saveDictionaryKeyword(productCategoryDTO.getViewObject().getProductCategoryName(),productCategory.getProductCategoryId(),DictionaryCategoryType.PRODUCT_CATEGORY.getName());
+				ProductCategory newProductCategory = new ProductCategory(productCategoryDTO.getViewObject().getProductCategoryName());
+				newProductCategory = productCategoryRepository.save(newProductCategory);
+				dictionaryRepository.saveDictionaryKeyword(productCategoryDTO.getViewObject().getProductCategoryName(),newProductCategory.getProductCategoryId(),DictionaryCategoryType.PRODUCT_CATEGORY.getName());
 				log.info("PCS: New product category created: {}.", productCategoryDTO.getViewObject().getProductCategoryName());
 				databaseLogService.info("PCS: New product category created: " + productCategoryDTO.getViewObject().getProductCategoryName());
 				return productCategoryDTO;
@@ -85,20 +85,24 @@ public class ProductCategoryService {
 	
 	public ProductCategoryDTO updateProductCategory(ProductCategoryDTO productCategoryDTO) {
 		productCategoryDTO = productCategoryValidation.validateNewProduct(productCategoryDTO);
-		if(productCategoryDTO.isValid()) {
+		ProductCategory oldProductCategory = productCategoryRepository.findByProductCategoryId(productCategoryDTO.getViewObject().getUId());
+		if(productCategoryDTO.isValid() && oldProductCategory != null) {
 			try {
-				ProductCategory productCategory = new ProductCategory(productCategoryDTO.getViewObject().getProductCategoryName(), productCategoryDTO.getViewObject().getUId());
-				productCategory = productCategoryRepository.save(productCategory);
-				dictionaryRepository.saveDictionaryKeyword(productCategoryDTO.getViewObject().getProductCategoryName(),productCategory.getProductCategoryId(),DictionaryCategoryType.PRODUCT_CATEGORY.getName());
-				log.info("PCS: New product category created: {}.", productCategoryDTO.getViewObject().getProductCategoryName());
-				databaseLogService.info("PCS: New product category created: " + productCategoryDTO.getViewObject().getProductCategoryName());
+				ProductCategory newproductCategory = new ProductCategory(productCategoryDTO.getViewObject().getProductCategoryName(), productCategoryDTO.getViewObject().getUId());
+				newproductCategory = productCategoryRepository.save(newproductCategory);
+				dictionaryRepository.updateDictionaryKeyword(oldProductCategory.getProductCategoryName(), newproductCategory.getProductCategoryName());
+				log.info("PCS: Product category update from {} to {}.", oldProductCategory.getProductCategoryName(), newproductCategory.getProductCategoryName());
+				databaseLogService.info("PCS: New product category creaupdatedted: " + productCategoryDTO.getViewObject().getProductCategoryName());
 				return productCategoryDTO;
 			} catch (Exception e) {
-				log.error("PCS: Product category: {} cannot be created.", productCategoryDTO.getViewObject().getProductCategoryName());
-				databaseLogService.error("PCS: Product category: " +productCategoryDTO.getViewObject().getProductCategoryName()+ " cannot be created." );
+				e.printStackTrace();
+				log.error("PCS: Product category: {} cannot be updated to {}.", oldProductCategory.getProductCategoryName(), productCategoryDTO.getViewObject().getProductCategoryName());
+				databaseLogService.error("PCS: Product category: "+oldProductCategory.getProductCategoryName()+" cannot be updated to " + productCategoryDTO.getViewObject().getProductCategoryName() );
 				return null;
 			}
 		} else {
+			log.error("PCS: Invalid request!");
+			databaseLogService.error("PCS: Invalid request!");
 			return null;
 		}
 	}
@@ -106,6 +110,7 @@ public class ProductCategoryService {
 	public boolean deleteProductCategory(Integer productCategoryId) {
 		try {
 			ProductCategory productCategory = productCategoryRepository.findByProductCategoryId(productCategoryId);
+			dictionaryRepository.deleteDictionaryKeyword(productCategory.getProductCategoryName());
 			productCategoryRepository.delete(productCategory);
 			log.info("PCS: Product category of id: {} was deleted.", productCategoryId);
 			databaseLogService.info("PCS: Product category of id: " +productCategoryId+ "was deleted.");

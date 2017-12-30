@@ -13,6 +13,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 
 	public Product findByProductId(Integer productId);
 	
-	public Product findByName(String productName);
+	public Product findByName(String name);
 
 }

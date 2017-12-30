@@ -32,8 +32,8 @@
 				<tr th:each="productCategory : ${productCategoryList}">
 					<td th:text="${productCategory.productCategoryId}">Text</td>
 					<td th:text="${productCategory.productCategoryName}">Text</td>
-					<td><a th:href="@{'/owner/productCategoryList/updateProductCategory'(oId=${productCategory.productCategoryId},page=${pageNumber})}"><span>Update</span></a>/ <a
-						th:href="@{'/owner/productCategoryList/deleteProductCategory'(oId=${productCategory.productCategoryId},page=${pageNumber})}"><span>Delete</span></a></td>
+					<td><a th:href="@{'/owner/productCategoryList/updateProductCategory'(oId=${productCategory.productCategoryId},page=${pageNumber})}"><span>Aktualizuj</span></a>/ 
+					<a th:href="@{'/owner/productCategoryList/deleteProductCategory'(oId=${productCategory.productCategoryId},page=${pageNumber})}"><span>Usun</span></a></td>
 				</tr>
 			</table>
 			<ul>

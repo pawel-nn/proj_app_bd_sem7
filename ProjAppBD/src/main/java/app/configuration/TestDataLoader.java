@@ -63,7 +63,7 @@ public class TestDataLoader {
    	 Product product = productRepository.findByName(name);
    	 if(product == null) {
    		 product = new Product(null, productCategoryRepository.findByProductCategoryName("AGD"),
-   				 producerRepository.findByProducerName("QQQ"), name, new BigDecimal(300), 200, "123456789012");
+   				 producerRepository.findByProducerName("QQQ"), name, new BigDecimal(300), 200, "123456789012", null);
    		 productRepository.save(product);
    	 }
     }

@@ -32,8 +32,8 @@ public class DictionaryRepositoryTest {
 		DictionaryCategoryName dictionaryCategoryName = new DictionaryCategoryName("Kraje");
 		Dictionary dictionary = new Dictionary(dictionaryCategoryName, "Polska", 1);
 		dictionary = dictionaryRepository.save(dictionary);
-    	Assert.assertEquals("Kraje", dictionaryRepository.findByDictionaryKeyword("Polska").getDictionaryCategoryName().getCategoryName());
-    	Assert.assertEquals("Polska", dictionaryRepository.findByDictionaryKeyword("Polska").getDictionaryKeyword());
+    	Assert.assertEquals("Kraje", dictionaryRepository.findByDictionaryKeyword("Polska").get(0).getDictionaryCategoryName().getCategoryName());
+    	Assert.assertEquals("Polska", dictionaryRepository.findByDictionaryKeyword("Polska").get(0).getDictionaryKeyword());
     	Assert.assertEquals(1, dictionaryRepository.count());
     }
 

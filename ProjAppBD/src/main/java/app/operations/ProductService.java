@@ -56,46 +56,50 @@ public class ProductService {
 	private ProductValidation productValidation;
 
 	public ProductDTO saveProduct(MultipartFile productPhoto, ProductDTO productDTO) {
-		productDTO = productValidation.validateNewProduct(productDTO);
+		productDTO = productValidation.validateNewProduct(productPhoto, productDTO);
 		if(productDTO.isValid()) {
 			try {
 				ProductVO vo = productDTO.getViewObject();
-				ProductImage productImage = new ProductImage("no_photo");
-				if(productPhoto != null) {
-					if(productImageRepository.findByProductImageName(productPhoto.getOriginalFilename()) == null) {
-						if(saveImage(productPhoto)) {
-							productImage = new ProductImage(StringUtils.isNotBlank(productPhoto.getOriginalFilename())?productPhoto.getOriginalFilename():"no_photo");
-						} else {
-							productImage = new ProductImage("no_photo");
-						}
+				ProductImage productImage;
+				log.warn("PtS: Product image is null");
+				databaseLogService.warn("PtS: Product image is null");
+				if(vo.getProductId() == null) {
+					if(productPhoto != null && StringUtils.isNotBlank(productPhoto.getOriginalFilename())) {
+						saveImage(productPhoto);
+						productImage = new ProductImage(productPhoto.getOriginalFilename());
 					} else {
-						log.warn("PtS: Product image already in DB");
-						databaseLogService.warn("PtS: Product image already in DB");
+						productImage = productImageRepository.findByProductImageName("no_photo");
+						if(productImage == null)
+							productImage = new ProductImage("no_photo");
 					}
 				} else {
-					log.warn("PtS: Product image is null");
-					databaseLogService.warn("PtS: Product image is null");
-					productImage = new ProductImage("no_photo");
+					Product dbProduct = productRepository.findByProductId(vo.getProductId());
+					if(productPhoto != null && StringUtils.isNotBlank(productPhoto.getOriginalFilename())) {
+						saveImage(productPhoto);
+						productImage = productImageRepository.findByProductImageName(dbProduct.getProductImage().getProductImageName());
+						productImage.setProductImageName(productPhoto.getOriginalFilename());
+					} else 
+						productImage = dbProduct.getProductImage();
 				}
 				ProductCategory productCategory = productCategoryRepository.findByProductCategoryId(vo.getProductCategoryId());
 				Producer producer = producerRepository.findByProducerId(vo.getProducerId());
-				Product product = new Product(productImage, productCategory, producer, vo.getName(), vo.getValidatedPrice(), vo.getStockSize(), vo.getCode());
+				Product product = new Product(productImage, productCategory, producer, vo.getName(), vo.getValidatedPrice(), vo.getStockSize(), vo.getCode(), vo.getProductId());
 				product = productRepository.save(product);
 				productDTO.getViewObject().setProductId(product.getProductId());
-				productDTO.getViewObject().setInvalidOverall(false);
 				log.info("PtS: New product: {}.", productDTO.getViewObject().getName());
 				databaseLogService.info("PtS: New product: " + productDTO.getViewObject().getName());
 				return productDTO;
 			} catch (Exception e) {
+				e.printStackTrace();
 				log.error("PtS: Product: {}, cannot be created.", productDTO.getViewObject().getName());
 				databaseLogService.error("PtS: Product: " +productDTO.getViewObject().getName()+ ", cannot be created.");
-				productDTO.getViewObject().setErrorMsg("Błąd. Produkt nie może być utworzony.");
-				return productDTO;
+				productDTO.setErrorMsg("Błąd. Produkt nie może być utworzony.");
+				return null;
 			}
 		} else {
 			log.info("PtS: New product not valid.");
 			databaseLogService.info("PtS: Product not valid.");
-			return productDTO;
+			return null;
 		}
 	}
 
@@ -127,8 +131,10 @@ public class ProductService {
 		try {
 			Product product = productRepository.findByProductId(productId);
 			product.setProductCategory(null);
-			productRepository.save(product);
-			productRepository.delete(productId);
+			product.setProducer(null);
+			// TODO: delete product image
+			product = productRepository.save(product);
+			productRepository.delete(product);
 			log.info("PtS: Product of id: {} was deleted.", productId);
 			databaseLogService.info("PtS: Product of id: " +productId+ "was deleted.");
 			return true;

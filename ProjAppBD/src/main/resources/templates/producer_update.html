@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head lang="en" th:include="../static/fragments/header :: header">
+	<title>Nazwa producenta</title>
+</head>
+
+<body>
+
+	<header>
+		<h1>Aktualizacja nazwy producenta</h1>
+		<div>Menu:</div>
+		<ul>
+			<li><a th:href="@{/owner/producerList}">Powrót</a></li>
+		</ul>
+	</header>
+
+	<div class="pageContext">
+		<form th:action="@{/owner/producerList/updateProducer?oId=(producerId)}" th:object="${producerVO}" method="post">
+			<div id="myFormStyle">
+				<table>
+					<tr>
+						<th colspan="2"><div id="myFormTitle">Aktualizuj nazwę producenta:</div></th>
+					</tr>
+					<tr>
+						<td>Kategoria:</td>
+						<td><input type="text" th:field="*{producerName}" /></td>
+						<input type="number" hidden="hidden" th:value="*{uId}"  th:field="*{uId}" />
+					</tr>
+				</table>
+				<button type="submit" id="send">Aktualizuj</button>
+			</div>
+		</form>
+	</div>
+	
+	<div th:if="${result != null}">
+		<span th:text="${result}"></span>
+	</div>
+	
+</body>
+</html>
