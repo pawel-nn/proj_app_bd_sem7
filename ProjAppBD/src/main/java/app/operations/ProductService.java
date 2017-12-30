@@ -94,12 +94,12 @@ public class ProductService {
 				log.error("PtS: Product: {}, cannot be created.", productDTO.getViewObject().getName());
 				databaseLogService.error("PtS: Product: " +productDTO.getViewObject().getName()+ ", cannot be created.");
 				productDTO.setErrorMsg("Błąd. Produkt nie może być utworzony.");
-				return productDTO;
+				return null;
 			}
 		} else {
 			log.info("PtS: New product not valid.");
 			databaseLogService.info("PtS: Product not valid.");
-			return productDTO;
+			return null;
 		}
 	}
 
