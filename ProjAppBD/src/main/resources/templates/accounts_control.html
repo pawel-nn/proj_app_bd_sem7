@@ -6,26 +6,19 @@
 </head>
 
 <body>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
 
-	<header>
-		<h1>Client and Employee accounts control</h1>
-		<div id="leftMenuHeader">Menu:</div>
-		<ul>
-			<li><a th:href="@{/home}">Return to homepage</a></li>
-		</ul>
-	</header>
-
-	<hr />
+		<h4>Panel kontroli użytkowników</h4>
 
 	<div class="pageContext">
 		<div th:if="${not isEmpty}">
-			<h2 id="title">User list:</h2>
-			<table>
+			<table class="bordered">
 				<tr>
-					<th>Username</th>
+					<th>Nazwa</th>
 					<th>Role</th>
-					<th>Enabled</th>
-					<th>Action</th>
+					<th>Stan</th>
+					<th>Akcja</th>
 				</tr>
 				<tr th:each="user : ${userList}">
 					<td th:text="${user.username}">Username</td>
@@ -36,16 +29,16 @@
 			</table>
 			<ul id="ulFixed" class="pager">
 				<div>
-					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=1)}"><span>Pierwsza</span></a></li>
-					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
-					<li style="float: right" th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
-					<li style="float: right" th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/accountsControl(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
+					<li  th:class="${pageNumber == 1?'disabled':''}"><a style="margin-top:4px" type="button" class="btn waves-effect waves-teal" th:href="@{/owner/accountsControl(page=1)}"><span>Pierwsza</span></a></li>
+					<li  th:class="${pageNumber &lt;= 1?'disabled':''}"><a style="margin-top:4px" type="button" class="btn waves-effect waves-teal" th:href="@{/owner/accountsControl(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
+					<li  style="float: right" th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a style="margin-right:8px" type="button" class="btn waves-effect waves-teal" th:href="@{/owner/accountsControl(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+					<li  style="float: right" th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a style="margin-right:4px" type="button" class="btn waves-effect waves-teal" th:href="@{/owner/accountsControl(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
 				</div>
 			</ul>
+					<a class="btn waves-effect waves-teal" th:href="@{/home}">Strona domowa</a>
 		</div>
-		<div th:unless="${not isEmpty}">
-			<div>Uwaga, brak produktów w bazie!</div>
-		</div>
+
+	</div>
 	</div>
 </body>
 </html>

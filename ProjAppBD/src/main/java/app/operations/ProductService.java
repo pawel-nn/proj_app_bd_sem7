@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,6 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+
+import antlr.collections.List;
 import app.dataTransportObject.ProductDTO;
 import app.model.Producer;
 import app.model.Product;
@@ -161,6 +165,21 @@ public class ProductService {
 		model.addAttribute("productList", productList);
 		model.addAttribute("pageNumber",pageNumber);
 		model.addAttribute("maxPagesNumber",maxPagesNumber); 
+		//ArrayList<Product> ppa = productList.getContent();
+		//ArrayList<Integer> productsIDsList = new ArrayList<Integer>();
+		//for(Product p : ppa){
+		//	productsIDsList.add(p.getProductId());
+		//}
+		//model.addAttribute("productsIDsList", productsIDsList);
+		//int ppp = 0;
+		//System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+	//	System.out.println(ppa.get(0).getProductId());
+		//System.out.println(productList.getContent().get(0).getProductId());
+	//	model.addAttribute("ppa", ppa);
+		//LIST to JSON
+		String productListJson = new Gson().toJson(productList.getContent());
+		System.out.println(productListJson);
+		model.addAttribute("productListJson",productListJson); 
 		log.info("PtS: Get product List.");
 		databaseLogService.info("PtS: Get product List.");
 	}

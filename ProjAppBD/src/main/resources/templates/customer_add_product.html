@@ -1,28 +1,22 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
-    <title>Produkt</title>
+	<title>Produkt</title>
 </head>
-
 <body>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
 
-    <header>
-   	 <h1>Produkt</h1>
-   	 <div id="leftMenuHeader">Menu:</div>
-   	 <ul>
-   		 <li><a th:href="@{/}">Wróć do listy produktów</a></li>
-   		 <li><a th:href="@{/home}">Wróć do strony domowej</a></li>
-   	 </ul>
-    </header>
+   	 <h5>Podgląd</h5>
 
-    <hr />
 
     <div class="pageContext">
    	 <div>
-   		 <h3><span th:text="${product.name}">Text</span></h3>
+   		 <h4><span th:text="'Produkt: '+${product.name}">Text</span></h4>
    	 </div>
-   	 <table>
+   	 <table class="striped">
    		 <tr>
    			 <td>Cena:</td>
    			 <td th:text="${product.price}">Text</td>
@@ -45,14 +39,14 @@
    		 </tr>
    		 <tr>
    			 <td>Zdjęcie:</td>
-   			 <td><img th:src="@{${'/resources/images/' + product.productImage.productImageName}}" /></td>
+   			 <td><img th:src="@{${'/img/' + product.productImage.productImageName}}" height="200" width="200"/></td>
    		 </tr>
    	 </table>
-
+<!-- th:src="@{${'/resources/images/' + product.productImage.productImageName}}" -->
    	 <form th:action="@{/customer/order/addProduct}" th:object="${consumerProductVO}" method="post">
    		 <table>
    			 <tr>
-   				 <th colspan="2"><div id="myFormTitle">Dodaj do koszyka:</div></th>
+   				 <th colspan="2"><div id="myFormTitle">Ilość do koszyka:</div></th>
    			 </tr>
    			 <tr>
    				 <td>Ilość:</td>
@@ -60,11 +54,16 @@
    				 <input type="number" hidden="hidden" th:value="*{productId}" th:field="*{productId}" />
    			 </tr>
    			 <tr>
-   				 <td colspan="2"><button type="submit" id="send">Dodaj do koszyka</button></td>
+   				<td colspan="2">
+	   				<button class="btn waves-effect waves-teal" type="submit" id="send">Dodaj do koszyka</button>
+	   				<a class="btn waves-effect waves-teal" th:href="@{/}">Wróć do listy produktów</a>
+	   		 		<a class="btn waves-effect waves-teal" th:href="@{/home}">Wróć do strony domowej</a>
+   		 		</td>
    			 </tr>
    		 </table>
    	 </form>
 
+    </div>
     </div>
 </body>
 </html>

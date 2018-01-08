@@ -6,14 +6,16 @@
 </head>
 
 <body>
-	<header>
-		<div>
-			<a th:href="@{/home}">Powrót do strony domowej</a>
-		</div>
-	</header>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
+
 	<div>
 		<div>
-			<h3 th:text="${msg}">Text</h3>
+			<h5 th:text="${msg}">Text</h5>
+		</div>
+	</div>
+	<div>
+			<a class="btn waves-effect waves-teal" th:href="@{/home}">Powrót do strony domowej</a>
 		</div>
 	</div>
 </body>

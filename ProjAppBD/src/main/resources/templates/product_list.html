@@ -6,24 +6,13 @@
 </head>
 
 <body>
-
-	<nav class="teal lighten-2" role="navigation">
-		<div class="nav-wrapper container">
-			<a id="logo-container" href="#" class="brand-logo">Logo</a>
-			<ul class="right hide-on-med-and-down">
-				<li><a th:href="@{/home}">Strona główna</a></li>
-			</ul>
-
-			<ul id="nav-mobile" class="side-nav">
-				<li><a th:href="@{/login}">Zaloguj</a></li>
-			</ul>
-		</div>
-	</nav>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
 	
 	<div class="pageContext">
 		<div th:if="${productList.getSize() > 0}">
-			<h2>Lista produktów:</h2>
-			<table>
+			<h4>Lista produktów:</h4>
+			<table class="striped">
 				<tr>
 					<th>Id</th>
 					<th>Nazwa</th>
@@ -42,24 +31,25 @@
 					<a th:href="@{'/owner/productList/deleteProduct'(oId=${product.productId},page=${pageNumber})}"><span>Usuń</span></a>
 					</td>
 				</tr>
-			</table>
-			<ul>
+			</table >
+		
 				<div>
-					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=1)}"><span>Pierwsza</span></a></li>
-					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
-					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
-					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/productList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+					<span th:class="${pageNumber == 1?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/productList(page=1)}"><span>Pierwsza</span></a></span>
+					<span th:class="${pageNumber &lt;= 1?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/productList(page=${pageNumber-1})}"><span>Poprzednia</span></a></span>
+					<span  th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/productList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></span>
+					<span th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/productList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></span>
 				</div>
-			</ul>
+
 		</div>
 		<div th:unless="${productList.getSize() > 0}">
 			<div>Uwaga, brak produktów w bazie!</div>
 		</div>
 		
 		<div>
-			<a id="addLinkButton" th:href="@{/owner/productList/addProduct}"><span>Dodaj nowy produkt</span></a>
+			<a style="margin-top:4px" id="addLinkButton" class="btn waves-effect waves-teal" th:href="@{/owner/productList/addProduct}"><span>Dodaj nowy produkt</span></a>
 		</div>
 		
+	</div>
 	</div>
 </body>
 </html>

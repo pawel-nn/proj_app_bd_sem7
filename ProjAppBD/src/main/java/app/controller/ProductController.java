@@ -70,7 +70,7 @@ public class ProductController {
     	return "redirect:/owner/productList?page=" + page;
 	}
 
-	@GetMapping("/owner/productList/product")
+	@GetMapping("/owner/product")
 	public String productGET(@RequestParam(value="oId", required=false) Integer oId, Model m) {
 		Product product = productService.getProductById(oId);
 		m.addAttribute("product", product);

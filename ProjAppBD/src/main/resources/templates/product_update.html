@@ -6,21 +6,17 @@
 </head>
 
 <body>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
+	
+		<h4>Aktualizacja produktu</h4>
 
-	<header>
-		<h1>Aktualizacja produktu</h1>
-		<div id="leftMenuHeader">Menu:</div>
-		<ul>
-			<li><a th:href="@{/home}">Powrót do strony domowej</a></li>
-		</ul>
-	</header>
 
-	<hr id="hr1" />
 
 	<div class="pageContext">
 		<form id="myForm" th:action="@{'/owner/productList/updateProduct'(oId=${productVO.productId})}" th:object="${productVO}" method="post" enctype="multipart/form-data">
 			<div id="myFormStyle">
-				<table>
+				<table class="striped">
 					<tr>
 						<th colspan="2"><div id="myFormTitle">Aktualizuj produkt:</div></th>
 					</tr>
@@ -60,9 +56,11 @@
 						<input type="number" hidden="hidden" th:value="*{uId}" th:field="*{uId}" /></td>
 					</tr>
 				</table>
-				<button type="submit" id="send">Aktualizuj</button>
+				<button class="btn waves-effect waves-teal" type="submit" id="send">Aktualizuj</button>
+				<a class="btn waves-effect waves-teal" th:href="@{/home}">Powrót do strony domowej</a>
 			</div>
 		</form>
+	</div>
 	</div>
 </body>
 </html>

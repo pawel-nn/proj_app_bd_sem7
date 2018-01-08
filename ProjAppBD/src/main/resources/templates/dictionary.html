@@ -6,21 +6,13 @@
 </head>
 
 <body>
-
-	<header>
-		<h1>Słownik</h1>
-		<div id="leftMenuHeader">Menu:</div>
-		<ul>
-			<li><a th:href="@{/home}">Return to homepage</a></li>
-		</ul>
-	</header>
-
-	<hr />
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />	
 
 	<div class="pageContext">
 		<div th:if="${dictionaryList.getSize() > 0}">
-			<h2>Słownik:</h2>
-			<table>
+			<h4>Słownik:</h4>
+			<table class="striped">
 				<tr>
 					<th>Id</th>
 					<th>Hasło</th>
@@ -36,16 +28,15 @@
 			</table>
 			<ul>
 				<div>
-					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/dictionary(page=1)}"><span>Pierwsza</span></a></li>
-					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/dictionary(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
-					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/dictionary(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
-					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/dictionary(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+					<span th:class="${pageNumber == 1?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/dictionary(page=1)}"><span>Pierwsza</span></a></span>
+					<span th:class="${pageNumber &lt;= 1?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/dictionary(page=${pageNumber-1})}"><span>Poprzednia</span></a></span>
+					<span th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/dictionary(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></span>
+					<span th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/dictionary(page=${maxPagesNumber})}"><span>Ostatnia</span></a></span>
 				</div>
 			</ul>
 		</div>
-		<div th:unless="${dictionaryList.getSize() > 0}">
-			<div>Uwaga, słownik jest pusty!</div>
-		</div>
+		<a class="btn waves-effect waves-teal" th:href="@{/home}">Return to homepage</a>
+	</div>
 	</div>
 </body>
 </html>

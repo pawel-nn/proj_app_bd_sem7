@@ -71,5 +71,14 @@ public class Product {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="product_category_id")
 	private ProductCategory productCategory;
+
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", name=" + name + ", price=" + price + ", stockSize=" + stockSize
+				+ ", code=" + code + ", producer=" + producer + ", productImage=" + productImage + ", productCategory="
+				+ productCategory + "]";
+	}
+	
+	
 	
 }

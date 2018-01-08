@@ -6,20 +6,15 @@
 </head>
 
 <body>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
 
-    <header>
-   	 <h1>Dokonaj zakupu:</h1>
-   	 <div id="leftMenuHeader">Menu:</div>
-   	 <ul>
-   		 <li><a th:href="@{/}">Wróć do listy produktów</a></li>
-   		 <li><a th:href="@{/home}">Wróć do strony domowej</a></li>
-   	 </ul>
-    </header>
+   	 <h4>Dokonaj zakupu:</h4>
 
-    <form th:action="@{/customer/order/buy}" th:object="${buyProductsVO}" method="post">
+    <form th:action="@{/customer/buy}" th:object="${buyProductsVO}" method="post">
    	 <table>
    		 <tr>
-   			 <th colspan="2"><div id="myFormTitle">Dodaj do koszyka:</div></th>
+   			 <th colspan="2"><div id="myFormTitle">Wybierz formę dostawy:</div></th>
    		 </tr>
    		 <tr>
    			 <td>Rodzaj dostawy:</td>
@@ -28,10 +23,14 @@
    			 </select></td>
    		 </tr>
    		 <tr>
-   			 <td colspan="2"><button type="submit" id="send">Dodaj do koszyka</button></td>
+   			 <td colspan="2">
+   			 <button class="btn waves-effect waves-teal" type="submit" id="send">Potwierdz</button>
+   			 <a class="btn waves-effect waves-teal" th:href="@{/}">Wróć do listy produktów</a>
+   		 	 <a class="btn waves-effect waves-teal" th:href="@{/home}">Strona główna</a>
+   			 </td>
    		 </tr>
    	 </table>
     </form>
-
+</div>
 </body>
 </html>

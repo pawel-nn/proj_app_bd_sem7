@@ -6,19 +6,19 @@
 </head>
 
 <body>
-
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
     <header>
-   	 <h1>Zakupy</h1>
+   	 <h3>Twoje Zakupy</h3>
    	 <div id="leftMenuHeader">Menu:</div>
    	 <ul>
-   		 <li><a th:href="@{/}">Wróć do listy produktów</a></li>
-   		 <li><a th:href="@{/home}">Wróć do strony domowej</a></li>
+
    	 </ul>
     </header>
 
     <div>
    	 <p>Zakupiono produkty:</p>
-   	 <table>
+   	 <table class="bordered">
    		 <tr>
    			 <th>Nazwa</th>
    			 <th>Ilość</th>
@@ -35,6 +35,9 @@
     <div>
    	 <p>Łączy koszt: <span th:text="${buyProductsVO.totalCost}"></span></p>
     </div>
+	    <a class="btn waves-effect waves-teal" th:href="@{/}">Wróć do listy produktów</a>
+	   	<a class="btn waves-effect waves-teal" th:href="@{/home}">Wróć do strony domowej</a>
+	</div>
 
 </body>
 </html>

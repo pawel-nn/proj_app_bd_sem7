@@ -10,6 +10,7 @@ import app.operations.OrderStatusType;
 import app.operations.ShipmentType;
 import lombok.Data;
 
+@Data
 public class OrderVO {
 
 	public OrderVO(Order currentOrder) {

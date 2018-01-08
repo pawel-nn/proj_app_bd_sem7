@@ -6,22 +6,17 @@
 </head>
 
 <body>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
 
-    <header>
-   	 <ul>
-   		 <li><a th:href="@{/}">Wróć do list produktów</a></li>
-   	 </ul>
-    </header>
-
-    <hr />
 
     <div class="pageContext">
    	 <div>
-   		 <h3>Zamówienie:</h3>
+   		 <h4>Zamówienie:</h4>
    	 </div>
    	 <div th:if="${order != null}">
    		 <div>
-   			 <table>
+   			 <table class="table">
    				 <tr>
    					 <th>Unikalny numer zamówienia:</th>
    					 <td th:text="${order.orderId}">Text</td>
@@ -33,7 +28,7 @@
    			 </table>
    		 </div>
    		 <div th:if="${!order.productList.isEmpty()}">
-   			 <table>
+   			 <table class="bordered">
    				 <tr>
    					 <th>Nazwa</th>
    					 <th>Producent</th>
@@ -43,8 +38,8 @@
    				 </tr>
    				 <tr th:each="productFromList : ${order.productList}">
    					 <td th:text="${productFromList.product.name}">Text</td>
-   					 <td th:text="${productFromList.product.producer}">Text</td>
-   					 <td th:text="${productFromList.product.productCategory}">Text</td>
+   					 <td th:text="${productFromList.product.producer.producerName}">Text</td>
+   					 <td th:text="${productFromList.product.productCategory.productCategoryName}">Text</td>
    					 <td th:text="${productFromList.numberOfProducts}">Text</td>
    					 <td th:text="${productFromList.totalPrice}">Text</td>
    					 <td><a th:href="@{/customer/order/deleteProduct(productId=${productFromList.product.productId})}"><span>Usuń</span></a></td>
@@ -52,12 +47,14 @@
    			 </table>
    		 </div>
    	 </div>
-   	 <div th:if="${order != null}">
+<!--   	 <div th:if="${order != null}">
    		 <div>Uwaga, brak kategorii w bazie!</div>
+   	 </div> --> 
+   	 <div style="margin-top:10px">
+   		 <a class="btn waves-effect waves-teal" th:href="@{/customer/buy}"><span>Dokonaj zakupu!</span></a>
+   		 <a class="btn waves-effect waves-teal" th:href="@{/}"><span>Wróć do list produktów</span></a>
    	 </div>
-   	 <div>
-   		 <a th:href="@{/customer/order/buy}"><span>Dokonaj zakupu!</span></a>
-   	 </div>
+    </div>
     </div>
 </body>
 </html>

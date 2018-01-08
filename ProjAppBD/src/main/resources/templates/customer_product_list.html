@@ -5,49 +5,47 @@
 <title>Lista produktów</title>
 </head>
 
-<body>
+<body ng-app="aplikacja">
+<div class="container">
     <nav class="teal lighten-2" role="navigation">
    	 <div class="nav-wrapper container">
    		 <a id="logo-container" href="#" class="brand-logo">Logo</a>
    		 <ul class="right hide-on-med-and-down">
-   			 <li><a th:href="@{/login}" th:if="${authority == null}">Zaloguj</a></li>
-   			 <li th:if="${authority != null}">
+   			 <li><a th:href="@{/login}" th:if="${authority == 'ROLE_ANONYMOUS'}">ZALOGUJ</a></li>
+   			 <li th:if="${authority != 'ROLE_ANONYMOUS'}">
    				 <form th:action="@{/logout}" method="post">
-   					 <input class="waves-effect waves-light btn" type="submit" value="Wyloguj" />
+   					 <input class="waves-effect waves-light btn-flat" type="submit" id="logout" value="Wyloguj" />
    				 </form>
    			 </li>
    			 <li>
    				 <span th:if="${customer != null}">
-   					 <a th:href="@{/customer/order}"><span>Zobacz zamówienie</span></a>
+   					 <a th:href="@{/customer/order}"><span>KOSZYK</span></a> 
    				 </span>
    				 <span th:if="${customer == null}">
-   					 <a th:href="@{/login}"><span>Zobacz zamówienie</span></a>
+   			 	 	<a th:href="@{/login}"><span>KOSZYK</span></a> 
    				 </span>
    			 </li>
-   		 </ul>
-
-   		 <ul id="nav-mobile" class="side-nav">
-   			 <li><a th:href="@{/login}">Zaloguj</a></li>
+   			 <li>
+   				 <span th:if="${authority != 'ROLE_ANONYMOUS'}">
+   					 <a th:href="@{/home}"><span>KONTO</span></a> 
+   				 </span>
+   			 </li>
    		 </ul>
    	 </div>
     </nav>
 
     <div class="row">
 
-   	 <div class="col s12 m4 l3">
-   		 <ul>
-   			 <li>kategoria 1</li>
-   			 <li>kategoria 2</li>
-   		 </ul>
-   	 </div>
+ 
 
-   	 <div class="col s12 m8 l9">
+   	 <div>
    		 <div th:if="${productList.getSize() > 0}">
    			 <table class="responsive-table highlight">
    				 <tr>
    					 <th>Nazwa</th>
    					 <th>Cena</th>
    					 <th>Dostępność</th>
+   					 <th>Zdjęcie</th>
    					 <th></th>
    				 </tr>
    				 <tr th:each="product : ${productList}">
@@ -55,9 +53,10 @@
    					 <td th:text="${product.price}">Text</td>
    					 <td><span th:if="${product.stockSize &gt; 10}">Na stanie</span> <span th:if="${product.stockSize &lt; 10}">Na wyczerpaniu</span></td>
    					 <!-- 		 <td th:text="${product.stockSize}">Text</td> 		 -->
+   					 <td><img th:with="ppp=|/img/| + ${product.productImage.productImageName}" th:src="${ppp}"  height="100" width="100"/></td>
    					 <td>
    						 <span th:if="${customer != null}">
-   							 <a th:href="@{'/customer/order/addProduct'(productId=${product.productId},page=${pageNumber})}"><span>Dodaj do koszyka</span></a>
+   							 <a th:href="@{'/customer/addProduct'(productId=${product.productId},page=${pageNumber})}"><span>Dodaj do koszyka</span></a>
    						 </span>
    						 <span th:if="${customer == null}">
    							 <a th:href="@{/login}"><span>Dodaj do koszyka</span></a>
@@ -75,8 +74,70 @@
    		 <div th:unless="${productList.getSize() > 0}">
    			 <div>Ooops... W sklepie wszystko wykupiono. Proszę przyjść pózniej</div>
    		 </div>
-
+   	<!--
+   		 <script>
+   		  	var app = angular.module('aplikacja' , []);
+   		  	
+   		  	app.controller('kontrolerTabeli', ['$scope', function($scope){
+   		  		$scope.dane = 10;
+   		  		$scope.dane_p = 0;
+   		  		
+   		  	 $scope.incDane_p = function() {
+   		      return $scope.dane_p =  $scope.dane_p + 1;;
+   		    };
+   		  	}])		  	
+   		 </script>
+   		 <div class="table-responsive" ng="kontrolerTabeli">
+   		  <table class="table table-hover">
+   		  	<thead>
+				<tr>
+					<th ng-repeat="naglowek in [
+						'Nazwa', 'Cena', 'Dostępność', 'Zdjęcie']" >
+						{{naglowek}}
+					</th>
+				</tr>
+   		  	</thead>
+   		  	<tbody th:attr="ng-model='dane = ' + ${productList.getContent().get(0).productId}" th:with="th_dane=${productList.getContent().get(0).productId}">
+ 			 	<tr th:attr="ng-repeat='inne in ' + ${productListJson} " >
+   		  			<td>{{inne.name}}</td>
+   		  			<td>{{inne.price}}</td>
+   		  			<td>{{inne.productId}}</td>
+   		  			<td ng-if="inne.stockSize &gt; 10">Na stanie</td>
+   		  			<td ng-if="inne.stockSize &lt; 10">Na wyczerpaniu</td>
+   		  			<td><img th:src="@{/img/{{inne.productImage.productImageName}}}"  height="100" width="100"/></td>
+   		  			<td ng-model="dane_p = dane" th:with="th_dane_p=${th_dane}"  th:attr="ppp=${th_dane}">
+   		  				 <span th:each="productss : ${productList}">
+	   						 <span th:if="${customer != null}" th:with="th_dane_p=th_dane_p" th:attr="ppp=@{{{inne.productId}}}">
+	   						 	
+			   						 <span th:if="${th_dane} ==| @{{{inne.productId}}}|">
+			   						 	<span th:if="${productss.productId == th_dane}">
+			   							 	<a th:href="@{'/customer/addProduct'(productId=${productss.productId},page=${pageNumber})}" ><span>
+			   							 	inne.productId: {{inne.productId}} Dodaj do koszyka</span></a>
+			   						 	</span>
+			   						 </span>		   						 
+	   						 </span>
+	   						 <span th:if="${customer == null}">
+	   							 <a th:href="@{/login}"><span>Dodaj do koszyka</span></a>
+	   						 </span>
+   						 </span>
+   					 </td>
+   		  		</tr>
+   		  	</tbody>
+   		  </table>
+		</div> -->
    	 </div>
     </div>
+     <!-- {{inne.productImage.productImageName}}
+      		  		<tr th:attr="ng-init='dane = ' + ${productList.getSize()} ">
+   		  			{{dane}}
+   		  			lol
+   		  		</tr>
+   		  		<tr th:attr="ng-init='inne = ' + ${productListJson} ">
+   		  			{{inne}}
+   		  			lol2
+   		  		</tr>
+  alt=".\..\static\img\no-photo.png"   --> 	
+    </div>
 </body>
+
 </html>

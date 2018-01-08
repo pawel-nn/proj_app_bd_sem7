@@ -5,33 +5,36 @@
 	<title>Strona domowa właściciela</title>
 </head>
 <body>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
 
 	<header>
-		<h1 id="title">Strona domowa właściciela</h1>
-		<div id="leftMenuLogout">
+		<h4>Strona domowa właściciela</h4>
+		<h5><p th:text="${usernameMsg}">username</p></h5>
+		<div>
 			<form th:action="@{/logout}" method="post">
-				<input type="submit" id="logout" value="Wyloguj" />
+				<a class="btn waves-effect waves-teal" th:href="@{/changePassword}">Zmień hasło</a>
+				<a class="btn waves-effect waves-teal" th:href="@{/owner/accountsControl}">Zarządzaj kontami</a>
+				<a class="btn waves-effect waves-teal" th:href="@{/owner/productList}">Produkty</a>
+				<input class="btn waves-effect waves-teal" type="submit" id="logout" value="Wyloguj" />
 			</form>
+			<div style="margin-top:10px">
+				<a class="btn waves-effect waves-teal" th:href="@{/owner/productCategoryList}">Kategorie produktów</a>
+				<a class="btn waves-effect waves-teal" th:href="@{/owner/producerList}">Producenci</a>
+				<a class="btn waves-effect waves-teal" th:href="@{/owner/dictionary}">Słownik</a>
+				</div>
 		</div>
-		<div id="leftMenuHeader">Menu:</div>
-		<ul>
-			<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
-			<li><a th:href="@{/owner/accountsControl}">Zarządzaj kontami</a></li>
-			<li id="emptyLi"></li>
-			<li><a th:href="@{/owner/productList}">Produkty</a></li>
-			<li id="emptyLi"></li>
-			<li><a th:href="@{/owner/productCategoryList}">Kategorie produktów</a></li>
-			<li><a th:href="@{/owner/producerList}">Producenci</a></li>
-			<li><a th:href="@{/owner/dictionary}">Słownik</a></li>
-		</ul>
+		
+
 	</header>
 
 	<hr />
-
+<!--
 	<div class="pageContext">
-		<p th:text="${usernameMsg}">username</p>
+		c
 		<p th:text="${roleMsg}">role</p>
 	</div>
-
+	  -->
+</div>
 </body>
 </html>

@@ -43,7 +43,17 @@ public class MainController {
 	ProductService productService;
 
 	@RequestMapping("/login")
-	public String loginClient() {
+	public String loginClient(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
+		Iterator<SimpleGrantedAuthority> it = authorities.iterator();
+        String authority = null;
+		if (it.hasNext()) {
+			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
+			authority = sga.getAuthority();
+		}
+		System.out.println("authority" + authority);
+		model.addAttribute("authority", authority);
 		return "login";
 	}
 
@@ -56,6 +66,16 @@ public class MainController {
 	public String addRegisterCustomerGET(CustomerVO customerVO, Model m) {
 		ArrayList<Country> countryList = countryService.getAllCountrie();
 		m.addAttribute("countryList", countryList);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
+		Iterator<SimpleGrantedAuthority> it = authorities.iterator();
+        String authority = null;
+		if (it.hasNext()) {
+			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
+			authority = sga.getAuthority();
+		}
+		System.out.println("authority" + authority);
+		m.addAttribute("authority", authority);
 		return "register_customer";
 	}
 
@@ -101,6 +121,15 @@ public class MainController {
 			m.addAttribute("msg", "Error, password was not changed.");
 			return "result";
 		}
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
+		Iterator<SimpleGrantedAuthority> it = authorities.iterator();
+        String authority = null;
+		if (it.hasNext()) {
+			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
+			authority = sga.getAuthority();
+		}
+		System.out.println("authority" + authority);
+		m.addAttribute("authority", authority);
 		m.addAttribute("msg", "Password was changed.");
 		return "result";
 	}
@@ -119,12 +148,32 @@ public class MainController {
 			m.addAttribute("msg", "Błąd, nie można utworzyć konta!");
 			return "result";
 		}
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
+		Iterator<SimpleGrantedAuthority> it = authorities.iterator();
+        String authority = null;
+		if (it.hasNext()) {
+			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
+			authority = sga.getAuthority();
+		}
+		System.out.println("authority" + authority);
+		m.addAttribute("authority", authority);
 		m.addAttribute("msg", "Utworzono konto");
 		return "result";
 	}
 
 	@GetMapping("/registerOwner")
 	public String addRegisterOwnerGET(OwnerVO ownerVO, Model m) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
+		Iterator<SimpleGrantedAuthority> it = authorities.iterator();
+        String authority = null;
+		if (it.hasNext()) {
+			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
+			authority = sga.getAuthority();
+		}
+		System.out.println("authority" + authority);
+		m.addAttribute("authority", authority);
 		return "register_owner";
 	}
 
@@ -136,6 +185,16 @@ public class MainController {
 			m.addAttribute("msg", "Błąd, nie można utworzyć konta!");
 			return "result";
 		}
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
+		Iterator<SimpleGrantedAuthority> it = authorities.iterator();
+        String authority = null;
+		if (it.hasNext()) {
+			SimpleGrantedAuthority sga = (SimpleGrantedAuthority) it.next();
+			authority = sga.getAuthority();
+		}
+		System.out.println("authority" + authority);
+		m.addAttribute("authority", authority);
 		m.addAttribute("msg", "Utworzono konto");
 		return "result";
 	}

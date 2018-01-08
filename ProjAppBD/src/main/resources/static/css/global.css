@@ -59,6 +59,9 @@ footer.page-footer {
   margin: 0;
 }
 
+select {
+	display: block;
+}
 /*
 header {
 	

@@ -6,24 +6,13 @@
 </head>
 
 <body>
-
-	<nav class="teal lighten-2" role="navigation">
-		<div class="nav-wrapper container">
-			<a id="logo-container" href="#" class="brand-logo">Logo</a>
-			<ul class="right hide-on-med-and-down">
-				<li><a th:href="@{/home}">Strona główna</a></li>
-			</ul>
-
-			<ul id="nav-mobile" class="side-nav">
-				<li><a th:href="@{/login}">Zaloguj</a></li>
-			</ul>
-		</div>
-	</nav>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
 
 	<div class="pageContext">
 		<div th:if="${producerList.getSize() > 0}">
-			<h2>Lista producentów:</h2>
-			<table>
+			<h4>Lista producentów:</h4>
+			<table class="striped">
 				<tr>
 					<th>Id</th>
 					<th>Nazwa</th>
@@ -37,14 +26,14 @@
 					</td>
 				</tr>
 			</table>
-			<ul>
+
 				<div>
-					<li th:class="${pageNumber == 1?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=1)}"><span>Pierwsza</span></a></li>
-					<li th:class="${pageNumber &lt;= 1?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=${pageNumber-1})}"><span>Poprzednia</span></a></li>
-					<li th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></li>
-					<li th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a type="button" th:href="@{/owner/producerList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></li>
+					<span th:class="${pageNumber == 1?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/producerList(page=1)}"><span>Pierwsza</span></a></span>
+					<span th:class="${pageNumber &lt;= 1?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/producerList(page=${pageNumber-1})}"><span>Poprzednia</span></a></span>
+					<span th:class="${pageNumber &gt;= maxPagesNumber?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/producerList(page=${pageNumber+1})}" th:disabled="${nextInp}"><span>Następna</span></a></span>
+					<span th:class="${pageNumber == maxPagesNumber?'disabled':''}"><a class="btn waves-effect waves-teal" type="button" th:href="@{/owner/producerList(page=${maxPagesNumber})}"><span>Ostatnia</span></a></span>
 				</div>
-			</ul>
+
 		</div>
 		<div th:unless="${producerList.getSize() > 0}">
 			<div>Uwaga, brak kategorii w bazie!</div>
@@ -54,16 +43,14 @@
 			<div id="myFormStyle">
 				<table>
 					<tr>
-						<th colspan="2"><div id="myFormTitle">Dodaj nowego producenta:</div></th>
-					</tr>
-					<tr>
-						<td>Nowy producent:</td>
+						<td>Dodaj nowego producenta:</td>
 						<td><input type="text" th:field="*{producerName}" /></td>
 					</tr>
 				</table>
-				<button type="submit" id="send">Dodaj</button>
+				<button class="btn waves-effect waves-teal" type="submit" id="send">Dodaj</button>
 			</div>
 		</form>
+	</div>
 	</div>
 </body>
 </html>

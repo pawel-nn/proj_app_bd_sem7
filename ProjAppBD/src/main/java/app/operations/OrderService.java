@@ -18,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.google.gson.Gson;
+
 import app.dataTransportObject.BuyProductsDTO;
 import app.dataTransportObject.ConsumerProductDTO;
 import app.dataTransportObject.OrderDTO;
@@ -165,6 +167,22 @@ public class OrderService {
 		model.addAttribute("productList", productList);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("maxPagesNumber", maxPagesNumber);
+		System.out.println(productList.getContent().get(1));
+		List<Product> ppa =  productList.getContent();
+		ArrayList<Integer> productsIDsList = new ArrayList<Integer>();
+		for(Product p : ppa){
+			productsIDsList.add(p.getProductId());
+		}
+		model.addAttribute("productsIDsList", productsIDsList);
+		int ppp = 0;
+		System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+		System.out.println(ppa.get(0).getProductId());
+		System.out.println(productList.getContent().get(0).getProductId());
+		model.addAttribute("ppa", ppa);
+		//LIST to JSON
+		String productListJson = new Gson().toJson(productList.getContent());
+		model.addAttribute("productListJson",productListJson); 
+		System.out.println(productListJson);
 		log.info("PtS: Get product List.");
 		databaseLogService.info("PtS: Get product List.");
 	}

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
 	<title>Login</title>
 </head>
 <body>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
+
 	<header>
 		<h4>Logowanie:</h4>
 	</header>
@@ -29,7 +30,8 @@
 
 				</table>
 				<input class="btn waves-effect waves-teal" type="submit" id="send" value="Zaloguj" />
-				<a class="btn waves-effect waves-teal" th:href="@{/registerCustomer}">Zarejestruj się</a>
+				<a 	class="btn waves-effect waves-teal" th:href="@{/registerCustomer}">Zarejestruj się</a>
+				<a class="btn waves-effect waves-teal" th:href="@{/}">Strona Główna</a>
 			</div>
 		</form>
 
@@ -41,6 +43,7 @@
 			<p>Uwaga:</p>
 			<p>Zostałeś wylogowany.</p>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

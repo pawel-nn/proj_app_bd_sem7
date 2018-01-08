@@ -2,6 +2,7 @@ package app.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,5 +58,19 @@ public class Order {
 
 	@Column(name = "creation_time")
 	private LocalDateTime creationTime;
+	
+	public BigDecimal getTotalPrice() {
+	   	 List<ProductList> orderProductList = this.getProductList();
+	   	 BigDecimal totalCost = new BigDecimal(0);
+	   	 if (orderProductList.size() > 0) {
+	   		 for (ProductList productList : orderProductList) {
+	   			 if (productList.getNumberOfProducts() <= productList.getProduct().getStockSize()) {
+	   				 totalCost = totalCost.add(productList.getTotalPrice());
+	   			 }
+	   		 }
+	   	 }
+	   	 return totalCost;
+	    }
+
 
 }

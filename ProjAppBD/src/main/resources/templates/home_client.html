@@ -7,32 +7,27 @@
 <title>Strona domowa klienta</title>
 </head>
 <body>
+<div class="container">
+<th:block th:include="../static/fragments/pasek :: pasek" />
 
-	<header>
-		<h1 id="title">Strona domowa klienta</h1>
-		<div id="leftMenuHeader">Menu:</div>
-		<div>
+
+		<h3><p th:text="${usernameMsg}">username</p></h3>
+		<div>		
 			<form th:action="@{/logout}" method="post">
-				<input type="submit" id="logout" value="Wyloguj" />
-			</form>
-			<ul>
-				<li><a th:href="@{/customer/archivedOrders}">Zobacz
-						poprzednie zakupy</a></li>
-				<li><a th:href="@{/changePassword}">Zmień hasło</a></li>
-
-			</ul>
-
-
-
+				<a class="btn waves-effect waves-teal" th:href="@{/}">Strona główna</a>
+				<input class="btn waves-effect waves-teal" type="submit" id="logout" value="Wyloguj" />
+				<a class="btn waves-effect waves-teal" th:href="@{/customer/archivedOrders}">Poprzednie zakupy</a>
+				<a class="btn waves-effect waves-teal" th:href="@{/changePassword}">Zmień hasło</a>
+			</form>	
 		</div>
-	</header>
 
 	<hr />
-
+<!--
 	<div class="pageContext">
 		<p th:text="${usernameMsg}">username</p>
 		<p th:text="${roleMsg}">role</p>
 	</div>
-
+	  -->
+</div>
 </body>
 </html>

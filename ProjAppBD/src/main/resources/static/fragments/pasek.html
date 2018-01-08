@@ -1,0 +1,28 @@
+<th:block th:fragment="pasek">
+ 	<nav class="teal lighten-2" role="navigation">
+   	 <div class="nav-wrapper container">
+   		 <a id="logo-container" th:href="@{/}" class="brand-logo">Logo</a>
+   		 <ul class="right hide-on-med-and-down">
+   			 <li><a th:href="@{/login}" th:if="${authority == 'ROLE_ANONYMOUS'}">ZALOGUJ</a></li>
+   			 <li th:if="${authority != 'ROLE_ANONYMOUS'}">
+   				 <form th:action="@{/logout}" method="post">
+   					 <input class="waves-effect waves-light btn-flat" type="submit" id="logout" value="Wyloguj" />
+   				 </form>
+   			 </li>
+   			 <li>
+   				 <span th:if="${customer != null}">
+   					 <a th:href="@{/customer/order}"><span>KOSZYK</span></a> 
+   				 </span>
+   				 <span th:if="${customer == null}">
+   			 	 	<a th:href="@{/login}"><span>KOSZYK</span></a> 
+   				 </span>
+   			 </li>
+   			 <li>
+   				 <span th:if="${authority != 'ROLE_ANONYMOUS'}">
+   					 <a th:href="@{/home}"><span>KONTO</span></a> 
+   				 </span>
+   			 </li>
+   		 </ul>
+   	 </div>
+    </nav>
+</th:block>
