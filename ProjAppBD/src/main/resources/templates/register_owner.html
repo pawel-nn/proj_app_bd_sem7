@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
-	<title>Rejestracja klienta</title>
+<title>Rejestracja klienta</title>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
 			<ul class="right hide-on-med-and-down">
 				<li><a th:href="@{/}">Strona główna</a></li>
 			</ul>
-			
+
 			<ul id="nav-mobile" class="side-nav">
 				<li><a th:href="@{/login}">Zaloguj</a></li>
 			</ul>
@@ -25,7 +25,7 @@
 				<table>
 					<tr>
 						<td>Nazwa użytkownika:</td>
-						<td><input type="text" th:field="*{userVO.username}" /></td>
+						<td><input type="text" id="username_field" th:field="*{userVO.username}" /></td>
 					</tr>
 					<tr>
 						<td>Nowe hasło:</td>
@@ -48,5 +48,25 @@
 			</div>
 		</form>
 	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script>
+		window.addEventListener("load", setUpAllListeners, true);
+		function setUpAllListeners() {
+			document.getElementById('username_field').addEventListener("input",usernameValidate);
+		}
+		function usernameValidate() {
+			$.ajax("http://localhost:8080/resources/"+ document.getElementById('username_field').value, {
+				success : function(responseText, statusText, jqXHR) {
+						var isFree = JSON.parse(responseText);
+						if( responseText == true )
+							alert("Nazwa użytkownika jest już zajęta!");
+				},
+				error : function(jqXHR, status, err) {
+				}
+			});
+		}
+	</script>
+
 </body>
 </html>
