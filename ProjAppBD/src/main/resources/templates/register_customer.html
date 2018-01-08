@@ -1,82 +1,92 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head lang="en" th:include="../static/fragments/header :: header">
 <title>Rejestracja klienta</title>
 </head>
 
 <body>
-<div class="container">
-<th:block th:include="../static/fragments/pasek :: pasek" />
+	<div class="container">
+		<th:block th:include="../static/fragments/pasek :: pasek" />
 
-	<div class="pageContext">
-		<form th:action="@{/registerCustomer}" th:object="${customerVO}"
-			method="post">
-			<div>
-				<table>
-					<tr>
-						<td>Nazwa użytkownika:</td>
-						<td><input type="text" th:field="*{userVO.username}" /></td>
-					</tr>
-					<tr>
-						<td>Nowe hasło:</td>
-						<td><input type="password" th:field="*{userVO.password_1}" /></td>
-					</tr>
-					<tr>
-						<td>Powtórz hasło:</td>
-						<td><input type="password" th:field="*{userVO.password_2}" /></td>
-					</tr>
-					<tr>
-						<td>Email:</td>
-						<td><input id="email2" type="email" class="validate" required="" aria-required="true" th:field="*{userVO.email}" /></td>
-						<label for="email2" data-error="wrong" data-success="right">Email</label>
-					</tr>
+		<div class="pageContext">
+			<form th:action="@{/registerCustomer}" th:object="${customerVO}" method="post">
+				<div>
+					<table>
+						<tr>
+							<td>Nazwa użytkownika:</td>
+							<td><input type="text" id="username_field" th:field="*{userVO.username}" /></td>
+						</tr>
+						<tr>
+							<td>Nowe hasło:</td>
+							<td><input type="password" th:field="*{userVO.password_1}" /></td>
+						</tr>
+						<tr>
+							<td>Powtórz hasło:</td>
+							<td><input type="password" th:field="*{userVO.password_2}" /></td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><input id="email2" type="email" class="validate" required="" aria-required="true" th:field="*{userVO.email}" /></td>
+							<label for="email2" data-error="wrong" data-success="right">Email</label>
+						</tr>
 
-					<tr>
-						<td>Imię:</td>
-						<td><input type="text" th:field="*{customerDetailsVO.name}" /></td>
-					</tr>
-					<tr>
-						<td>Nazwisko:</td>
-						<td><input type="text"
-							th:field="*{customerDetailsVO.surname}" /></td>
-					</tr>
-					<tr>
-						<td>Rok urodzenia:</td>
-						<td><input type="text"
-							th:field="*{customerDetailsVO.dateOfBirth}" /></td>
-					</tr>
-					<tr>
-						<td>Kraj:</td>
-						<td><select th:field="*{countryVO.countryId}">
-								<option value="" selected="true">Wybierz swój kraj</option>
-								<option th:each="country : ${countryList}"
-									th:value="${country.countryId}"
-									th:text="${country.countryName}">Opt</option>
-						</select></td>
-					</tr>
-					
-					<tr>
-						<td>Miasto:</td>
-						<td><input type="text" th:field="*{customerDetailsVO.city}" /></td>
-					</tr>
-					<tr>
-						<td>Adres domu:</td>
-						<td><input type="text"
-							th:field="*{customerDetailsVO.address}" /></td>
-					</tr>
-					<tr>
-						<td>Kod pocztowy:</td>
-						<td><input type="text"
-							th:field="*{customerDetailsVO.postcode}" /></td>
-					</tr>
-				</table>
-				<button class="waves-effect waves-light btn" type="submit" id="send">Zarejestruj</button>
-			</div>
-		</form>
+						<tr>
+							<td>Imię:</td>
+							<td><input type="text" th:field="*{customerDetailsVO.name}" /></td>
+						</tr>
+						<tr>
+							<td>Nazwisko:</td>
+							<td><input type="text" th:field="*{customerDetailsVO.surname}" /></td>
+						</tr>
+						<tr>
+							<td>Rok urodzenia:</td>
+							<td><input type="text" th:field="*{customerDetailsVO.dateOfBirth}" /></td>
+						</tr>
+						<tr>
+							<td>Kraj:</td>
+							<td><select th:field="*{countryVO.countryId}">
+									<option value="" selected="true">Wybierz swój kraj</option>
+									<option th:each="country : ${countryList}" th:value="${country.countryId}" th:text="${country.countryName}">Opt</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>Miasto:</td>
+							<td><input type="text" th:field="*{customerDetailsVO.city}" /></td>
+						</tr>
+						<tr>
+							<td>Adres domu:</td>
+							<td><input type="text" th:field="*{customerDetailsVO.address}" /></td>
+						</tr>
+						<tr>
+							<td>Kod pocztowy:</td>
+							<td><input type="text" th:field="*{customerDetailsVO.postcode}" /></td>
+						</tr>
+					</table>
+					<button class="waves-effect waves-light btn" type="submit" id="send">Zarejestruj</button>
+				</div>
+			</form>
+		</div>
 	</div>
-	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script>
+		window.addEventListener("load", setUpAllListeners, true);
+		function setUpAllListeners() {
+			document.getElementById('username_field').addEventListener("input",
+					usernameValidate);
+		}
+		function usernameValidate() {
+			$.ajax("http://localhost:8080/resources/"
+					+ document.getElementById('username_field').value, {
+				success : function(responseText, statusText, jqXHR) {
+					var isFree = JSON.parse(responseText);
+					if (responseText == true)
+						alert("Nazwa użytkownika jest już zajęta!");
+				},
+				error : function(jqXHR, status, err) {
+				}
+			});
+		}
+	</script>
 </body>
 </html>

@@ -15,14 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import app.dataTransportObject.CustomerDTO;
 import app.dataTransportObject.NewPasswordDTO;
 import app.dataTransportObject.OwnerDTO;
 import app.model.Country;
-import app.model.Producer;
-import app.model.ProductCategory;
 import app.operations.CountryService;
 import app.operations.ProductService;
 import app.operations.UserService;

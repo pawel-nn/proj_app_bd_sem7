@@ -4,16 +4,24 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.security.KeyStore.PrivateKeyEntry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import app.model.repository.UserRepository;
 
 
 @Controller
+@RestController
 public class ResourcesController {
 	
 	private static final String rootPath = "C:\\";
@@ -42,6 +50,14 @@ public class ResourcesController {
 		}
 		
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(bytes);
+    }
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @RequestMapping("/resources/{username}")
+    public Boolean username(@PathVariable(value="username") String username) {
+        return userRepository.findByUsername(username)!=null?true:false;
     }
 	
 }
