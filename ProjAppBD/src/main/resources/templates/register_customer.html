@@ -30,7 +30,8 @@
 					</tr>
 					<tr>
 						<td>Email:</td>
-						<td><input type="email" th:field="*{userVO.email}" /></td>
+						<td><input id="email2" type="email" class="validate" required="" aria-required="true" th:field="*{userVO.email}" /></td>
+						<label for="email2" data-error="wrong" data-success="right">Email</label>
 					</tr>
 
 					<tr>

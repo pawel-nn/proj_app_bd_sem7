@@ -22,7 +22,7 @@
 					<th>Operacje</th>
 				</tr>
 				<tr th:each="product : ${productList}">
-					<td><a th:href="@{/owner/productList/product(oId=${product.productId})}"><span th:text="${product.productId}">id</span></a></td>
+					<td><!-- <a th:href="@{/owner/productList/product(oId=${product.productId})}">--><span th:text="${product.productId}">id</span></td>
 					<td th:text="${product.name}">Text</td>
 					<td th:text="${product.price}">Text</td>
 					<td th:text="${product.stockSize}">Text</td>
